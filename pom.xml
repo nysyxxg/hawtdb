@@ -47,6 +47,7 @@
 
   <modules>
     <module>hawtdb</module>
+    <module>hawtdb-engine</module>
     <module>hawtdb-website</module>
   </modules>
 
