@@ -19,7 +19,6 @@ package org.fusesource.hawtdb.internal.io;
 import java.io.File;
 import java.io.IOException;
 
-import org.fusesource.hawtdb.internal.io.MemoryMappedFile;
 import org.junit.Assert;
 
 
@@ -39,7 +38,7 @@ public class MemoryMappedFileTest {
         int LAST_PAGE = 100;
         
         byte expect[] = createData(PAGE_SIZE);
-        
+        System.out.println(new String(expect));
         mmf.write(0, expect);
         mmf.write(LAST_PAGE *PAGE_SIZE, expect);
         
