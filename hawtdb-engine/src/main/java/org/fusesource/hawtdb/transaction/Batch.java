@@ -18,7 +18,6 @@ package org.fusesource.hawtdb.transaction;
 
 import org.fusesource.hawtdb.internal.page.Allocator;
 import org.fusesource.hawtdb.internal.page.Paged;
-import org.fusesource.hawtdb.internal.page.DeferredUpdate;
 import org.fusesource.hawtdb.util.list.LinkedNode;
 import org.fusesource.hawtdb.util.list.LinkedNodeList;
 
