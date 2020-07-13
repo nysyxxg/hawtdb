@@ -16,7 +16,7 @@
  */
 package org.fusesource.hawtdb.internal.page;
 
-import org.fusesource.hawtdb.api.Transaction;
+import org.fusesource.hawtdb.transaction.Transaction;
 import org.fusesource.hawtdb.internal.ActionActor;
 
 /**

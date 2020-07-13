@@ -20,11 +20,6 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 
-/**
- * Provides Key/Value storage and retrieval.
- *
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
- */
 public interface SortedIndex<Key,Value> extends Index<Key,Value>, Iterable<Map.Entry<Key, Value>> {
 
     /**

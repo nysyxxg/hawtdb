@@ -21,9 +21,8 @@ import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fusesource.hawtdb.api.IOPagingException;
-import org.fusesource.hawtdb.api.Paged;
-import org.fusesource.hawtdb.api.Paged.SliceType;
+import org.fusesource.hawtdb.exception.IOPagingException;
+import org.fusesource.hawtdb.internal.page.Paged.SliceType;
 import org.fusesource.hawtbuf.Buffer;
 
 

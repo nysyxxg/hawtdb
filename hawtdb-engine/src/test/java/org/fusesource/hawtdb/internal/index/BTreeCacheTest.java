@@ -18,6 +18,9 @@ package org.fusesource.hawtdb.internal.index;
 
 import org.fusesource.hawtbuf.codec.LongCodec;
 import org.fusesource.hawtdb.api.*;
+import org.fusesource.hawtdb.transaction.Transaction;
+import org.fusesource.hawtdb.transaction.TxPageFile;
+import org.fusesource.hawtdb.transaction.TxPageFileFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +30,7 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.fusesource.hawtdb.internal.page.LFUPageCache;
+import org.fusesource.hawtdb.internal.cache.LFUPageCache;
 import static org.junit.Assert.assertEquals;
 
 

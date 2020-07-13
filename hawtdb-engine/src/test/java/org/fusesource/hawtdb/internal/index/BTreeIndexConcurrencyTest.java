@@ -20,7 +20,7 @@ import org.fusesource.hawtdb.api.Index;
 import org.fusesource.hawtbuf.codec.LongCodec;
 import org.fusesource.hawtbuf.codec.StringCodec;
 import org.fusesource.hawtdb.api.BTreeIndexFactory;
-import org.fusesource.hawtdb.api.Transaction;
+import org.fusesource.hawtdb.transaction.Transaction;
 
 /**
  * @author Sergio Bossa

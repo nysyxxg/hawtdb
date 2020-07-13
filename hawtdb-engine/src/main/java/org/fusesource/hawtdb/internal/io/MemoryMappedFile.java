@@ -30,7 +30,7 @@ import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import org.fusesource.hawtdb.api.IOPagingException;
+import org.fusesource.hawtdb.exception.IOPagingException;
 import org.fusesource.hawtdb.util.IOHelper;
 import org.fusesource.hawtbuf.Buffer;
 

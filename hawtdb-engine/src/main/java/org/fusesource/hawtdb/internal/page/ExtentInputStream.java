@@ -20,8 +20,6 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.fusesource.hawtdb.api.Paged;
-import org.fusesource.hawtdb.internal.util.Ranges;
 import org.fusesource.hawtbuf.Buffer;
 
 

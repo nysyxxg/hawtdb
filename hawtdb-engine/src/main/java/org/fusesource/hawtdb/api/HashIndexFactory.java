@@ -19,6 +19,7 @@ package org.fusesource.hawtdb.api;
 import org.fusesource.hawtbuf.codec.Codec;
 import org.fusesource.hawtbuf.codec.ObjectCodec;
 import org.fusesource.hawtdb.internal.index.HashIndex;
+import org.fusesource.hawtdb.internal.page.Paged;
 
 /**
  * <p>

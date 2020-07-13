@@ -20,6 +20,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import org.fusesource.hawtbuf.Buffer;
 import org.fusesource.hawtdb.api.*;
+import org.fusesource.hawtdb.internal.page.AbstractStreamPagedAccessor;
+import org.fusesource.hawtdb.internal.page.Paged;
+import org.fusesource.hawtdb.internal.page.PagedAccessor;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -27,7 +30,7 @@ import java.util.Map;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import static org.fusesource.hawtdb.internal.index.Logging.debug;
+import static org.fusesource.hawtdb.log.Logging.debug;
 
 /**
  * Hash Index implementation.  The hash buckets store entries in a b+tree.

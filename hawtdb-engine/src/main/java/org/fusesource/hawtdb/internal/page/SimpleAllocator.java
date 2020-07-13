@@ -18,11 +18,9 @@ package org.fusesource.hawtdb.internal.page;
 
 import java.util.Iterator;
 
-import org.fusesource.hawtdb.api.Allocator;
-import org.fusesource.hawtdb.api.OutOfSpaceException;
-import org.fusesource.hawtdb.internal.util.Ranges;
-import org.fusesource.hawtdb.internal.util.Ranges.Range;
-import static org.fusesource.hawtdb.internal.page.Logging.*;
+import org.fusesource.hawtdb.exception.OutOfSpaceException;
+import org.fusesource.hawtdb.internal.page.Ranges.Range;
+import static org.fusesource.hawtdb.log.LoggUtil.*;
 
 
 /**

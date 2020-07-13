@@ -16,13 +16,13 @@
  */
 package org.fusesource.hawtdb.internal.util;
 
-import static org.fusesource.hawtdb.internal.util.Ranges.range;
+import static org.fusesource.hawtdb.internal.page.Ranges.range;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 
-import org.fusesource.hawtdb.internal.util.Ranges;
-import org.fusesource.hawtdb.internal.util.Ranges.Range;
+import org.fusesource.hawtdb.internal.page.Ranges;
+import org.fusesource.hawtdb.internal.page.Ranges.Range;
 import org.junit.Test;
 
 /**

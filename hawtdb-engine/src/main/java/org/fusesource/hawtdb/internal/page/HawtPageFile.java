@@ -17,15 +17,13 @@
 package org.fusesource.hawtdb.internal.page;
 
 import org.fusesource.hawtbuf.Buffer;
-import org.fusesource.hawtdb.api.PageFile;
-import org.fusesource.hawtdb.api.PagedAccessor;
 import org.fusesource.hawtdb.internal.io.MemoryMappedFile;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
-import static org.fusesource.hawtdb.internal.page.Logging.*;
+import static org.fusesource.hawtdb.log.LoggUtil.*;
 
 /**
  * Provides a {@link PageFile} interface to a {@link MemoryMappedFile}. 

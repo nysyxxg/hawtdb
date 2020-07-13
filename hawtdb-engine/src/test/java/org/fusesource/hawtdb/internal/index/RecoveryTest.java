@@ -28,9 +28,9 @@ import java.util.Random;
 
 import org.fusesource.hawtdb.api.BTreeIndexFactory;
 import org.fusesource.hawtdb.api.SortedIndex;
-import org.fusesource.hawtdb.api.Transaction;
-import org.fusesource.hawtdb.api.TxPageFile;
-import org.fusesource.hawtdb.api.TxPageFileFactory;
+import org.fusesource.hawtdb.transaction.Transaction;
+import org.fusesource.hawtdb.transaction.TxPageFile;
+import org.fusesource.hawtdb.transaction.TxPageFileFactory;
 import static org.junit.Assert.assertEquals;
 
 /**

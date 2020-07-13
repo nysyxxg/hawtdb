@@ -19,6 +19,7 @@ package org.fusesource.hawtdb.api;
 import org.fusesource.hawtbuf.codec.Codec;
 import org.fusesource.hawtdb.internal.index.BTreeIndex;
 import org.fusesource.hawtbuf.codec.ObjectCodec;
+import org.fusesource.hawtdb.internal.page.Paged;
 
 import java.util.Comparator;
 

@@ -16,6 +16,8 @@
  */
 package org.fusesource.hawtdb.api;
 
+import org.fusesource.hawtdb.internal.page.Paged;
+
 /**
  * The common interface to {@link Index} factories.  An index factory
  * allows you to create or open an index in a {@link Paged} object.

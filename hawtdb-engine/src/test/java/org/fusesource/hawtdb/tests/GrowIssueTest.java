@@ -18,12 +18,14 @@ package org.fusesource.hawtdb.tests;
 
 import org.fusesource.hawtbuf.codec.StringCodec;
 import org.fusesource.hawtdb.api.*;
+import org.fusesource.hawtdb.transaction.Transaction;
+import org.fusesource.hawtdb.transaction.TxPageFile;
+import org.fusesource.hawtdb.transaction.TxPageFileFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
-import org.junit.Ignore;
 
 /**
  * <p>

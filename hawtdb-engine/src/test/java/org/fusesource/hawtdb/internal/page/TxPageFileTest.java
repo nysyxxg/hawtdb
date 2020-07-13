@@ -30,9 +30,13 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
-import org.fusesource.hawtdb.api.*;
-import org.fusesource.hawtdb.api.PagedAccessor;
 import org.fusesource.hawtbuf.Buffer;
+import org.fusesource.hawtdb.exception.IOPagingException;
+import org.fusesource.hawtdb.exception.OptimisticUpdateException;
+import org.fusesource.hawtdb.transaction.HawtTxPageFile;
+import org.fusesource.hawtdb.transaction.Transaction;
+import org.fusesource.hawtdb.transaction.TxPageFile;
+import org.fusesource.hawtdb.transaction.TxPageFileFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

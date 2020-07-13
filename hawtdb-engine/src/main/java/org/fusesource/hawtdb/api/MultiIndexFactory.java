@@ -1,5 +1,7 @@
 package org.fusesource.hawtdb.api;
 
+import org.fusesource.hawtdb.internal.page.Paged;
+
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;

@@ -18,9 +18,9 @@ package org.fusesource.hawtdb.internal.page;
 
 import java.util.Random;
 
-import org.fusesource.hawtdb.api.TxPageFile;
-import org.fusesource.hawtdb.api.TxPageFileFactory;
-import org.fusesource.hawtdb.api.Transaction;
+import org.fusesource.hawtdb.transaction.TxPageFile;
+import org.fusesource.hawtdb.transaction.TxPageFileFactory;
+import org.fusesource.hawtdb.transaction.Transaction;
 import org.fusesource.hawtdb.internal.Action;
 import org.fusesource.hawtdb.internal.Benchmarker.BenchmarkAction;
 import org.fusesource.hawtdb.internal.page.TransactionBenchmarker.Callback;

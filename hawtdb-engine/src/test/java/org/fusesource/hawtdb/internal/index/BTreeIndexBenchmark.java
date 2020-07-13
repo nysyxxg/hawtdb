@@ -20,7 +20,7 @@ import org.fusesource.hawtbuf.codec.FixedBufferCodec;
 import org.fusesource.hawtbuf.codec.LongCodec;
 import org.fusesource.hawtdb.api.BTreeIndexFactory;
 import org.fusesource.hawtdb.api.Index;
-import org.fusesource.hawtdb.api.Transaction;
+import org.fusesource.hawtdb.transaction.Transaction;
 import org.fusesource.hawtbuf.Buffer;
 
 /**
