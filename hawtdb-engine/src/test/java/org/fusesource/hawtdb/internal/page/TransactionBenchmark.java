@@ -49,17 +49,17 @@ public class TransactionBenchmark {
         };
     };
     
-//    @Test
-//    public void append() throws Exception {
-//        benchmark.benchmark(1, new BenchmarkAction<RandomTxActor>("append") {
-//            @Override
-//            protected void execute(RandomTxActor actor) {
-//                int page = actor.tx().allocator().alloc(1);
-//                actor.tx().write(page, new Buffer(THE_DATA));
-//                actor.tx().commit();
-//            }
-//        });
-//    }
+    @Test
+    public void append() throws Exception {
+        benchmark.benchmark(1, new BenchmarkAction<RandomTxActor>("append") {
+            @Override
+            protected void execute(RandomTxActor actor) {
+                int page = actor.tx().allocator().alloc(1);
+                actor.tx().write(page, new Buffer(THE_DATA));
+                actor.tx().commit();
+            }
+        });
+    }
 
     @Test
     public void aupdate() throws Exception {

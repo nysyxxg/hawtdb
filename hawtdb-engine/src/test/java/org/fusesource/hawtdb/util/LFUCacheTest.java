@@ -20,9 +20,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/**
- * @author Sergio Bossa
- */
 public class LFUCacheTest {
     
     @Test
