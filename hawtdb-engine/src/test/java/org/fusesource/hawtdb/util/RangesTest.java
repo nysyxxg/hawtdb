@@ -14,15 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtdb.internal.util;
+package org.fusesource.hawtdb.util;
 
-import static org.fusesource.hawtdb.internal.page.Ranges.range;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 
-import org.fusesource.hawtdb.internal.page.Ranges;
-import org.fusesource.hawtdb.internal.page.Ranges.Range;
+import org.fusesource.hawtdb.util.Ranges;
+import org.fusesource.hawtdb.util.Ranges.Range;
 import org.junit.Test;
 
 /**
@@ -40,30 +39,31 @@ public class RangesTest {
         ranges.add(0, 5);
         ranges.add(15, 5);
         ranges.add(5,10);
-        assertEquals(ranges(range(0,20)), ranges.toArrayList());
+        System.out.println(ranges.toArrayList());
+        assertEquals(ranges(Ranges.range(0,20)), ranges.toArrayList());
 
         // Remove which splits an existing range into 2.
         ranges.remove(5,10);
-        assertEquals(ranges(range(0,5),range(15,20)), ranges.toArrayList());
+        assertEquals(ranges(Ranges.range(0,5),Ranges.range(15,20)), ranges.toArrayList());
         
         // overlapping add...
         ranges.add(4,12);
-        assertEquals(ranges(range(0,20)), ranges.toArrayList());
+        assertEquals(ranges(Ranges.range(0,20)), ranges.toArrayList());
 
         // Removes are idempotent 
         ranges.remove(5,10);
-        assertEquals(ranges(range(0,5),range(15,20)), ranges.toArrayList());
+        assertEquals(ranges(Ranges.range(0,5),Ranges.range(15,20)), ranges.toArrayList());
         ranges.remove(5,10);
-        assertEquals(ranges(range(0,5),range(15,20)), ranges.toArrayList());
+        assertEquals(ranges(Ranges.range(0,5),Ranges.range(15,20)), ranges.toArrayList());
 
         // Adds are idempotent 
         ranges.add(5,10);
-        assertEquals(ranges(range(0,20)), ranges.toArrayList());
+        assertEquals(ranges(Ranges.range(0,20)), ranges.toArrayList());
         ranges.add(5,10);
-        assertEquals(ranges(range(0,20)), ranges.toArrayList());
+        assertEquals(ranges(Ranges.range(0,20)), ranges.toArrayList());
     }
     
-    ArrayList<Range> ranges(Range... args) {
+   public ArrayList<Range> ranges(Range... args) {
         ArrayList<Range> rc = new ArrayList<Range>();
         for (Range range : args) {
             rc.add(range);

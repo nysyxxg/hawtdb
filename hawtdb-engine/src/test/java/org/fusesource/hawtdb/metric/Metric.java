@@ -16,6 +16,9 @@
  */
 package org.fusesource.hawtdb.metric;
 
+/**
+ *  度量标准
+ */
 abstract public class Metric {
 
     private String name;
@@ -34,7 +37,6 @@ abstract public class Metric {
         this.name = name;
     }
 
-    public abstract long counter();
 
     public Metric unit(String unit) {
         this.unit = unit;
@@ -52,7 +54,9 @@ abstract public class Metric {
     public String getRateSummary(Period period) {
         return String.format("%s: %(,.2f %s/s", name, period.rate(counter()), unit);
     }
-
-    abstract public void reset();
+    
+    public abstract long counter();
+    
+    public abstract  void reset();
 
 }

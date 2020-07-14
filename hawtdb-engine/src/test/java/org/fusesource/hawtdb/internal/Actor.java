@@ -18,10 +18,7 @@ package org.fusesource.hawtdb.internal;
 
 import java.util.concurrent.atomic.AtomicReference;
 
-/**
- * 
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
- */
+
 public abstract class Actor {
     
     public static enum ActorState {

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtdb.internal.page;
+package org.fusesource.hawtdb.util;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -24,7 +24,6 @@ import java.util.NoSuchElementException;
 import java.util.Map.Entry;
 
 import org.fusesource.hawtbuf.AbstractVarIntSupport;
-import org.fusesource.hawtdb.util.TreeMap;
 import org.fusesource.hawtdb.util.TreeMap.TreeEntry;
 
 /**

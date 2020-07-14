@@ -18,9 +18,12 @@ package org.fusesource.hawtdb.metric;
 
 import java.util.concurrent.atomic.AtomicLong;
 
+/**
+ * 计数器
+ */
 public class MetricCounter extends Metric {
 
-    AtomicLong counter = new AtomicLong();
+    private  AtomicLong counter = new AtomicLong();
 
     public MetricCounter name(String name) {
         return (MetricCounter) super.name(name);

@@ -76,14 +76,14 @@
       <version>${slf4j-version}</version>
     </dependency>
     
-    <dependency>
-      <groupId>org.fusesource.hawtdb</groupId>
-      <artifactId>hawtdb</artifactId>
-      <version>1.7-SNAPSHOT</version>
-      <classifier>javadoc</classifier> 
-      <scope>test</scope>
-    </dependency>
-    
+    <!--<dependency>-->
+      <!--<groupId>org.fusesource.hawtdb</groupId>-->
+      <!--<artifactId>hawtdb</artifactId>-->
+      <!--<version>1.7-SNAPSHOT</version>-->
+      <!--<classifier>javadoc</classifier> -->
+      <!--<scope>test</scope>-->
+    <!--</dependency>-->
+    <!---->
   </dependencies>
 
   <build>

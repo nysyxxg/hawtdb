@@ -16,10 +16,7 @@
  */
 package org.fusesource.hawtdb.internal;
 
-/**
- * 
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
- */
+
 public class ActionActor<A extends Actor> extends Actor {
     
     private Action<A> action;

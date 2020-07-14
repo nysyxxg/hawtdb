@@ -19,10 +19,7 @@ package org.fusesource.hawtdb.internal.page;
 import org.fusesource.hawtdb.transaction.Transaction;
 import org.fusesource.hawtdb.internal.ActionActor;
 
-/**
- * 
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
- */
+
 public class TransactionActor<A extends TransactionActor<A>> extends ActionActor<A> {
     private Transaction tx;
 

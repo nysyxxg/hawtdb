@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.fusesource.hawtbuf.Buffer;
+import org.fusesource.hawtdb.util.Ranges;
 
 
 /**

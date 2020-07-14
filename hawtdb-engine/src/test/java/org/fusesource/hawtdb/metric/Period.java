@@ -16,6 +16,9 @@
  */
 package org.fusesource.hawtdb.metric;
 
+/**
+ * 时间间隔-一段时间
+ */
 public class Period {
 
     long start = System.currentTimeMillis();

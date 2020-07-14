@@ -24,6 +24,7 @@ import org.fusesource.hawtbuf.DataByteArrayInputStream;
 import org.fusesource.hawtbuf.DataByteArrayOutputStream;
 import org.fusesource.hawtdb.exception.IOPagingException;
 import org.fusesource.hawtdb.internal.io.MemoryMappedFileFactory;
+import org.fusesource.hawtdb.util.Ranges;
 
 /**
  * A factory to create PageFile objects.

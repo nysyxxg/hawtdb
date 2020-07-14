@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,24 +29,24 @@ import org.fusesource.hawtbuf.Buffer;
 /**
  * An extent is a sequence of adjacent pages which can be linked
  * to subsequent extents.
- * 
+ *
  * Extents allow you to write large streams of data to a Paged object
  * contiguously to avoid fragmentation.
- * 
+ *
  * The first page of the extent contains a header which specifies
  * the size of the extent and the page id of the next extent that
  * it is linked to.
- *  
+ *
  * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 public class Extent {
     
-    public final static Buffer DEFAULT_MAGIC = new Buffer(new byte[]{'x'}); 
-
+    public final static Buffer DEFAULT_MAGIC = new Buffer(new byte[]{'x'});
+    
     private final Paged paged;
     private final int page;
     private final Buffer magic;
-
+    
     private ByteBuffer buffer;
     
     private int length;
@@ -66,22 +66,22 @@ public class Extent {
     public String toString() {
         Integer position = null;
         Integer limit = null;
-        if( buffer!=null ) {
+        if (buffer != null) {
             position = buffer.position();
             limit = buffer.limit();
         }
-        return "{ page: "+page+", position: "+position+", limit: "+limit+", length: "+length+", next: "+next+" }";
+        return "{ page: " + page + ", position: " + position + ", limit: " + limit + ", length: " + length + ", next: " + next + " }";
     }
     
     
-    public void readHeader() {
+    public synchronized void readHeader() {
         buffer = paged.slice(SliceType.READ, page, 1);
         
         Buffer m = new Buffer(magic.length);
         buffer.get(m.data);
         
-        if( !magic.equals(m) ) {
-            throw new IOPagingException("Invalid extent read request.  The requested page was not an extent: "+page);
+        if (!magic.equals(m)) {
+            throw new IOPagingException("Invalid extent read request.  The requested page was not an extent: " + page);
         }
         
         IntBuffer ib = buffer.asIntBuffer();
@@ -89,22 +89,22 @@ public class Extent {
         next = ib.get();
     }
     
-    public void readOpen() {
+    public synchronized void readOpen() {
         readHeader();
         int pages = paged.pages(length);
-        if( pages > 1 ) {
+        if (pages > 1) {
             paged.unslice(buffer);
             buffer = paged.slice(SliceType.READ, page, pages);
         }
-        buffer.position(magic.length+8);
+        buffer.position(magic.length + 8);
         buffer.limit(length);
     }
-
-    public void writeOpen(short size) {
+    
+    public synchronized void writeOpen(short size) {
         buffer = paged.slice(SliceType.WRITE, page, size);
-        buffer.position(magic.length+8);
+        buffer.position(magic.length + 8);
     }
-
+    
     public int writeCloseLinked(int next) {
         this.next = next;
         length = buffer.position();
@@ -116,16 +116,16 @@ public class Extent {
         paged.unslice(buffer);
         return length;
     }
-
+    
     public void writeCloseEOF() {
         int length = writeCloseLinked(-1);
         int originalPages = paged.pages(buffer.limit());
         int usedPages = paged.pages(length);
-        int remainingPages = originalPages-usedPages;
+        int remainingPages = originalPages - usedPages;
         
         // Release un-used pages.
-        if (remainingPages>0) {
-            paged.allocator().free(page+usedPages, remainingPages);
+        if (remainingPages > 0) {
+            paged.allocator().free(page + usedPages, remainingPages);
         }
         paged.unslice(buffer);
     }
@@ -133,11 +133,11 @@ public class Extent {
     public void readClose() {
         paged.unslice(buffer);
     }
-
+    
     boolean atEnd() {
         return buffer.remaining() == 0;
     }
-
+    
     /**
      * @return true if the write fit into the extent.
      */
@@ -148,7 +148,7 @@ public class Extent {
         buffer.put(b);
         return true;
     }
-
+    
     public boolean write(Buffer source) {
         while (source.length > 0) {
             if (atEnd()) {
@@ -161,11 +161,11 @@ public class Extent {
         }
         return true;
     }
-
+    
     public int read() {
         return buffer.get() & 0xFF;
     }
-
+    
     public void read(Buffer target) {
         while (target.length > 0 && !atEnd()) {
             int count = Math.min(buffer.remaining(), target.length);
@@ -174,11 +174,11 @@ public class Extent {
             target.length -= count;
         }
     }
-
+    
     public int getNext() {
         return next;
     }
-
+    
     /**
      * Gets a listing of all the pages used by the extent at the specified page.
      *
@@ -188,39 +188,39 @@ public class Extent {
     public static List<Integer> pagesLinked(Paged paged, int page) {
         return freeLinked(paged, page, DEFAULT_MAGIC);
     }
-
+    
     public static List<Integer> pagesLinked(Paged paged, int page, Buffer magic) {
         Extent extent = new Extent(paged, page, magic);
         extent.readHeader();
         return pages(paged, extent.getNext());
     }
-
+    
     public static List<Integer> pages(Paged paged, int page) {
         return pages(paged, page, DEFAULT_MAGIC);
     }
-
+    
     public static List<Integer> pages(Paged paged, int page, Buffer magic) {
         ArrayList<Integer> rc = new ArrayList<Integer>();
-        while( page>=0 ) {
+        while (page >= 0) {
             Extent extent = new Extent(paged, page, magic);
             extent.readHeader();
             try {
                 int pagesInExtent = paged.pages(extent.getLength());
-                for( int i=0; i < pagesInExtent; i++) {
-                    rc.add(page+i);
+                for (int i = 0; i < pagesInExtent; i++) {
+                    rc.add(page + i);
                 }
-                page=extent.getNext();
+                page = extent.getNext();
             } finally {
                 extent.readClose();
             }
         }
         return rc;
     }
-
-
+    
+    
     /**
      * Frees the linked extents at the provided page id.
-     * 
+     *
      * @param paged
      * @param page
      */
@@ -232,59 +232,61 @@ public class Extent {
         Extent extent = new Extent(paged, page, magic);
         extent.readHeader();
         return free(paged, extent.getNext());
-    }    
+    }
     
     /**
      * Frees the extent at the provided page id.
-     * 
+     *
      * @param paged
      * @param page
      */
     public static List<Integer> free(Paged paged, int page) {
         return free(paged, page, DEFAULT_MAGIC);
-    }    
-    public static List<Integer> free(Paged paged, int page, Buffer magic) {
+    }
+    
+    public  static List<Integer> free(Paged paged, int page, Buffer magic) {
         ArrayList<Integer> rc = new ArrayList<Integer>();
-        while( page>=0 ) {
+        while (page >= 0) {
             Extent extent = new Extent(paged, page, magic);
             extent.readHeader();
             try {
                 int pagesInExtent = paged.pages(extent.getLength());
                 paged.allocator().free(page, pagesInExtent);
-                for( int i=0; i < pagesInExtent; i++) {
-                    rc.add(page+i);
+                for (int i = 0; i < pagesInExtent; i++) {
+                    rc.add(page + i);
                 }
-                page=extent.getNext();
+                page = extent.getNext();
             } finally {
                 extent.readClose();
             }
         }
         return rc;
     }
-
+    
     /**
      * Un-frees the extent at the provided page id.  Basically undoes
      * a previous {@link #free(PageFile, int)} operation.
-     * 
+     *
      * @param paged
      * @param page
      */
     public static void unfree(Paged paged, int page) {
         unfree(paged, page, DEFAULT_MAGIC);
     }
+    
     public static void unfree(Paged paged, int page, Buffer magic) {
-        while( page>=0 ) {
+        while (page >= 0) {
             Extent extent = new Extent(paged, page, magic);
             extent.readHeader();
             try {
                 paged.allocator().unfree(page, paged.pages(extent.length));
-                page=extent.next;
+                page = extent.next;
             } finally {
                 extent.readClose();
             }
         }
     }
-
+    
     public int getPage() {
         return page;
     }

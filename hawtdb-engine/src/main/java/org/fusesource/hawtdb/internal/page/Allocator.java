@@ -17,8 +17,7 @@
 package org.fusesource.hawtdb.internal.page;
 
 import org.fusesource.hawtdb.exception.OutOfSpaceException;
-import org.fusesource.hawtdb.internal.page.Paged;
-import org.fusesource.hawtdb.internal.page.Ranges;
+import org.fusesource.hawtdb.util.Ranges;
 
 /**
  * Handles allocation management of resources.  Used for page allocations in a {@link Paged} resource.

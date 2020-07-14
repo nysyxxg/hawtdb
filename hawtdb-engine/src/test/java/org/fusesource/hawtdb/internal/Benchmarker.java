@@ -22,10 +22,7 @@ import java.util.List;
 import org.fusesource.hawtdb.metric.MetricCounter;
 import org.fusesource.hawtdb.metric.Period;
 
-/**
- * 
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
- */
+
 public class Benchmarker {
 
     public static abstract class BenchmarkAction<A extends Actor> implements Action<A> {

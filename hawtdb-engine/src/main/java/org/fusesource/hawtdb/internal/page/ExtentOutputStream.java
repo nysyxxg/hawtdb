@@ -20,12 +20,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import org.fusesource.hawtbuf.Buffer;
+import org.fusesource.hawtdb.util.Ranges;
 
 
-/**
- * 
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
- */
+
 public class ExtentOutputStream extends OutputStream {
 
     private static final short DEFAULT_EXTENT_SIZE = 128; // 128 * 4k = .5MB

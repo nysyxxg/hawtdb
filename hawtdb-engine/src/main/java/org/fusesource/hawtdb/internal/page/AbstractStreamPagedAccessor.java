@@ -17,7 +17,7 @@
 package org.fusesource.hawtdb.internal.page;
 
 import org.fusesource.hawtdb.exception.IndexException;
-import org.fusesource.hawtdb.internal.page.*;
+import org.fusesource.hawtdb.util.Ranges;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

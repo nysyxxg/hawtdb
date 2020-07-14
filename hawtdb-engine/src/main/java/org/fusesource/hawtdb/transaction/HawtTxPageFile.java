@@ -25,6 +25,7 @@ import org.fusesource.hawtdb.exception.IOPagingException;
 import org.fusesource.hawtdb.exception.PagingException;
 import org.fusesource.hawtdb.internal.cache.ReadCache;
 import org.fusesource.hawtdb.internal.io.MemoryMappedFile;
+import org.fusesource.hawtdb.util.Ranges;
 import org.fusesource.hawtdb.util.list.LinkedNodeList;
 
 import java.io.IOException;

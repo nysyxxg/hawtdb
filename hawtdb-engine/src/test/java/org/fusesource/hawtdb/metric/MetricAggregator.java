@@ -18,9 +18,10 @@ package org.fusesource.hawtdb.metric;
 
 import java.util.ArrayList;
 
+// 度量聚合器
 public class MetricAggregator extends Metric {
 
-    ArrayList<Metric> metrics = new ArrayList<Metric>();
+   private ArrayList<Metric> metrics = new ArrayList<Metric>();
 
     public MetricAggregator name(String name) {
         return (MetricAggregator) super.name(name);
@@ -40,7 +41,7 @@ public class MetricAggregator extends Metric {
     public boolean remove(Metric metric) {
         return metrics.remove(metric);
     }
-
+    // 计算平均值
     public Float average() {
         if (metrics.isEmpty()) {
             return null;
@@ -53,7 +54,7 @@ public class MetricAggregator extends Metric {
         }
         return rc * 1.0f / count;
     }
-
+    //计算总数
     public long total() {
         long rc = 0;
         for (Metric metric : metrics) {
@@ -115,7 +116,7 @@ public class MetricAggregator extends Metric {
     @Override
     public void reset() {
         for (Metric metric : metrics) {
-            metric.reset();
+            metric.reset();// 归零
         }
     }
 
