@@ -41,7 +41,7 @@ import static org.fusesource.hawtdb.log.LoggUtil.*;
 
 /**
  * Provides concurrent page file access via Multiversion concurrency control
- * (MVCC).
+ * (MVCC).  通过多版本并发控制提供并发页面文件访问
  *
  * Once a transaction begins working against the data, it acquires a snapshot of
  * all the data in the page file. This snapshot is used to provides the

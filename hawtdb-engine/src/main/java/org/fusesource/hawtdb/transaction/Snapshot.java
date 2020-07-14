@@ -17,19 +17,21 @@
 package org.fusesource.hawtdb.transaction;
 
 /**
- * <p>
  * Snapshot objects are created for transactions so that they can access
  * a consistent point in time view of the page file.
- * </p><p>
  * The are two parts to a snapshot: the base and the head. The base and head
  * track the range of updates which were not yet performed against the page file
  * when the snapshot was opened.  This range is tracked to ensure the snapshot
  * view remains consistent.  Direct updates to data in that range is now allowed 
  * while the snapshot is open.
- * </p><p>
- * When a snapshot is opened and closed, reference counters on the all 
+ * When a snapshot is opened and closed, reference counters on the all
  * Batch objects between the base and the head get adjusted.
- * </p>
+ *
+ * 为事务创建快照对象，以便它们可以访问页面文件的时间视图中的一致点。
+ * *快照有两个部分:底座和头部。base和head跟踪快照打开时尚未对页面文件执行的更新范围。
+ * 跟踪此范围以确保快照视图保持一致。现在允许在快照打开时直接更新该范围内的数据。
+ * 当快照被打开和关闭时，引用计数器就会显示在all上调整底座和头部之间的批处理对象。
+ *
  * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 final class Snapshot {

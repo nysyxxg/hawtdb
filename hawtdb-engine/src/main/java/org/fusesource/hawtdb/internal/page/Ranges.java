@@ -29,7 +29,7 @@ import org.fusesource.hawtdb.util.TreeMap.TreeEntry;
 
 /**
  * Tracks numeric ranges.  Handy for keeping track of things like allocation or free lists.
- *
+ * 跟踪数字范围。便于跟踪诸如分配或免费列表之类的东西。
  * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 final public class Ranges implements Externalizable, Iterable<Ranges.Range> {

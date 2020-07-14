@@ -21,9 +21,8 @@ import org.fusesource.hawtdb.internal.page.Paged;
 import org.fusesource.hawtdb.internal.page.Ranges;
 
 /**
- * Handles allocation management of resources.  Used for page allocations
- * in a {@link Paged} resource.
- * 
+ * Handles allocation management of resources.  Used for page allocations in a {@link Paged} resource.
+ *  处理资源的分配管理。用于资源中的页分配。
  * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 public interface Allocator { 

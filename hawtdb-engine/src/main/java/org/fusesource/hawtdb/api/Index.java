@@ -22,7 +22,7 @@ import java.util.Map;
 
 /**
  * Provides Key/Value storage and retrieval. 
- * 
+ *  提供键/值存储和检索。
  * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 public interface Index<Key,Value> {

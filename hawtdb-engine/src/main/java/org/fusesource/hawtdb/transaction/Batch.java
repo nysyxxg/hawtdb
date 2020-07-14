@@ -36,9 +36,8 @@ import static org.fusesource.hawtdb.log.LoggUtil.traced;
 import static org.fusesource.hawtdb.transaction.Update.update;
 
 /**
- * Aggregates a group of commits so that they can be more efficiently
- * stored to disk.
- * 
+ * Aggregates a group of commits so that they can be more efficiently  stored to disk.
+ * 聚合一组提交，以便更有效地将它们存储到磁盘。
  * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 final class Batch extends LinkedNode<Batch> implements Externalizable, Iterable<Commit> {

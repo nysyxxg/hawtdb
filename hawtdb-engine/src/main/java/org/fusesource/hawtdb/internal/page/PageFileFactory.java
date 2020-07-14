@@ -27,7 +27,7 @@ import org.fusesource.hawtdb.internal.io.MemoryMappedFileFactory;
 
 /**
  * A factory to create PageFile objects.
- * 
+ *  创建页面文件对象的工厂。
  * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 public class PageFileFactory {

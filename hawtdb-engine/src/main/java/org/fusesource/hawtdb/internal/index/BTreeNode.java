@@ -29,9 +29,8 @@ import java.util.Map;
 
 
 /**
- * The BTreeNode class represents a node in the BTree object graph. It is stored
- * in one Page of a PageFile.
- * 
+ * The BTreeNode class represents a node in the BTree object graph. It is stored  in one Page of a PageFile.
+ *  BTreeNode类表示BTree对象图中的一个节点。它存储在页面文件的一页中
  * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 public final class BTreeNode<Key, Value> {

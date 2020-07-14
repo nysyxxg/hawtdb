@@ -23,7 +23,7 @@ import java.nio.ByteBuffer;
 
 /**
  * A page file provides paged access to a physical file.
- * 
+ *  页面文件提供对物理文件的分页访问。
  * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 public interface PageFile extends Paged {

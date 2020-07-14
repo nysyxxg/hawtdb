@@ -9,9 +9,12 @@ import java.util.Set;
 /**
  * Special purpose index factory providing APIs to create and open several indexes at a given {@link Paged} object:
  * each index is identified by a unique name, which must be used to refer to the index itself when opening or creating it.
- * <br>
  * This index factory is very useful when having to manage several correlated indexes, whose updates must be atomically executed
  * in the same transaction.
+ *
+ * 提供API的特殊用途索引工厂，用于在给定的对象上创建和打开多个索引：
+ * *每个索引都由一个唯一的名称标识，在打开或创建索引时，必须使用该名称来引用索引本身。
+ * *当必须管理多个相关索引时，这个索引工厂非常有用，这些索引的更新必须以原子方式执行在同一笔交易中。
  * 
  * @author Sergio Bossa
  */

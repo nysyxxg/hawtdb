@@ -45,7 +45,14 @@ import java.util.Comparator;
  * and redistribution of pages when deletions occur. Deletions only affect leaf
  * pages in this implementation, and so it is entirely possible for a leaf page
  * to be completely empty after all of its keys have been removed.
- * 
+ *  此对象用于创建可变大小的b+树索引。
+ * *b+树可用于基于集合或地图的索引。叶子将节点链接在一起以加快值的迭代。
+ * *可变大小属性意味着b+树尝试在一个页面上存储尽可能多的值和指针。
+ * *如果配置了前缀器，它将充当一个简单的前缀b+树。
+ * *在一个简单的前缀b+树中，当叶被拆分，在轴上生成尽可能短的分隔符。
+ * *这个分隔符被提升到父分支（并继续向上）列表）。因此，实际的键和指针只能在叶水平。
+ * 这也为指数提供了忽略代价高昂的合并的能力以及在删除发生时重新分配页面。删除只影响叶
+ * *在这个实现中，页是完全可能的在它的所有钥匙都被取下后完全空着。
  * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 public class BTreeIndexFactory<Key, Value> implements IndexFactory<Key, Value> {

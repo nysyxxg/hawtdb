@@ -23,7 +23,7 @@ import org.fusesource.hawtdb.exception.IOPagingException;
 
 /**
  * Implemented by objects which provides block io access to pages on file.
- * 
+ *  由提供对文件页的块io访问的对象实现。
  * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 public interface Paged {

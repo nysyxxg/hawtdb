@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Interface used to selectively visit the entries in a BTree.
- *
+ *  接口，用于有选择地访问BTree中的条目。
  * @param <Key>
  * @param <Value>
  * @author <a href="http://hiramchirino.com">Hiram Chirino</a>

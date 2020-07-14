@@ -36,9 +36,8 @@ import org.fusesource.hawtdb.internal.page.Paged;
 
 
 /**
- * A variable magnitude b+tree indexes with support for optional
- * simple-prefix optimization.
- * 
+ * A variable magnitude b+tree indexes with support for optional  simple-prefix optimization.
+ * 一个可变大小的b+树索引，支持可选的简单前缀优化。
  * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 public class BTreeIndex<Key, Value> implements SortedIndex<Key, Value> {

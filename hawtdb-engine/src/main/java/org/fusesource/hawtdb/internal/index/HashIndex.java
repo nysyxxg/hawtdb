@@ -34,7 +34,7 @@ import static org.fusesource.hawtdb.log.Logging.debug;
 
 /**
  * Hash Index implementation.  The hash buckets store entries in a b+tree.
- * 
+ * 哈希索引实现。哈希桶将条目存储在b+树中。
  * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 public class HashIndex<Key,Value> implements Index<Key,Value> {

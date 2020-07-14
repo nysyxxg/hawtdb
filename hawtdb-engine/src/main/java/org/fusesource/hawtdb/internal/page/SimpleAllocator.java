@@ -25,7 +25,7 @@ import static org.fusesource.hawtdb.log.LoggUtil.*;
 
 /**
  * This class is used to provides allocation management of pages.
- *
+ *  此类用于提供页的分配管理
  * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 public class SimpleAllocator implements Allocator {
