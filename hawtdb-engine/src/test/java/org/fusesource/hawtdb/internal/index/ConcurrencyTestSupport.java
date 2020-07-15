@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,6 +23,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
+
 import org.fusesource.hawtdb.transaction.TxPageFile;
 import org.fusesource.hawtdb.transaction.TxPageFileFactory;
 import org.fusesource.hawtdb.api.Index;
@@ -31,16 +32,17 @@ import org.fusesource.hawtdb.transaction.Transaction;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 /**
  * @author Sergio Bossa
  */
 public abstract class ConcurrencyTestSupport {
-
+    
     protected volatile TxPageFileFactory pageFactory;
     protected volatile TxPageFile pageFile;
-
+    
     @Before
     public void setUp() throws Exception {
         pageFactory = createConcurrentPageFileFactory();
@@ -49,7 +51,7 @@ public abstract class ConcurrencyTestSupport {
         pageFile = pageFactory.getTxPageFile();
         createIndex();
     }
-
+    
     @After
     public void tearDown() throws Exception {
         if (pageFile != null) {
@@ -57,7 +59,7 @@ public abstract class ConcurrencyTestSupport {
             pageFactory = null;
         }
     }
-
+    
     @Test
     public void testIsolationInConcurrentReadWriteTransactions() throws Exception {
         final AtomicReference error = new AtomicReference();
@@ -67,7 +69,7 @@ public abstract class ConcurrencyTestSupport {
         ExecutorService executor = Executors.newCachedThreadPool();
         //
         executor.submit(new Runnable() {
-
+            
             public void run() {
                 try {
                     Transaction writer = pageFile.tx();
@@ -92,11 +94,11 @@ public abstract class ConcurrencyTestSupport {
                     commitLatch.countDown();
                 }
             }
-
+            
         });
         //
         executor.submit(new Runnable() {
-
+            
             public void run() {
                 try {
                     Transaction reader = pageFile.tx();
@@ -124,7 +126,7 @@ public abstract class ConcurrencyTestSupport {
                     commitLatch.countDown();
                 }
             }
-
+            
         });
         assertTrue(commitLatch.await(60, TimeUnit.SECONDS));
         if (error.get() == null) {
@@ -140,7 +142,7 @@ public abstract class ConcurrencyTestSupport {
         //
         executor.shutdownNow();
     }
-
+    
     @Test
     public void testConflictResolutionInConcurrentWriteTransactions() throws Exception {
         final AtomicReference error = new AtomicReference();
@@ -149,7 +151,7 @@ public abstract class ConcurrencyTestSupport {
         ExecutorService executor = Executors.newCachedThreadPool();
         //
         executor.submit(new Runnable() {
-
+            
             public void run() {
                 try {
                     Transaction writer = pageFile.tx();
@@ -180,11 +182,11 @@ public abstract class ConcurrencyTestSupport {
                     commitLatch.countDown();
                 }
             }
-
+            
         });
         //
         executor.submit(new Runnable() {
-
+            
             public void run() {
                 try {
                     Transaction writer = pageFile.tx();
@@ -215,7 +217,7 @@ public abstract class ConcurrencyTestSupport {
                     commitLatch.countDown();
                 }
             }
-
+            
         });
         assertTrue(commitLatch.await(60, TimeUnit.SECONDS));
         if (error.get() == null) {
@@ -231,15 +233,15 @@ public abstract class ConcurrencyTestSupport {
         //
         executor.shutdownNow();
     }
-
+    
     protected TxPageFileFactory createConcurrentPageFileFactory() throws IOException {
         TxPageFileFactory rc = new TxPageFileFactory();
         rc.setFile(File.createTempFile(getClass().getName(), ".db"));
         return rc;
     }
-
+    
     abstract protected Index<String, Long> createIndex();
-
+    
     abstract protected Index<String, Long> openIndex(Transaction tx);
-
+    
 }

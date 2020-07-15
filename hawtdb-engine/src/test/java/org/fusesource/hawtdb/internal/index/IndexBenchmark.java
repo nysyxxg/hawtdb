@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,7 +32,7 @@ import org.fusesource.hawtbuf.Buffer;
 import org.junit.Test;
 
 /**
- * 
+ *
  * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 public abstract class IndexBenchmark {
@@ -41,11 +41,11 @@ public abstract class IndexBenchmark {
     private static final int VALUE_SIZE = 8;
     
     static final public byte[] DATA = new byte[VALUE_SIZE];
-
+    
     class IndexActor extends TransactionActor<IndexActor> {
         public Random random;
         public Index<Long, Buffer> index;
-        long counter=0;
+        long counter = 0;
         
         public void setName(String name) {
             super.setName(name);
@@ -60,12 +60,12 @@ public abstract class IndexBenchmark {
         
         public void benchmarkIndex() throws InterruptedException {
             // Transaction retry loop.
-            while( true ) {
+            while (true) {
                 try {
                     
                     index.put(counter++, new Buffer(DATA));
-                    if( (counter%KEY_SPACE)==0 ) {
-                        counter=0;
+                    if ((counter % KEY_SPACE) == 0) {
+                        counter = 0;
                     }
                     
                     // Transaction succeeded.. break out of retry loop. 
@@ -86,15 +86,17 @@ public abstract class IndexBenchmark {
     TransactionBenchmarker<IndexActor> benchmark = new TransactionBenchmarker<IndexActor>() {
         protected IndexActor createActor(TxPageFile pageFile, Action<IndexActor> action, int i) {
             return new IndexActor();
-        };
+        }
+        
+        ;
     };
-
+    
     public IndexBenchmark() {
         TxPageFileFactory hawtPageFileFactory = new TxPageFileFactory();
         hawtPageFileFactory.setFile(new File("target/test-data/" + getClass().getName() + ".db"));
         hawtPageFileFactory.setSync(false);
-         // Limit file growth to 1 Gig.
-        hawtPageFileFactory.setMaxFileSize(1024*1024*1024); 
+        // Limit file growth to 1 Gig.
+        hawtPageFileFactory.setMaxFileSize(1024 * 1024 * 1024);
         benchmark.setHawtPageFileFactory(hawtPageFileFactory);
     }
     
@@ -106,8 +108,8 @@ public abstract class IndexBenchmark {
             }
         });
     }
-
-
+    
+    
     abstract protected Index<Long, Buffer> createIndex(Transaction tx);
-
+    
 }
