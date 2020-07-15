@@ -14,16 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtdb.internal.page;
+package org.fusesource.hawtdb.mvcc;
 
 import java.io.File;
 import java.util.ArrayList;
 
+import org.fusesource.hawtdb.mvcc.thread.Action;
+import org.fusesource.hawtdb.mvcc.thread.Benchmarker;
 import org.fusesource.hawtdb.transaction.TxPageFile;
 import org.fusesource.hawtdb.transaction.TxPageFileFactory;
-import org.fusesource.hawtdb.internal.Action;
-import org.fusesource.hawtdb.internal.Benchmarker;
-import org.fusesource.hawtdb.internal.Benchmarker.BenchmarkAction;
+import org.fusesource.hawtdb.mvcc.thread.Benchmarker.BenchmarkAction;
 import org.fusesource.hawtdb.metric.MetricCounter;
 
 public class TransactionBenchmarker<A extends TransactionActor<A>> {
@@ -45,7 +45,7 @@ public class TransactionBenchmarker<A extends TransactionActor<A>> {
         pff.open();
         try {
             if (setup != null) {
-                setup.run(pff);
+                setup.run(pff);// 任务执行之前运行
             }
             TxPageFile pf = pff.getTxPageFile();
             Benchmarker benchmark = new Benchmarker();
@@ -53,11 +53,11 @@ public class TransactionBenchmarker<A extends TransactionActor<A>> {
             benchmark.setPeriod(period);// 设置任务运行的延迟时间
             benchmark.setName(action.getName());
             ArrayList<A> actors = createActors(pf, actorCount, action);
-            benchmark.benchmark(actors, createMetrics(action));
+            benchmark.benchmark(actors, createMetrics(action));// 执行任务线程
         } finally {
             try {
                 if (tearDown != null) {
-                    tearDown.run(pff);
+                    tearDown.run(pff);// 任务结束之后运行
                 }
             } finally {
                 pff.close();

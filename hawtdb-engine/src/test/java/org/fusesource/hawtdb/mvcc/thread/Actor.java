@@ -14,10 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtdb.internal;
+package org.fusesource.hawtdb.mvcc.thread;
 
 import java.util.concurrent.atomic.AtomicReference;
-
 
 public abstract class Actor {
     

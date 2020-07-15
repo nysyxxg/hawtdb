@@ -24,10 +24,10 @@ import org.fusesource.hawtdb.transaction.TxPageFileFactory;
 import org.fusesource.hawtdb.api.Index;
 import org.fusesource.hawtdb.exception.OutOfSpaceException;
 import org.fusesource.hawtdb.transaction.Transaction;
-import org.fusesource.hawtdb.internal.Action;
-import org.fusesource.hawtdb.internal.Benchmarker.BenchmarkAction;
-import org.fusesource.hawtdb.internal.page.TransactionActor;
-import org.fusesource.hawtdb.internal.page.TransactionBenchmarker;
+import org.fusesource.hawtdb.mvcc.thread.Action;
+import org.fusesource.hawtdb.mvcc.thread.Benchmarker.BenchmarkAction;
+import org.fusesource.hawtdb.mvcc.TransactionActor;
+import org.fusesource.hawtdb.mvcc.TransactionBenchmarker;
 import org.fusesource.hawtbuf.Buffer;
 import org.junit.Test;
 

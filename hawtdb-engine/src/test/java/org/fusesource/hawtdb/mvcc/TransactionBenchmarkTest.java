@@ -14,16 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtdb.internal.page;
+package org.fusesource.hawtdb.mvcc;
 
 import java.util.Random;
 
+import org.fusesource.hawtdb.mvcc.thread.Action;
 import org.fusesource.hawtdb.transaction.TxPageFile;
 import org.fusesource.hawtdb.transaction.TxPageFileFactory;
 import org.fusesource.hawtdb.transaction.Transaction;
-import org.fusesource.hawtdb.internal.Action;
-import org.fusesource.hawtdb.internal.Benchmarker.BenchmarkAction;
-import org.fusesource.hawtdb.internal.page.TransactionBenchmarker.Callback;
+import org.fusesource.hawtdb.mvcc.thread.Benchmarker.BenchmarkAction;
+import org.fusesource.hawtdb.mvcc.TransactionBenchmarker.Callback;
 import org.fusesource.hawtbuf.Buffer;
 import org.junit.Test;
 
@@ -88,21 +88,21 @@ public class TransactionBenchmarkTest {
         final int INITIAL_PAGE_COUNT = 1024 * 100;
         preallocate(INITIAL_PAGE_COUNT);// 先执行这个保存操作
         Thread.sleep(1 * 1000);
-    
+        
         try {
             benchmark.benchmark(1, new BenchmarkAction<RandomTxActor>("update") {
                 @Override
                 protected void execute(RandomTxActor actor) {
                     int page = actor.random.nextInt(INITIAL_PAGE_COUNT);
-                  //  System.out.println(Thread.currentThread().getName() + " 随机更新操作page=" + page);
+                    //  System.out.println(Thread.currentThread().getName() + " 随机更新操作page=" + page);
 //                    try {
 //                        Thread.sleep(1 * 1);
 //                    } catch (InterruptedException e) {
 //                        e.printStackTrace();
 //                    }
-    //                Transaction tx = actor.tx();
-    //                tx.write(page, new Buffer(THE_DATA));
-    //                tx.commit();// 提交保存操作
+                    //                Transaction tx = actor.tx();
+                    //                tx.write(page, new Buffer(THE_DATA));
+                    //                tx.commit();// 提交保存操作
                     
                     //开启事务，进行更新，当并发进行更新的时候，出现问题
                     actor.tx().write(page, new Buffer(THE_DATA));
@@ -110,7 +110,7 @@ public class TransactionBenchmarkTest {
                 }
             });
         } catch (Exception e) {
-           // e.printStackTrace();
+            // e.printStackTrace();
         } finally {
         }
         long t2 = System.currentTimeMillis();
@@ -148,6 +148,13 @@ public class TransactionBenchmarkTest {
                 tx.commit();
                 long t2 = System.currentTimeMillis();
                 System.out.println("插入数据花费时间：" + (t2 - t1));
+            }
+        });
+        
+        benchmark.setTearDown(new Callback() {
+            public void run(TxPageFileFactory pff) throws Exception {
+                System.out.println("任务结束...进行关闭！！！");
+                pff.close();
             }
         });
     }

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtdb.internal;
+package org.fusesource.hawtdb.mvcc.thread;
 
 
 public class ActionActor<A extends Actor> extends Actor {
@@ -30,7 +30,6 @@ public class ActionActor<A extends Actor> extends Actor {
         this.action.init(cast());
 	}
 
-    @SuppressWarnings("unchecked")
     private A cast() {
         return (A) this;
     }
@@ -47,6 +46,4 @@ public class ActionActor<A extends Actor> extends Actor {
         this.action = action;
         this.action.init(cast());
     }
-	
-	
 }
