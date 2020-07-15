@@ -50,7 +50,7 @@ public class TransactionBenchmarker<A extends TransactionActor<A>> {
             TxPageFile pf = pff.getTxPageFile();
             Benchmarker benchmark = new Benchmarker();
             benchmark.setSamples(samples);
-            benchmark.setPeriod(period);
+            benchmark.setPeriod(period);// 设置任务运行的延迟时间
             benchmark.setName(action.getName());
             ArrayList<A> actors = createActors(pf, actorCount, action);
             benchmark.benchmark(actors, createMetrics(action));

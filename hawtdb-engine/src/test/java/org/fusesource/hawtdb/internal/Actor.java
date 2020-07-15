@@ -45,7 +45,7 @@ public abstract class Actor {
 				public void run() {
 					if( state.compareAndSet(ActorState.STARTING, ActorState.RUNNING) ) {
 						try {
-							while( state.get()==ActorState.RUNNING ) {
+							while(state.get()==ActorState.RUNNING ) {
 							    Actor.this.run();
 							}
 						} catch (Exception e) {

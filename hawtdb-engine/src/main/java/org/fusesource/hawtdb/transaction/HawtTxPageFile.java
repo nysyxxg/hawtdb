@@ -246,7 +246,6 @@ public final class HawtTxPageFile implements TxPageFile {
         
         if (factory.isUseWorkerThread()) {
             worker = Executors.newSingleThreadExecutor(new ThreadFactory() {
-                
                 public Thread newThread(Runnable r) {
                     Thread rc = new Thread(r);
                     rc.setName("HawtDB Worker");
@@ -268,7 +267,6 @@ public final class HawtTxPageFile implements TxPageFile {
         if (worker != null) {
             final CountDownLatch done = new CountDownLatch(1);
             worker.execute(new Runnable() {
-                
                 public void run() {
                     done.countDown();
                     worker.shutdownNow();

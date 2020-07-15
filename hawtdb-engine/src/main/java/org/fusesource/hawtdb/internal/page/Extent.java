@@ -29,10 +29,10 @@ import org.fusesource.hawtbuf.Buffer;
 /**
  * An extent is a sequence of adjacent pages which can be linked
  * to subsequent extents.
- *
+ * <p>
  * Extents allow you to write large streams of data to a Paged object
  * contiguously to avoid fragmentation.
- *
+ * <p>
  * The first page of the extent contains a header which specifies
  * the size of the extent and the page id of the next extent that
  * it is linked to.
@@ -47,7 +47,7 @@ public class Extent {
     private final int page;
     private final Buffer magic;
     
-    private ByteBuffer buffer;
+    private   ByteBuffer buffer;
     
     private int length;
     private int next;
@@ -74,13 +74,16 @@ public class Extent {
     }
     
     
-    public synchronized void readHeader() {
+    public void readHeader() {
         buffer = paged.slice(SliceType.READ, page, 1);
-        
+       
         Buffer m = new Buffer(magic.length);
         buffer.get(m.data);
+//        System.out.println(Thread.currentThread().getName() + "  buffer:" +  buffer);
+//        System.out.println(Thread.currentThread().getName() + "  magic:" + new String(magic.data));
+//        System.out.println(Thread.currentThread().getName() + "  m:    " + new String(m.data));
         
-        if (!magic.equals(m)) {
+        if (!magic.equals(m)) {//why???
             throw new IOPagingException("Invalid extent read request.  The requested page was not an extent: " + page);
         }
         
@@ -244,7 +247,7 @@ public class Extent {
         return free(paged, page, DEFAULT_MAGIC);
     }
     
-    public  static List<Integer> free(Paged paged, int page, Buffer magic) {
+    public static List<Integer> free(Paged paged, int page, Buffer magic) {
         ArrayList<Integer> rc = new ArrayList<Integer>();
         while (page >= 0) {
             Extent extent = new Extent(paged, page, magic);
