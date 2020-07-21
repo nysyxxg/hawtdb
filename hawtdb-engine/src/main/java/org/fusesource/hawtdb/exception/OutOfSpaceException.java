@@ -16,9 +16,6 @@
  */
 package org.fusesource.hawtdb.exception;
 
-
-import org.fusesource.hawtdb.exception.PagingException;
-
 public class OutOfSpaceException extends PagingException {
 
     private static final long serialVersionUID = -886491791391276951L;

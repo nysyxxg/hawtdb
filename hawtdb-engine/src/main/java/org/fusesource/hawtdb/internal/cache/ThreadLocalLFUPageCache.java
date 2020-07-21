@@ -9,7 +9,6 @@ public class ThreadLocalLFUPageCache<Integer, Value> implements PageCache<Intege
 
     public ThreadLocalLFUPageCache(final int maxCacheSize, final float evictionFactor) {
         cache = new ThreadLocal<LFUCache<Integer, Value>>() {
-
             @Override
             protected LFUCache<Integer, Value> initialValue() {
                 return new LFUCache<Integer, Value>(maxCacheSize, evictionFactor);
