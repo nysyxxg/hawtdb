@@ -23,10 +23,7 @@ import org.fusesource.hawtdb.api.Index;
 import org.fusesource.hawtdb.transaction.Transaction;
 import org.fusesource.hawtbuf.Buffer;
 
-/**
- *
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
- */
+
 public class BTreeIndexBenchmark extends IndexBenchmark {
     
     public BTreeIndexBenchmark() {

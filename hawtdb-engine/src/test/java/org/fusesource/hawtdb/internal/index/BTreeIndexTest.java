@@ -170,7 +170,6 @@ public class BTreeIndexTest extends IndexTestSupport {
         }
     }
     
-    
     @Test
     public void testVisitor() throws Exception {
         createPageFileAndIndex((short) 100);

@@ -22,9 +22,7 @@ import org.fusesource.hawtbuf.codec.StringCodec;
 import org.fusesource.hawtdb.api.BTreeIndexFactory;
 import org.fusesource.hawtdb.transaction.Transaction;
 
-/**
- * @author Sergio Bossa
- */
+
 public class BTreeIndexConcurrencyTest extends ConcurrencyTestSupport {
     
     @Override
