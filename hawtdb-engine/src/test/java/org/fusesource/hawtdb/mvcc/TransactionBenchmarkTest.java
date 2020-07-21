@@ -70,7 +70,7 @@ public class TransactionBenchmarkTest {
     
     @Test
     public void append() throws Exception {
-        benchmark.benchmark(2, new BenchmarkAction<RandomTxActor>("append") {
+        benchmark.benchmark(1, new BenchmarkAction<RandomTxActor>("append") {
             @Override
             protected void execute(RandomTxActor actor) {
                 Transaction tx = actor.tx();

@@ -36,7 +36,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 /**
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
+ * 恢复页面文件测试
  */
 public class RecoveringPageFileTest {
     
@@ -129,11 +129,6 @@ public class RecoveringPageFileTest {
             
             reload();
         }
-        
         int mapSize = 0;
-        
-        
     }
-    
-    
 }

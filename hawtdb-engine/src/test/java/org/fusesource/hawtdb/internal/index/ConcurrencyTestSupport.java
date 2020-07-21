@@ -135,17 +135,17 @@ public abstract class ConcurrencyTestSupport {
         
         assertTrue(commitLatch.await(60, TimeUnit.SECONDS));
         
-//        if (error.get() == null) {
-//            Transaction checker = pageFile.tx();
-//            Index<String, Long> index = openIndex(checker);
-//            for (int i = 0; i < 1000; i++) {
-//                assertEquals(Long.valueOf(i), index.get("" + i));
-//                System.out.println(Thread.currentThread().getName()+"---get--"+ + i);
-//            }
-//            checker.commit();
-//        } else {
-//            throw (Exception) error.get();
-//        }
+        if (error.get() == null) {
+            Transaction checker = pageFile.tx();
+            Index<String, Long> index = openIndex(checker);
+            for (int i = 0; i < 1000; i++) {
+                assertEquals(Long.valueOf(i), index.get("" + i));
+                System.out.println(Thread.currentThread().getName()+"---get--"+ + i);
+            }
+            checker.commit();
+        } else {
+            throw (Exception) error.get();
+        }
         //
         executor.shutdownNow();
     }

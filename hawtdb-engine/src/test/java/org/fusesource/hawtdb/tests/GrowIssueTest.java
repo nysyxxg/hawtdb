@@ -86,10 +86,9 @@ public class GrowIssueTest {
         long time2 = System.currentTimeMillis();
         System.out.println("花费时间：" + (time2 - time1));
     
-        testGetData();
+       // testGetData();
     }
     
-    @Test
     public void testGetData() throws Exception {
         long time2 = System.currentTimeMillis();
         BTreeIndexFactory<String, String> indexFactory = new BTreeIndexFactory<String, String>();
