@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,42 +22,39 @@ import java.io.IOException;
 
 import org.fusesource.hawtbuf.Buffer;
 
-/**
- * Implementation of a Codec for Buffer objects
- * 
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
- */
-abstract public class AbstractBufferCodec<T extends Buffer> extends VariableCodec<T> {
 
+abstract public class AbstractBufferCodec<T extends Buffer> extends VariableCodec<T> {
+    
     public void encode(T value, DataOutput dataOut) throws IOException {
-        dataOut.writeInt(value.length);
+        dataOut.writeInt(value.length);// 写入数据长度
         dataOut.write(value.data, value.offset, value.length);
     }
-
+    
     public T decode(DataInput dataIn) throws IOException {
-        int size = dataIn.readInt();
+        int size = dataIn.readInt();// 读取数据长度
         byte[] data = new byte[size];
         dataIn.readFully(data);
         return createBuffer(data);
     }
-
-    abstract protected T createBuffer(byte [] data);
+    
+    // 子类具体的实现
+    abstract protected T createBuffer(byte[] data);
     
     public T deepCopy(T source) {
         return createBuffer(source.deepCopy().data);
     }
-
+    
     public boolean isDeepCopySupported() {
         return true;
     }
-
+    
     @Override
     public boolean isEstimatedSizeSupported() {
         return true;
     }
-
+    
     public int estimatedSize(T object) {
-        return object.length+4;
+        return object.length + 4;
     }
-
+    
 }

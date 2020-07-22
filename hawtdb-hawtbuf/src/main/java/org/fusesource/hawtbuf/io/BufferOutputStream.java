@@ -14,7 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtbuf;
+package org.fusesource.hawtbuf.io;
+
+import org.fusesource.hawtbuf.Buffer;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -23,12 +25,10 @@ import java.io.OutputStream;
 
 
 /**
- * Very similar to the java.io.ByteArrayOutputStream but this version 
- * is not thread safe and the resulting data is returned in a Buffer
+ * Very similar to the java.io.ByteArrayOutputStream but this version  is not thread safe
+ *  and the resulting data is returned in a Buffer
  * to avoid an extra byte[] allocation.  It also does not re-grow it's 
  * internal buffer.
- *
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 final public class BufferOutputStream extends OutputStream {
 
@@ -75,8 +75,7 @@ final public class BufferOutputStream extends OutputStream {
     
     /**
      * Ensures the the buffer has at least the minimumCapacity specified. 
-     * @param i
-     * @throws EOFException 
+     * @throws EOFException
      */
     private void checkCapacity(int minimumCapacity) throws IOException {
         if( minimumCapacity > limit ) {

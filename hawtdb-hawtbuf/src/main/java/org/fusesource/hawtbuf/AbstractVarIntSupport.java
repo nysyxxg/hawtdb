@@ -7,20 +7,16 @@ import java.io.IOException;
 import java.net.ProtocolException;
 
 /**
- * <p>
- * </p>
  *
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 abstract public class AbstractVarIntSupport {
-
+    
     abstract protected byte readByte() throws IOException;
-
+    
     abstract protected void writeByte(int value) throws IOException;
-
+    
     /**
-     * Read a raw Varint from the stream. If larger than 32 bits, discard the
-     * upper bits.
+     * Read a raw Varint from the stream. If larger than 32 bits, discard the  upper bits.
      */
     public int readVarInt() throws IOException {
         byte tmp = readByte();
@@ -54,8 +50,10 @@ abstract public class AbstractVarIntSupport {
         }
         return result;
     }
-
-    /** Read a raw Varint from the stream. */
+    
+    /**
+     * Read a raw Varint from the stream.
+     */
     public long readVarLong() throws IOException {
         int shift = 0;
         long result = 0;
@@ -68,18 +66,22 @@ abstract public class AbstractVarIntSupport {
         }
         throw new ProtocolException("Encountered a malformed variable int");
     }
-
-
-    /** Read an {@code sint32} field value from the stream. */
+    
+    
+    /**
+     * Read an {@code sint32} field value from the stream.
+     */
     public int readVarSignedInt() throws IOException {
         return decodeZigZag32(readVarInt());
     }
-
-    /** Read an {@code sint64} field value from the stream. */
+    
+    /**
+     * Read an {@code sint64} field value from the stream.
+     */
     public long readVarSignedLong() throws IOException {
         return decodeZigZag64(readVarLong());
     }
-
+    
     /**
      * Encode and write a varint. {@code value} is treated as unsigned, so it
      * won't be sign-extended if negative.
@@ -95,9 +97,11 @@ abstract public class AbstractVarIntSupport {
             }
         }
     }
-
-
-    /** Encode and write a varint. */
+    
+    
+    /**
+     * Encode and write a varint.
+     */
     public void writeVarLong(long value) throws IOException {
         while (true) {
             if ((value & ~0x7FL) == 0) {
@@ -109,32 +113,32 @@ abstract public class AbstractVarIntSupport {
             }
         }
     }
-
-
+    
+    
     public void writeVarSignedInt(int value) throws IOException {
         writeVarInt(encodeZigZag32(value));
     }
-
+    
     public void writeVarSignedLong(long value) throws IOException {
         writeVarLong(encodeZigZag64(value));
     }
-
+    
     private static int decodeZigZag32(int n) {
         return (n >>> 1) ^ -(n & 1);
     }
-
+    
     private static long decodeZigZag64(long n) {
         return (n >>> 1) ^ -(n & 1);
     }
-
+    
     private static int encodeZigZag32(int n) {
         return (n << 1) ^ (n >> 31);
     }
-
+    
     private static long encodeZigZag64(long n) {
         return (n << 1) ^ (n >> 63);
     }
-
+    
     /**
      * Compute the number of bytes that would be needed to encode a varint.
      * {@code value} is treated as unsigned, so it won't be sign-extended if
@@ -151,8 +155,10 @@ abstract public class AbstractVarIntSupport {
             return 4;
         return 5;
     }
-
-    /** Compute the number of bytes that would be needed to encode a varint. */
+    
+    /**
+     * Compute the number of bytes that would be needed to encode a varint.
+     */
     public static int computeVarLongSize(long value) {
         if ((value & (0xffffffffffffffffL << 7)) == 0)
             return 1;
@@ -174,14 +180,14 @@ abstract public class AbstractVarIntSupport {
             return 9;
         return 10;
     }
-
+    
     /**
      * Compute the number of bytes that would be needed to encode a signed varint.
      */
     public static int computeVarSignedIntSize(int value) {
         return computeVarIntSize(encodeZigZag32(value));
     }
-
+    
     /**
      * Compute the number of bytes that would be needed to encode a signed varint.
      */

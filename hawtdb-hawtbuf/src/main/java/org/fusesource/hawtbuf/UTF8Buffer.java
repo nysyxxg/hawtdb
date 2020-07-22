@@ -18,9 +18,6 @@ package org.fusesource.hawtbuf;
 
 import java.io.UnsupportedEncodingException;
 
-/**
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
- */
 final public class UTF8Buffer extends Buffer {
     
     int hashCode;
@@ -114,6 +111,4 @@ final public class UTF8Buffer extends Buffer {
             throw new RuntimeException("A UnsupportedEncodingException was thrown for teh UTF-8 encoding. (This should never happen)");
         }
     }
-    
-    
 }

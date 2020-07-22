@@ -14,18 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtbuf;
+package org.fusesource.hawtbuf.io;
+
+import org.fusesource.hawtbuf.Buffer;
 
 import java.io.OutputStream;
 
 
 
 /**
- * Very similar to the java.io.ByteArrayOutputStream but this version 
- * is not thread safe and the resulting data is returned in a Buffer
- * to avoid an extra byte[] allocation.
+ * Very similar to the java.io.ByteArrayOutputStream but this version  is not thread safe
+ * and the resulting data is returned in a Buffer to avoid an extra byte[] allocation.
  *
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 public class ByteArrayOutputStream extends OutputStream {
 

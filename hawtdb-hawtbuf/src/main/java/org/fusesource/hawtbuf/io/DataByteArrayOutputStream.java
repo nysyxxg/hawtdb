@@ -14,19 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtbuf;
+package org.fusesource.hawtbuf.io;
+
+import org.fusesource.hawtbuf.AbstractVarIntSupport;
+import org.fusesource.hawtbuf.Buffer;
 
 import java.io.DataOutput;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UTFDataFormatException;
 
-
-/**
- * Optimized ByteArrayOutputStream
- * 
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
- */
 public class DataByteArrayOutputStream extends OutputStream implements DataOutput {
     private static final int DEFAULT_SIZE = 2048;
     protected byte buf[];

@@ -14,34 +14,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtbuf;
+package org.fusesource.hawtbuf.io;
+
+import org.fusesource.hawtbuf.Buffer;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 
 /**
- * Very similar to the java.io.ByteArrayInputStream but this version is not
- * thread safe.
- *
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
+ * Very similar to the java.io.ByteArrayInputStream but this version is not thread safe.
  */
-final public class BufferInputStream extends InputStream {
+public class ByteArrayInputStream extends InputStream {
 
     byte buffer[];
     int limit;
     int pos;
     int mark;
 
-    public BufferInputStream(byte data[]) {
+    public ByteArrayInputStream(byte data[]) {
         this(data, 0, data.length);
     }
 
-    public BufferInputStream(Buffer sequence) {
-        this(sequence.getData(), sequence.getOffset(), sequence.getLength());
+    public ByteArrayInputStream(Buffer buffer) {
+        this(buffer.getData(), buffer.getOffset(), buffer.getLength());
     }
 
-    public BufferInputStream(byte data[], int offset, int size) {
+    public ByteArrayInputStream(byte data[], int offset, int size) {
         this.buffer = data;
         this.mark = offset;
         this.pos = offset;
@@ -63,22 +62,14 @@ final public class BufferInputStream extends InputStream {
     public int read(byte b[], int off, int len) {
         if (pos < limit) {
             len = Math.min(len, limit - pos);
-            System.arraycopy(buffer, pos, b, off, len);
-            pos += len;
+            if (len > 0) {
+                System.arraycopy(buffer, pos, b, off, len);
+                pos += len;
+            }
             return len;
         } else {
             return -1;
         }
-    }
-    
-    public Buffer readBuffer(int len) {
-        Buffer rc=null;
-        if (pos < limit) {
-            len = Math.min(len, limit - pos);
-            rc = new Buffer(buffer, pos, len);
-            pos += len;
-        }
-        return rc;
     }
 
     public long skip(long len) throws IOException {
@@ -108,5 +99,4 @@ final public class BufferInputStream extends InputStream {
     public void reset() {
         pos = mark;
     }
-
 }

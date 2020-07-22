@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,31 +16,25 @@
  */
 package org.fusesource.hawtbuf.codec;
 
-/**
- * Convenience base class for Marshaller implementations which do not deepCopy and
- * which use variable size encodings.
- * 
- * @author chirino
- * @param <T>
- */
-abstract public class VariableCodec<T> implements Codec<T> {
 
+abstract public class VariableCodec<T> implements Codec<T> {
+    
     public int getFixedSize() {
         return -1;
     }
-
+    
     public boolean isDeepCopySupported() {
         return false;
     }
-
+    
     public T deepCopy(T source) {
         throw new UnsupportedOperationException();
     }
-
+    
     public boolean isEstimatedSizeSupported() {
         return false;
     }
-
+    
     public int estimatedSize(T object) {
         throw new UnsupportedOperationException();
     }

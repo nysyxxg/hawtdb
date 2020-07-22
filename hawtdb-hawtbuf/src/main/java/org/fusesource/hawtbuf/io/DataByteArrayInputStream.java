@@ -14,15 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtbuf;
+package org.fusesource.hawtbuf.io;
+
+import org.fusesource.hawtbuf.AbstractVarIntSupport;
+import org.fusesource.hawtbuf.Buffer;
 
 import java.io.*;
 
 
 /**
  * Optimized ByteArrayInputStream that can be used more than once
- * 
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 public final class DataByteArrayInputStream extends InputStream implements DataInput {
     private byte[] buf;

@@ -14,23 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtbuf.codec;
+package org.fusesource.hawtbuf.codec.buffer;
 
 import org.fusesource.hawtbuf.AsciiBuffer;
-import org.fusesource.hawtbuf.UTF8Buffer;
+import org.fusesource.hawtbuf.codec.AbstractBufferCodec;
 
-/**
- * Implementation of a Codec for UTF8Buffer objects.
- *
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
- *
- */
-public class UTF8BufferCodec extends AbstractBufferCodec<UTF8Buffer> {
-    public static final UTF8BufferCodec INSTANCE = new UTF8BufferCodec();
+
+public class AsciiBufferCodec extends AbstractBufferCodec<AsciiBuffer> {
+    public static final AsciiBufferCodec INSTANCE = new AsciiBufferCodec();
 
     @Override
-    protected UTF8Buffer createBuffer(byte[] data) {
-        return new UTF8Buffer(data);
+    protected AsciiBuffer createBuffer(byte[] data) {
+        return new AsciiBuffer(data);
     }
     
 }

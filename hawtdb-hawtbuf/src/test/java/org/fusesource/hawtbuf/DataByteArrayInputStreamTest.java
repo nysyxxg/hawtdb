@@ -16,6 +16,8 @@
  */
 package org.fusesource.hawtbuf;
 
+import org.fusesource.hawtbuf.io.DataByteArrayInputStream;
+import org.fusesource.hawtbuf.io.DataByteArrayOutputStream;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

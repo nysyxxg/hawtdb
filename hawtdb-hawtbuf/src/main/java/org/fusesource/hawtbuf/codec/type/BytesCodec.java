@@ -14,43 +14,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtbuf.codec;
+package org.fusesource.hawtbuf.codec.type;
+
+import org.fusesource.hawtbuf.codec.Codec;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-import org.fusesource.hawtbuf.Buffer;
 
-/**
- * Implementation of a Marshaller for Buffer objects
- * 
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
- */
-public class FixedBufferCodec implements Codec<Buffer> {
-    
-    private final int size;
+public class BytesCodec implements Codec<byte[]> {
 
-    public FixedBufferCodec(int size) {
-        this.size = size;
+    public static final BytesCodec INSTANCE = new BytesCodec();
+
+    public void encode(byte[] data, DataOutput dataOut) throws IOException {
+        dataOut.writeInt(data.length);
+        dataOut.write(data);
     }
 
-    public void encode(Buffer value, DataOutput dataOut) throws IOException {
-        dataOut.write(value.data, value.offset, size);
-    }
-
-    public Buffer decode(DataInput dataIn) throws IOException {
+    public byte[] decode(DataInput dataIn) throws IOException {
+        int size = dataIn.readInt();
         byte[] data = new byte[size];
         dataIn.readFully(data);
-        return new Buffer(data);
+        return data;
     }
-
+    
     public int getFixedSize() {
-        return size;
+        return -1;
     }
 
-    public Buffer deepCopy(Buffer source) {
-        return source.deepCopy();
+    public byte[] deepCopy(byte[] source) {
+        byte []rc = new byte[source.length];
+        System.arraycopy(source, 0, rc, 0, source.length);
+        return rc;
     }
 
     public boolean isDeepCopySupported() {
@@ -60,8 +56,8 @@ public class FixedBufferCodec implements Codec<Buffer> {
     public boolean isEstimatedSizeSupported() {
         return true;
     }
-    public int estimatedSize(Buffer object) {
-        return size;
+
+    public int estimatedSize(byte[] object) {
+        return object.length+4;
     }
-    
 }

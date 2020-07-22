@@ -18,6 +18,7 @@ package org.fusesource.hawtbuf;
 
 import java.io.IOException;
 
+import org.fusesource.hawtbuf.io.DataByteArrayOutputStream;
 import org.junit.Test;
 
 

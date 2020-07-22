@@ -14,12 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtbuf;
+package org.fusesource.hawtbuf.util;
+
+import org.fusesource.hawtbuf.Buffer;
 
 /**
  * Used to convert to hex from byte arrays and back.
- * 
- * @version $Revision: 1.2 $
+ *  用于从字节数组转换为十六进制
  */
 public final class HexSupport {
     

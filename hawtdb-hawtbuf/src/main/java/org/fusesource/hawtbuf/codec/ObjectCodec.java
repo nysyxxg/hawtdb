@@ -24,10 +24,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-/**
- * Implementation of a Marshaller for Objects
- * 
- */
+
 public class ObjectCodec<T> extends VariableCodec<T> {
 
     public void encode(Object object, DataOutput dataOut) throws IOException {

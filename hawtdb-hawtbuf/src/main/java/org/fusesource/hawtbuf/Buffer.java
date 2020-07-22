@@ -16,14 +16,15 @@
  */
 package org.fusesource.hawtbuf;
 
+import org.fusesource.hawtbuf.io.BufferInputStream;
+import org.fusesource.hawtbuf.io.BufferOutputStream;
+import org.fusesource.hawtbuf.util.HexSupport;
+
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
- */
 public class Buffer implements Comparable<Buffer> {
     
     public byte[] data;

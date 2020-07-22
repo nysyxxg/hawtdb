@@ -14,48 +14,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtbuf.codec;
+package org.fusesource.hawtbuf.codec.type;
+
+import org.fusesource.hawtbuf.codec.Codec;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-/**
- * Implementation of a Marshaller for Strings
- * 
- */
-public class StringCodec implements Codec<String> {
+
+public class IntegerCodec implements Codec<Integer> {
     
-    public static final StringCodec INSTANCE = new StringCodec();
+    public static final IntegerCodec INSTANCE = new IntegerCodec();
     
-    /**
-     * Write the payload of this entry to the RawContainer
-     * 
-     * @param object
-     * @param dataOut
-     * @throws IOException
-     */
-    public void encode(String object, DataOutput dataOut) throws IOException {
-        dataOut.writeUTF(object);
+    public void encode(Integer object, DataOutput dataOut) throws IOException {
+        dataOut.writeInt(object);
     }
 
-    /**
-     * Read the entry from the RawContainer
-     * 
-     * @param dataIn
-     * @return unmarshalled object
-     * @throws IOException
-     */
-    public String decode(DataInput dataIn) throws IOException {
-        return dataIn.readUTF();
+    public Integer decode(DataInput dataIn) throws IOException {
+        return dataIn.readInt();
     }
-
 
     public int getFixedSize() {
-        return -1;
+        return 4;
     }
 
-    public String deepCopy(String source) {
+    
+    /** 
+     * @return the source object since integers are immutable. 
+     */
+    public Integer deepCopy(Integer source) {
         return source;
     }
 
@@ -66,8 +54,7 @@ public class StringCodec implements Codec<String> {
     public boolean isEstimatedSizeSupported() {
         return true;
     }
-
-    public int estimatedSize(String object) {
-        return object.length()+2;
+    public int estimatedSize(Integer object) {
+        return 4;
     }
 }

@@ -14,40 +14,51 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtbuf.codec;
+package org.fusesource.hawtbuf.codec.type;
+
+import org.fusesource.hawtbuf.codec.Codec;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
 /**
- * Implementation of a Marshaller for byte arrays
+ * Implementation of a Marshaller for Strings
  * 
  */
-public class BytesCodec implements Codec<byte[]> {
-
-    public static final BytesCodec INSTANCE = new BytesCodec();
-
-    public void encode(byte[] data, DataOutput dataOut) throws IOException {
-        dataOut.writeInt(data.length);
-        dataOut.write(data);
-    }
-
-    public byte[] decode(DataInput dataIn) throws IOException {
-        int size = dataIn.readInt();
-        byte[] data = new byte[size];
-        dataIn.readFully(data);
-        return data;
-    }
+public class StringCodec implements Codec<String> {
     
+    public static final StringCodec INSTANCE = new StringCodec();
+    
+    /**
+     * Write the payload of this entry to the RawContainer
+     * 
+     * @param object
+     * @param dataOut
+     * @throws IOException
+     */
+    public void encode(String object, DataOutput dataOut) throws IOException {
+        dataOut.writeUTF(object);
+    }
+
+    /**
+     * Read the entry from the RawContainer
+     * 
+     * @param dataIn
+     * @return unmarshalled object
+     * @throws IOException
+     */
+    public String decode(DataInput dataIn) throws IOException {
+        return dataIn.readUTF();
+    }
+
+
     public int getFixedSize() {
         return -1;
     }
 
-    public byte[] deepCopy(byte[] source) {
-        byte []rc = new byte[source.length];
-        System.arraycopy(source, 0, rc, 0, source.length);
-        return rc;
+    public String deepCopy(String source) {
+        return source;
     }
 
     public boolean isDeepCopySupported() {
@@ -58,7 +69,7 @@ public class BytesCodec implements Codec<byte[]> {
         return true;
     }
 
-    public int estimatedSize(byte[] object) {
-        return object.length+4;
+    public int estimatedSize(String object) {
+        return object.length()+2;
     }
 }

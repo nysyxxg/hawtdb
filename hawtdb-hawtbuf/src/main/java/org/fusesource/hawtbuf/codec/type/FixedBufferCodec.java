@@ -14,34 +14,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtbuf.codec;
+package org.fusesource.hawtbuf.codec.type;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-/**
- * Implementation of a Codec for a Long
- * 
- */
-public class LongCodec implements Codec<Long> {
+import org.fusesource.hawtbuf.Buffer;
+import org.fusesource.hawtbuf.codec.Codec;
+
+
+public class FixedBufferCodec implements Codec<Buffer> {
     
-    public static final LongCodec INSTANCE = new LongCodec();
-    
-    public void encode(Long object, DataOutput dataOut) throws IOException {
-        dataOut.writeLong(object);
+    private final int size;
+
+    public FixedBufferCodec(int size) {
+        this.size = size;
     }
 
-    public Long decode(DataInput dataIn) throws IOException {
-        return dataIn.readLong();
+    public void encode(Buffer value, DataOutput dataOut) throws IOException {
+        dataOut.write(value.data, value.offset, size);
+    }
+
+    public Buffer decode(DataInput dataIn) throws IOException {
+        byte[] data = new byte[size];
+        dataIn.readFully(data);
+        return new Buffer(data);
     }
 
     public int getFixedSize() {
-        return 8;
+        return size;
     }
 
-    public Long deepCopy(Long source) {
-        return source;
+    public Buffer deepCopy(Buffer source) {
+        return source.deepCopy();
     }
 
     public boolean isDeepCopySupported() {
@@ -51,8 +57,8 @@ public class LongCodec implements Codec<Long> {
     public boolean isEstimatedSizeSupported() {
         return true;
     }
-
-    public int estimatedSize(Long object) {
-        return 8;
+    public int estimatedSize(Buffer object) {
+        return size;
     }
+    
 }

@@ -14,48 +14,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtbuf.codec;
+package org.fusesource.hawtbuf.codec.type;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
 /**
- * Implementation of a Marshaller for a Integer
- * 
+ * Implementation of a variable length Codec for a signed Long
+ *
  */
-public class IntegerCodec implements Codec<Integer> {
-    
-    public static final IntegerCodec INSTANCE = new IntegerCodec();
-    
-    public void encode(Integer object, DataOutput dataOut) throws IOException {
-        dataOut.writeInt(object);
+public class VarSignedLongCodec extends VarLongCodec {
+
+    public static final VarSignedLongCodec INSTANCE = new VarSignedLongCodec();
+
+
+    public void encode(Long value, DataOutput dataOut) throws IOException {
+        super.encode(encodeZigZag(value), dataOut);
     }
 
-    public Integer decode(DataInput dataIn) throws IOException {
-        return dataIn.readInt();
+    public Long decode(DataInput dataIn) throws IOException {
+        return decodeZigZag(super.decode(dataIn));
     }
 
-    public int getFixedSize() {
-        return 4;
+    private static long decodeZigZag(long n) {
+        return (n >>> 1) ^ -(n & 1);
     }
 
-    
-    /** 
-     * @return the source object since integers are immutable. 
-     */
-    public Integer deepCopy(Integer source) {
-        return source;
+    private static long encodeZigZag(long n) {
+        return (n << 1) ^ (n >> 63);
     }
 
-    public boolean isDeepCopySupported() {
-        return true;
-    }
-
-    public boolean isEstimatedSizeSupported() {
-        return true;
-    }
-    public int estimatedSize(Integer object) {
-        return 4;
+    public int estimatedSize(Long value) {
+        return super.estimatedSize(encodeZigZag(value));
     }
 }

@@ -20,18 +20,13 @@ import java.io.IOException;
 import java.net.ProtocolException;
 
 /**
- * <p>
  * Used to write and read primitives to and from a Buffer.  Reads and
  * writes are done at the buffers offset.  Every read and write
  * increases the buffer's offset and decreases the buffer's length.
- * </p>
- * <p>
  * Bounds checking are only performed when assertions are enabled on
  * the JVM.  It's up to you to make sure there is enough data/space
  * in the buffer to do the read or write.
- * </p>
  *
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 abstract public class BufferEditor extends AbstractVarIntSupport {
     protected final Buffer buffer;
@@ -342,6 +337,4 @@ abstract public class BufferEditor extends AbstractVarIntSupport {
         }
 
     }
-
-    ;
 }

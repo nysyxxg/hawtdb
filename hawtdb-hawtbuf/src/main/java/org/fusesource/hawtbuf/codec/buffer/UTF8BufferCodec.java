@@ -14,22 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtbuf.codec;
+package org.fusesource.hawtbuf.codec.buffer;
 
-import org.fusesource.hawtbuf.Buffer;
+import org.fusesource.hawtbuf.UTF8Buffer;
+import org.fusesource.hawtbuf.codec.AbstractBufferCodec;
 
-/**
- * Implementation of a Marshaller for Buffer objects.
- *
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
- *
- */
-public class BufferCodec extends AbstractBufferCodec<Buffer> {
-    
-    public static final BufferCodec INSTANCE = new BufferCodec();
+
+public class UTF8BufferCodec extends AbstractBufferCodec<UTF8Buffer> {
+    public static final UTF8BufferCodec INSTANCE = new UTF8BufferCodec();
 
     @Override
-    protected Buffer createBuffer(byte[] data) {
-        return new Buffer(data);
+    protected UTF8Buffer createBuffer(byte[] data) {
+        return new UTF8Buffer(data);
     }
+    
 }
