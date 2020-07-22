@@ -79,9 +79,9 @@ public class Extent {
        
         Buffer m = new Buffer(magic.length);
         buffer.get(m.data);
-        System.out.println(Thread.currentThread().getName() + "  buffer:" +  buffer);
-        System.out.println(Thread.currentThread().getName() + "  magic:" + new String(magic.data));
-        System.out.println(Thread.currentThread().getName() + "  m:    " + new String(m.data));
+//        System.out.println(Thread.currentThread().getName() + "  buffer:" +  buffer);
+//        System.out.println(Thread.currentThread().getName() + "  magic:" + new String(magic.data));
+//        System.out.println(Thread.currentThread().getName() + "  m:    " + new String(m.data));
         
         if (!magic.equals(m)) {//why???
             throw new IOPagingException("Invalid extent read request.  The requested page was not an extent: " + page);
