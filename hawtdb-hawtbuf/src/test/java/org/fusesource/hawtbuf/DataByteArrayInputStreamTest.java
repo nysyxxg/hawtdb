@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,31 +24,33 @@ import static org.junit.Assert.*;
 
 
 public class DataByteArrayInputStreamTest {
-
+    
     
     @Test()
-	public void testNonAscii() throws Exception {
+    public void testNonAscii() throws Exception {
         doMarshallUnMarshallValidation("meißen");
         
         int test = 0; // int to get Supplementary chars
-        while(Character.isDefined(test)) {
-            doMarshallUnMarshallValidation(String.valueOf((char)test));
+        while (Character.isDefined(test)) {
+            doMarshallUnMarshallValidation(String.valueOf((char) test));
             test++;
         }
         
         int massiveThreeByteCharValue = 0x0FFF;
-        doMarshallUnMarshallValidation(String.valueOf((char)massiveThreeByteCharValue));
+        doMarshallUnMarshallValidation(String.valueOf((char) massiveThreeByteCharValue));
     }
     
-    void doMarshallUnMarshallValidation(String value) throws Exception {        
+    void doMarshallUnMarshallValidation(String value) throws Exception {
         DataByteArrayOutputStream out = new DataByteArrayOutputStream();
         out.writeBoolean(true);
         out.writeUTF(value);
         out.close();
         
         DataByteArrayInputStream in = new DataByteArrayInputStream(out.getData());
-        in.readBoolean();
+        boolean bl = in.readBoolean();
+        System.out.println(bl);
         String readBack = in.readUTF();
+        System.out.println("readBack=" + readBack);
         assertEquals(value, readBack);
     }
 }

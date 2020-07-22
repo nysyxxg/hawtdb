@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,54 +33,54 @@ import org.fusesource.hawtdb.util.TreeMap.TreeEntry;
  */
 final public class Ranges implements Externalizable, Iterable<Ranges.Range> {
     private static final long serialVersionUID = 8340484139329633582L;
-
+    
     final public static class Range implements Serializable {
         private static final long serialVersionUID = -4904483630105365841L;
         
         public volatile int start;
         public volatile int end;
-
+        
         public Range(int start, int end) {
             this.start = start;
             this.end = end;
         }
-
+        
         public int size() {
             return end - start;
         }
-                
+        
         @Override
         public String toString() {
-            if( start == end-1 ) {
+            if (start == end - 1) {
                 return Integer.toString(start);
             }
-            return start+"-"+(end-1);
+            return start + "-" + (end - 1);
         }
         
         @Override
         public boolean equals(Object obj) {
-            if( obj == this ) {
+            if (obj == this) {
                 return true;
             }
-            if( obj == null || obj.getClass()!=Range.class ) {
+            if (obj == null || obj.getClass() != Range.class) {
                 return false;
             }
-            Range r = (Range)obj;
-            return start == r.start && end==r.end; 
+            Range r = (Range) obj;
+            return start == r.start && end == r.end;
         }
         
         @Override
         public int hashCode() {
-            return start*77+end;
+            return start * 77 + end;
         }
-
+        
         public boolean contains(int value) {
             return start <= value && value < end;
         }
     }
-
+    
     private final TreeMap<Integer, Range> ranges = new TreeMap<Integer, Range>();
-
+    
     public Ranges copy() {
         Ranges rc = new Ranges();
         for (Range r : this) {
@@ -88,35 +88,35 @@ final public class Ranges implements Externalizable, Iterable<Ranges.Range> {
         }
         return rc;
     }
-
+    
     public void add(int start) {
         add(start, 1);
     }
     
     public void add(int start, int length) {
-        int end = start+length;
+        int end = start + length;
         
         // look for entries starting from the end of the add range.
         TreeEntry<Integer, Range> entry = ranges.floorEntry(end);
-        if( entry!=null ) {
-            while( entry!=null) {
+        if (entry != null) {
+            while (entry != null) {
                 Range range = entry.getValue();
                 TreeEntry<Integer, Range> curr = entry;
                 entry = entry.previous();
                 
                 // If tail of the range is not in the add range.
-                if( range.end < start ) {
+                if (range.end < start) {
                     // we are done..
                     break;
                 }
                 
                 // if the end of the range is not in the add range.
-                if( end < range.end  ) {
+                if (end < range.end) {
                     // extend the length out..
                     end = range.end;
                 }
-
-                if( start < range.start ) {
+                
+                if (start < range.start) {
                     // if the front of the range is in the add range.
                     // just remove it..
                     ranges.removeEntry(curr);
@@ -131,35 +131,35 @@ final public class Ranges implements Externalizable, Iterable<Ranges.Range> {
         
         // put the new range in.
         ranges.put(start, range(start, end));
-    }    
+    }
     
     public void remove(int start) {
         remove(start, 1);
     }
     
     public void remove(int start, int length) {
-        int end = start+length;
+        int end = start + length;
         
         // look for entries starting from the end of the remove range.
         TreeEntry<Integer, Range> entry = ranges.lowerEntry(end);
-        while( entry!=null) {
+        while (entry != null) {
             Range range = entry.getValue();
             TreeEntry<Integer, Range> curr = entry;
             entry = entry.previous();
             
             // If tail of the range is not in the remove range.
-            if( range.end <= start ) {
+            if (range.end <= start) {
                 // we are done..
                 break;
             }
             
             // if the end if the range is not in the remove range.
-            if( end < range.end  ) {
+            if (end < range.end) {
                 // Then we need to add back the tail part.
                 ranges.put(end, range(end, range.end));
             }
-
-            if( start <= range.start ) {
+            
+            if (start <= range.start) {
                 // if the front of the range is in the remove range.
                 // just remove it..
                 ranges.removeEntry(curr);
@@ -172,20 +172,20 @@ final public class Ranges implements Externalizable, Iterable<Ranges.Range> {
             }
         }
     }
-
+    
     public boolean contains(int value) {
         TreeEntry<Integer, Range> entry = ranges.floorEntry(value);
-        if( entry == null ) {
+        if (entry == null) {
             return false;
         }
         return entry.getValue().contains(value);
     }
-
+    
     
     public void clear() {
         ranges.clear();
     }
-
+    
     public void copy(Ranges source) {
         ranges.clear();
         for (Entry<Integer, Range> entry : source.ranges.entrySet()) {
@@ -195,15 +195,15 @@ final public class Ranges implements Externalizable, Iterable<Ranges.Range> {
     }
     
     public int size() {
-        int rc=0;
+        int rc = 0;
         TreeEntry<Integer, Range> entry = ranges.firstEntry();
-        while(entry!=null) {
+        while (entry != null) {
             rc += entry.getValue().size();
             entry = entry.next();
         }
         return rc;
     }
-
+    
     
     static public Range range(int start, int end) {
         return new Range(start, end);
@@ -215,15 +215,15 @@ final public class Ranges implements Externalizable, Iterable<Ranges.Range> {
     
     @Override
     public String toString() {
-        StringBuilder sb  = new StringBuilder(20+(10*ranges.size()));
+        StringBuilder sb = new StringBuilder(20 + (10 * ranges.size()));
         sb.append("[ ");
         
-        boolean first=true;
+        boolean first = true;
         for (Range r : this) {
-            if( !first ) {
+            if (!first) {
                 sb.append(", ");
             }
-            first=false;
+            first = false;
             sb.append(r);
         }
         
@@ -234,7 +234,7 @@ final public class Ranges implements Externalizable, Iterable<Ranges.Range> {
     public Iterator<Range> iterator() {
         return ranges.values().iterator();
     }
-
+    
     public Iterator<Range> iteratorNotInRange(final Range mask) {
         
         return new Iterator<Range>() {
@@ -242,26 +242,26 @@ final public class Ranges implements Externalizable, Iterable<Ranges.Range> {
             Iterator<Range> iter = ranges.values().iterator();
             Range last = new Range(mask.start, mask.start);
             Range next = null;
-
+            
             public boolean hasNext() {
-                if( next==null ) {
-                    while( last.end < mask.end && iter.hasNext() ) {
+                if (next == null) {
+                    while (last.end < mask.end && iter.hasNext()) {
                         Range r = iter.next();
                         
                         // skip over the initial ranges not within the mask
-                        if( r.end < last.end ) {
+                        if (r.end < last.end) {
                             continue;
                         }
                         
                         // Handle the case where a range straddles the mask start position 
-                        if( r.start < last.end ) {
+                        if (r.start < last.end) {
                             // extend the last range out so that the next one starts at
                             // the end of the range.
                             last = new Range(last.start, r.end);
                             continue;
                         }
-
-                        if( r.start < mask.end ) {
+                        
+                        if (r.start < mask.end) {
                             next = new Range(last.end, r.start);
                         } else {
                             next = new Range(last.end, mask.end);
@@ -269,18 +269,18 @@ final public class Ranges implements Externalizable, Iterable<Ranges.Range> {
                         break;
                     }
                 }
-                return next!=null;
+                return next != null;
             }
-
+            
             public Range next() {
-                if( !hasNext() ) {
+                if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
                 last = next;
-                next=null;
+                next = null;
                 return last;
             }
-
+            
             public void remove() {
                 throw new UnsupportedOperationException();
             }
@@ -292,47 +292,47 @@ final public class Ranges implements Externalizable, Iterable<Ranges.Range> {
         Range range;
         Integer next;
         int last;
-
+        
         private ValueIterator(Iterator<Range> t) {
             ranges = t;
         }
-
+        
         public boolean hasNext() {
-            if( next==null ) {
-                if( range == null ) {
-                    if( ranges.hasNext() ) {
+            if (next == null) {
+                if (range == null) {
+                    if (ranges.hasNext()) {
                         range = ranges.next();
                         next = range.start;
                     } else {
                         return false;
                     }
                 } else {
-                    next = last+1;
+                    next = last + 1;
                 }
-                if( next == (range.end-1) ) {
-                    range=null;
+                if (next == (range.end - 1)) {
+                    range = null;
                 }
             }
-            return next!=null;
+            return next != null;
         }
-
+        
         public Integer next() {
-            if( !hasNext() ) {
+            if (!hasNext()) {
                 throw new NoSuchElementException();
             }
             last = next;
-            next=null;
+            next = null;
             return last;
         }
-
+        
         public void remove() {
             throw new UnsupportedOperationException();
         }
-
+        
         public Iterator<Integer> iterator() {
             return this;
         }
-    }    
+    }
     
     public List<Integer> values() {
         ArrayList<Integer> rc = new ArrayList<Integer>();
@@ -343,24 +343,25 @@ final public class Ranges implements Externalizable, Iterable<Ranges.Range> {
     }
     
     public Iterator<Integer> valueIterator() {
-       return new ValueIterator(iterator()); 
+        return new ValueIterator(iterator());
     }
-
+    
     public Iterator<Integer> valuesIteratorNotInRange(Range r) {
-        return new ValueIterator(iteratorNotInRange(r)); 
+        return new ValueIterator(iteratorNotInRange(r));
     }
-
+    
     public boolean isEmpty() {
         return ranges.isEmpty();
     }
-
+    
     public void writeExternal(ObjectOutput out) throws IOException {
-        writeExternal((DataOutput)out);
+        writeExternal((DataOutput) out);
     }
-
+    
     public void readExternal(ObjectInput in) throws IOException {
-        readExternal((DataInput)in);
+        readExternal((DataInput) in);
     }
+    
     public void writeExternal(final DataOutput out) throws IOException {
         ArrayList<Range> values = new ArrayList<Range>(ranges.values());
         out.writeInt(values.size());
@@ -369,44 +370,44 @@ final public class Ranges implements Externalizable, Iterable<Ranges.Range> {
             protected byte readByte() throws IOException {
                 throw new UnsupportedOperationException();
             }
-
+            
             @Override
             protected void writeByte(int value) throws IOException {
                 out.writeByte(value);
             }
         };
-
+        
         // We should get good compression since ranges should be
         // close to each other and we are just recording a var int
         // of the difference between the points.
         int base = 0;
-        for( Range range: values) {
-            helper.writeVarInt(range.start-base);
+        for (Range range : values) {
+            helper.writeVarInt(range.start - base);
             base = range.start;
-            helper.writeVarInt(range.end-base);
+            helper.writeVarInt(range.end - base);
             base = range.end;
         }
-
+        
     }
-
+    
     public void readExternal(final DataInput in) throws IOException {
         ranges.clear();
-
+        
         int size = in.readInt();
         AbstractVarIntSupport helper = new AbstractVarIntSupport() {
             @Override
             protected byte readByte() throws IOException {
                 return in.readByte();
             }
-
+            
             @Override
             protected void writeByte(int value) throws IOException {
                 throw new UnsupportedOperationException();
             }
         };
-
+        
         int base = 0;
-        for(int i=0; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             base += helper.readVarInt();
             int start = base;
             base += helper.readVarInt();
@@ -414,6 +415,6 @@ final public class Ranges implements Externalizable, Iterable<Ranges.Range> {
             ranges.put(start, range(start, end));
         }
     }
-
+    
     
 }

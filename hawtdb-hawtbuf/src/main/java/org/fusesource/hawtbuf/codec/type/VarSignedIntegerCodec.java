@@ -21,8 +21,8 @@ import java.io.DataOutput;
 import java.io.IOException;
 
 /**
+ * 带符号整数的可变长度编解码器的实现
  * Implementation of a variable length Codec for a signed Integer
- *
  */
 public class VarSignedIntegerCodec extends VarIntegerCodec {
 

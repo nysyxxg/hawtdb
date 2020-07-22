@@ -16,8 +16,8 @@
  */
 package org.fusesource.hawtdb.internal.index;
 
-import org.fusesource.hawtbuf.codec.FixedBufferCodec;
-import org.fusesource.hawtbuf.codec.LongCodec;
+import org.fusesource.hawtbuf.codec.type.FixedBufferCodec;
+import org.fusesource.hawtbuf.codec.type.LongCodec;
 import org.fusesource.hawtdb.api.BTreeIndexFactory;
 import org.fusesource.hawtdb.api.Index;
 import org.fusesource.hawtdb.transaction.Transaction;

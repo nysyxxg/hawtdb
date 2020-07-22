@@ -16,7 +16,7 @@
  */
 package org.fusesource.hawtdb.internal.index;
 
-import org.fusesource.hawtbuf.codec.LongCodec;
+import org.fusesource.hawtbuf.codec.type.LongCodec;
 import org.fusesource.hawtdb.api.*;
 import org.fusesource.hawtdb.transaction.Transaction;
 import org.fusesource.hawtdb.transaction.TxPageFile;

@@ -20,8 +20,8 @@ import java.io.*;
 
 import org.fusesource.hawtbuf.AsciiBuffer;
 import org.fusesource.hawtbuf.Buffer;
-import org.fusesource.hawtbuf.DataByteArrayInputStream;
-import org.fusesource.hawtbuf.DataByteArrayOutputStream;
+import org.fusesource.hawtbuf.io.DataByteArrayInputStream;
+import org.fusesource.hawtbuf.io.DataByteArrayOutputStream;
 import org.fusesource.hawtdb.exception.IOPagingException;
 import org.fusesource.hawtdb.internal.io.MemoryMappedFileFactory;
 import org.fusesource.hawtdb.util.Ranges;

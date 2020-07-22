@@ -16,8 +16,8 @@
  */
 package org.fusesource.hawtdb.internal.index;
 
-import org.fusesource.hawtbuf.codec.LongCodec;
-import org.fusesource.hawtbuf.codec.StringCodec;
+import org.fusesource.hawtbuf.codec.type.LongCodec;
+import org.fusesource.hawtbuf.codec.type.StringCodec;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

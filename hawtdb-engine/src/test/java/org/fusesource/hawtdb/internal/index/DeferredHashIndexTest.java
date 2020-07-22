@@ -18,8 +18,8 @@ package org.fusesource.hawtdb.internal.index;
 
 import org.fusesource.hawtdb.api.HashIndexFactory;
 import org.fusesource.hawtdb.api.Index;
-import org.fusesource.hawtbuf.codec.LongCodec;
-import org.fusesource.hawtbuf.codec.StringCodec;
+import org.fusesource.hawtbuf.codec.type.LongCodec;
+import org.fusesource.hawtbuf.codec.type.StringCodec;
 
 
 /**

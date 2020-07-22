@@ -17,8 +17,8 @@
 package org.fusesource.hawtdb.transaction;
 
 import org.fusesource.hawtbuf.Buffer;
-import org.fusesource.hawtbuf.DataByteArrayInputStream;
-import org.fusesource.hawtbuf.DataByteArrayOutputStream;
+import org.fusesource.hawtbuf.io.DataByteArrayInputStream;
+import org.fusesource.hawtbuf.io.DataByteArrayOutputStream;
 import org.fusesource.hawtdb.internal.page.*;
 import org.fusesource.hawtdb.internal.page.Paged.SliceType;
 import org.fusesource.hawtdb.exception.IOPagingException;
