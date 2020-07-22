@@ -31,15 +31,12 @@
   <version>1.7-SNAPSHOT</version>
 
   <name>HawtDB</name>
-  <description>
-    HawtDB is an embedded MVCC Key/Value Database.
-  </description>
+  <description>HawtDB is an embedded MVCC Key/Value Database.</description>
 
   <properties>
     <forge-project-id>hawtdb</forge-project-id>
     <forge-project-id-uc>HAWTDB</forge-project-id-uc>
-
-    <hawtbuf-version>1.4</hawtbuf-version>
+    <hawtbuf-version>1.7-SNAPSHOT</hawtbuf-version>
     <commons-logging-version>1.1</commons-logging-version>
     <junit-version>4.7</junit-version>
     <log4j-version>1.2.14</log4j-version>
@@ -48,7 +45,9 @@
   <modules>
     <!--<module>hawtdb</module>-->
     <module>hawtdb-engine</module>
-    <module>hawtdb-website</module>
+    <module>hawtdb-hawtbuf</module>
+    <!--<module>hawtdb-website</module>-->
+
   </modules>
 
   <url>http://${forge-project-id}.fusesource.org/</url>
