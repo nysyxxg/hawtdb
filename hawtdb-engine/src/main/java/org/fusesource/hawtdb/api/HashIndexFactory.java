@@ -44,10 +44,14 @@ import org.fusesource.hawtdb.internal.page.Paged;
  */
 public class HashIndexFactory<Key, Value> implements IndexFactory<Key, Value> {
 
-    public static final String PROPERTY_PREFIX = HashIndex.class.getName() + ".";
+    public static final String PROPERTY_PREFIX = HashIndex.class.getName() + ".";// 属性_前缀
+    // 默认存储桶容量
     public static final int DEFAULT_BUCKET_CAPACITY = Integer.parseInt(System.getProperty(PROPERTY_PREFIX + "DEFAULT_BUCKET_CAPACITY", "1024"));
+    // 默认最大存储容量
     public static final int DEFAULT_MAXIMUM_BUCKET_CAPACITY = Integer.parseInt(System.getProperty(PROPERTY_PREFIX + "DEFAULT_MAXIMUM_BUCKET_CAPACITY", "16384"));
+    // 默认最小存储桶容量
     public static final int DEFAULT_MINIMUM_BUCKET_CAPACITY = Integer.parseInt(System.getProperty(PROPERTY_PREFIX + "DEFAULT_MINIMUM_BUCKET_CAPACITY", "16"));
+    // 默认加载系数
     public static final int DEFAULT_LOAD_FACTOR = Integer.parseInt(System.getProperty(PROPERTY_PREFIX + "DEFAULT_LOAD_FACTOR", "75"));
     private Codec<Key> keyCodec = new ObjectCodec<Key>();
     private Codec<Value> valueCodec = new ObjectCodec<Value>();

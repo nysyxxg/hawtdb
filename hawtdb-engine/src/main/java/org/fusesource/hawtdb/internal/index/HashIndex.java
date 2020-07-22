@@ -39,7 +39,7 @@ import static org.fusesource.hawtdb.log.Logging.debug;
  */
 public class HashIndex<Key,Value> implements Index<Key,Value> {
     
-    private final BTreeIndexFactory<Key, Value> BIN_FACTORY = new BTreeIndexFactory<Key, Value>();
+    private final BTreeIndexFactory<Key, Value> BTREE_INDEX_FACTORY = new BTreeIndexFactory<Key, Value>();
     
     private final Paged paged;
     private final int page;
@@ -60,9 +60,9 @@ public class HashIndex<Key,Value> implements Index<Key,Value> {
         this.loadFactor = factory.getLoadFactor();
         this.deferredEncoding = factory.isDeferredEncoding();
         this.initialBucketCapacity = factory.getBucketCapacity();
-        this.BIN_FACTORY.setKeyCodec(factory.getKeyCodec());
-        this.BIN_FACTORY.setValueCodec(factory.getValueCodec());
-        this.BIN_FACTORY.setDeferredEncoding(this.deferredEncoding);
+        this.BTREE_INDEX_FACTORY.setKeyCodec(factory.getKeyCodec());
+        this.BTREE_INDEX_FACTORY.setValueCodec(factory.getValueCodec());
+        this.BTREE_INDEX_FACTORY.setDeferredEncoding(this.deferredEncoding);
         this.fixedCapacity = this.minimumBucketCapacity==this.maximumBucketCapacity && this.maximumBucketCapacity==this.initialBucketCapacity;
     }
 
@@ -272,7 +272,7 @@ public class HashIndex<Key,Value> implements Index<Key,Value> {
             this.capacity = capacity;
             this.bucketsIndex = new int[capacity];
             for (int i = 0; i < capacity; i++) {
-                this.bucketsIndex[i] = index.BIN_FACTORY.create(index.paged).getIndexLocation();
+                this.bucketsIndex[i] = index.BTREE_INDEX_FACTORY.create(index.paged).getIndexLocation();
             }
             calcThresholds(index);
         }
@@ -309,7 +309,7 @@ public class HashIndex<Key,Value> implements Index<Key,Value> {
         private SortedIndex<Key,Value> getOrOpen(HashIndex<Key,Value> hash, int location) {
             SortedIndex<Key,Value> result = buckets.get(location);
             if (result == null) {
-                SortedIndex<Key,Value> bin = hash.BIN_FACTORY.open(hash.paged, location);
+                SortedIndex<Key,Value> bin = hash.BTREE_INDEX_FACTORY.open(hash.paged, location);
                 result = buckets.putIfAbsent(location, bin);
                 if (result == null) {
                     result = bin;
