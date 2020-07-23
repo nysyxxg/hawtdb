@@ -1,7 +1,5 @@
 package org.fusesource.hawtdb.internal.page.transaction;
 
-
-
 public interface TxPageFile {
 
     /**
@@ -27,7 +25,6 @@ public interface TxPageFile {
      *
      * The specified runnable is executed once the flush completes.
      *
-     * @param onComplete
      */
     public void flush(Runnable onComplete);
 
