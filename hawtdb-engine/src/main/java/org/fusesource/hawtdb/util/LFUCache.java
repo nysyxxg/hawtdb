@@ -7,20 +7,12 @@ import java.util.Map;
 
 /**
  * LFU cache implementation based on http://dhruvbird.com/lfu.pdf, with some notable differences:
- * <ul>
- * <li>
  * Frequency list is stored as an array with no next/prev pointers between nodes: looping over the array should be faster and more CPU-cache friendly than
  * using an ad-hoc linked-pointers structure.
- * </li>
- * <li>
- * The max frequency is capped at the cache size to avoid creating more and more frequency list entries, and all elements residing in the max frequency entry 
+ * The max frequency is capped at the cache size to avoid creating more and more frequency list entries, and all elements residing in the max frequency entry
  * are re-positioned in the frequency entry linked set in order to put most recently accessed elements ahead of less recently ones, 
  * which will be collected sooner.
- * </li>
- * <li>
  * The eviction factor determines how many elements (more specifically, the percentage of) will be evicted.
- * </li>
- * </ul>
  * As a consequence, this cache runs in *amortized* O(1) time (considering the worst case of having the lowest frequency at 0 and having to evict all
  * elements).
  * 

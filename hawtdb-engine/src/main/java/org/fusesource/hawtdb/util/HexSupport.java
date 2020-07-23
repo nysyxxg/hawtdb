@@ -18,8 +18,6 @@ package org.fusesource.hawtdb.util;
 
 /**
  * Used to convert to hex from byte arrays and back.
- * 
- * @version $Revision: 1.2 $
  */
 public final class HexSupport {
     

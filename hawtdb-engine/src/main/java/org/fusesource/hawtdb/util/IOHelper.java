@@ -24,8 +24,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-/**
- */
 public final class IOHelper {
     protected static final int MAX_DIR_NAME_LENGTH;
     protected static final int MAX_FILE_NAME_LENGTH;

@@ -18,10 +18,6 @@ package org.fusesource.hawtdb.util;
 
 import java.util.Comparator;
 
-/**
- * @author cmacnaug
- * 
- */
 public class Comparators {
 
 	/**

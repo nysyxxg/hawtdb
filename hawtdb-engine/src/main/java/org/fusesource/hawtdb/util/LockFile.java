@@ -24,8 +24,6 @@ import java.nio.channels.OverlappingFileLockException;
 
 /**
  * Used to lock a File.
- * 
- * @author chirino
  */
 public class LockFile {
     
