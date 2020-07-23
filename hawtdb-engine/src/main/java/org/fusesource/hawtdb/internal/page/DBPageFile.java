@@ -30,7 +30,7 @@ import static org.fusesource.hawtdb.log.LoggUtil.*;
 /**
  * Provides a   PageFile  interface to a   MemoryMappedFile .
  */
-public class HawtPageFile implements PageFile {
+public class DBPageFile implements PageFile {
     
     private final SimpleAllocator allocator;
     private final short pageSize;
@@ -38,7 +38,7 @@ public class HawtPageFile implements PageFile {
     private final MemoryMappedFile file;
     public final boolean storeFreePages;
     
-    public HawtPageFile(MemoryMappedFile file, short pageSize, int headerSize, int maxPages, boolean storeFreePages) throws IOException {
+    public DBPageFile(MemoryMappedFile file, short pageSize, int headerSize, int maxPages, boolean storeFreePages) throws IOException {
         this.file = file;
         this.allocator = new SimpleAllocator(maxPages);
         this.pageSize = pageSize;

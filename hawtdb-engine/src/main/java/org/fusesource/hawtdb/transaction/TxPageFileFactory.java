@@ -20,21 +20,21 @@ import java.io.File;
 import java.io.IOException;
 
 import org.fusesource.hawtdb.internal.page.PageFileFactory;
-import org.fusesource.hawtdb.internal.page.HawtPageFile;
+import org.fusesource.hawtdb.internal.page.DBPageFile;
 import org.fusesource.hawtdb.internal.cache.PageCache;
 import org.fusesource.hawtdb.internal.cache.ThreadLocalLFUPageCache;
 
 public class TxPageFileFactory {
 
     private final PageFileFactory pageFileFactory = new PageFileFactory();
-    private HawtTxPageFile txPageFile;
+    private DBTxPageFile txPageFile;
     protected boolean drainOnClose;
     protected boolean sync = true;
     protected boolean useWorkerThread;
     private PageCache pageCache = new ThreadLocalLFUPageCache(1024, 0.5f);
 
     public TxPageFileFactory() {
-        pageFileFactory.setHeaderSize(HawtTxPageFile.FILE_HEADER_SIZE);
+        pageFileFactory.setHeaderSize(DBTxPageFile.FILE_HEADER_SIZE);
         pageFileFactory.setStoreFreePages(false);
     }
 
@@ -49,7 +49,7 @@ public class TxPageFileFactory {
         boolean existed = getFile().isFile();
         pageFileFactory.open();
         if (txPageFile == null) {
-            txPageFile = new HawtTxPageFile(this, (HawtPageFile) pageFileFactory.getPageFile());
+            txPageFile = new DBTxPageFile(this, (DBPageFile) pageFileFactory.getPageFile());
             if (existed) {
                 txPageFile.recover();
             } else {

@@ -43,7 +43,7 @@ public class PageFileFactory {
     }
     
     private final MemoryMappedFileFactory mappedFileFactory = new MemoryMappedFileFactory();
-    private HawtPageFile pageFile;
+    private DBPageFile pageFile;
     
     protected int headerSize = 0;
     protected short pageSize = 512;
@@ -102,7 +102,7 @@ public class PageFileFactory {
                     }
                 }
                 
-                pageFile = new HawtPageFile(mappedFileFactory.getMemoryMappedFile(), pageSize, headerSize, maxPages, storeFreePages);
+                pageFile = new DBPageFile(mappedFileFactory.getMemoryMappedFile(), pageSize, headerSize, maxPages, storeFreePages);
                 
                 if (freePageExtent >= 0) {
                     DataInputStream is = new DataInputStream(new ExtentInputStream(pageFile, freePageExtent));

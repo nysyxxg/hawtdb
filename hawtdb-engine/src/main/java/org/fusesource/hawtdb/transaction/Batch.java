@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,30 +38,29 @@ import static org.fusesource.hawtdb.transaction.Update.update;
 /**
  * Aggregates a group of commits so that they can be more efficiently  stored to disk.
  * 聚合一组提交，以便更有效地将它们存储到磁盘。
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 final class Batch extends LinkedNode<Batch> implements Externalizable, Iterable<Commit> {
-
+    
     private static final long serialVersionUID = 1188640492489990493L;
     
     /** the pageId that this redo batch is stored at */
-    volatile int page=-1;
+    volatile int page = -1;
     /** points to a previous redo batch page */
-    public volatile int previous=-1;
+    public volatile int previous = -1;
     /** was this object reloaded from disk? */
     volatile boolean recovered;
     
-    /** the commits and snapshots in the redo */ 
+    /** the commits and snapshots in the redo */
     final LinkedNodeList<Commit> commits = new LinkedNodeList<Commit>();
     /** tracks how many snapshots are referencing the redo */
     volatile int snapshots;
     /** the oldest commit in this redo */
-    public volatile long base=-1;
+    public volatile long base = -1;
     /** the newest commit in this redo */
     public volatile long head;
-
+    
     volatile boolean performed;
-
+    
     volatile ArrayList<Runnable> flushCallbacks = new ArrayList<Runnable>();
     
     public Batch() {
@@ -70,20 +69,20 @@ final class Batch extends LinkedNode<Batch> implements Externalizable, Iterable<
     public boolean isPerformed() {
         return performed;
     }
-
+    
     public Batch(long head) {
         this.head = head;
     }
-
-    public String toString() { 
-        return "{ page: "+this.page+", base: "+base+", head: "+head+", snapshots: "+snapshots+", commits: "+ commits.size()+", previous: "+previous+" }";
+    
+    public String toString() {
+        return "{ page: " + this.page + ", base: " + base + ", head: " + head + ", snapshots: " + snapshots + ", commits: " + commits.size() + ", previous: " + previous + " }";
     }
     
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeLong(head);
         out.writeLong(base);
         out.writeInt(previous);
-
+        
         // Only need to store the commits.
         ArrayList<Commit> l = new ArrayList<Commit>();
         for (Commit commit : this) {
@@ -91,7 +90,7 @@ final class Batch extends LinkedNode<Batch> implements Externalizable, Iterable<
         }
         out.writeObject(l);
     }
-
+    
     @SuppressWarnings("unchecked")
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         head = in.readLong();
@@ -101,8 +100,8 @@ final class Batch extends LinkedNode<Batch> implements Externalizable, Iterable<
         for (Commit commit : l) {
             commits.addLast(commit);
         }
-    }        
-
+    }
+    
     public int pageCount() {
         int rc = 0;
         for (Commit commit : this) {
@@ -110,11 +109,11 @@ final class Batch extends LinkedNode<Batch> implements Externalizable, Iterable<
         }
         return rc;
     }
-
+    
     public Commit getHeadCommit() {
         Batch b = this;
-        while( b!=null ) {
-            if( !b.commits.isEmpty() ) {
+        while (b != null) {
+            if (!b.commits.isEmpty()) {
                 return b.commits.getTail();
             }
             b = b.getPrevious();
@@ -128,66 +127,66 @@ final class Batch extends LinkedNode<Batch> implements Externalizable, Iterable<
             Commit last;
             
             public boolean hasNext() {
-                return next!=null;
+                return next != null;
             }
-
+            
             public Commit next() {
-                if( next==null ) {
+                if (next == null) {
                     throw new NoSuchElementException();
                 }
                 last = next;
                 next = next.getNext();
                 return last;
             }
-
+            
             public void remove() {
 //                if( last==null ) {
-                    throw new IllegalStateException();
+                throw new IllegalStateException();
 //                }
 //                last.unlink();
             }
         };
     }
-
+    
     public void performDeferredUpdates(Paged pageFile) {
         for (Commit commit : this) {
-            assert(commit.stillSane());
-            if( commit.updates != null ) {
+            assert (commit.stillSane());
+            if (commit.updates != null) {
                 for (Entry<Integer, Update> entry : commit.updates.entrySet()) {
-
+                    
                     Integer page = entry.getKey();
                     DeferredUpdate du = entry.getValue().deferredUpdate();
-
-                    if( du == null ) {
+                    
+                    if (du == null) {
                         continue;
                     }
-
+                    
                     assert !du.shadowed() : "deferred update should not have a shadow page.";
-                    if( du.removed() ) {
-                        assert(!du.put());
-
+                    if (du.removed()) {
+                        assert (!du.put());
+                        
                         List<Integer> freePages = du.marshaller.pagesLinked(pageFile, page);
                         for (Integer linkedPage : freePages) {
                             commit.merge(pageFile.allocator(), linkedPage, update().freed(true));
                         }
                     }
-
-                    if( du.put() ) {
-                        assert(!du.removed());
-
-                        if( !du.allocated() ) {
+                    
+                    if (du.put()) {
+                        assert (!du.removed());
+                        
+                        if (!du.allocated()) {
                             // update has to occur on a shadow page.
                             du.shadow(pageFile.allocator().alloc(1));
-
+                            
                             // free up the linked pages of the previous put
                             List<Integer> freePages = du.marshaller.pagesLinked(pageFile, page);
                             for (Integer linkedPage : freePages) {
                                 commit.merge(pageFile.allocator(), linkedPage, update().freed(true));
                             }
                         }
-
+                        
                         List<Integer> linkedPages = du.marshaller.store(pageFile, du.translate(page), du.value);
-                        if( traced(page) ) {
+                        if (traced(page)) {
                             trace("storing update of %d at %d linked pages: %s", page, du.translate(page), linkedPages);
                         }
                         
@@ -201,24 +200,24 @@ final class Batch extends LinkedNode<Batch> implements Externalizable, Iterable<
             }
         }
     }
-
+    
     public void release(Allocator allocator) {
         for (Commit commit : this) {
             for (Entry<Integer, Update> entry : commit.updates.entrySet()) {
                 int key = entry.getKey();
                 Update value = entry.getValue();
-
-                if( value.freed() ) {
-                    assert(!value.shadowed());
+                
+                if (value.freed()) {
+                    assert (!value.shadowed());
                     allocator.free(key, 1);
                 }
-                if( value.shadowed()) {
-                    assert(!value.freed());
+                if (value.shadowed()) {
+                    assert (!value.freed());
                     // need to free the shadow page..
                     allocator.free(value.shadow(), 1);
                 }
             }
         }
     }
-
+    
 }

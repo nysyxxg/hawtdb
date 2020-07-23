@@ -58,7 +58,7 @@ import static org.fusesource.hawtdb.log.LoggUtil.*;
  *
  * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
-public final class HawtTxPageFile implements TxPageFile {
+public final class DBTxPageFile implements TxPageFile {
     
     public static final int FILE_HEADER_SIZE = 1024 * 4;
     public static final byte[] MAGIC = magic();
@@ -173,7 +173,7 @@ public final class HawtTxPageFile implements TxPageFile {
     private final LinkedNodeList<Batch> batches = new LinkedNodeList<Batch>();
     private final MemoryMappedFile file;
     final Allocator allocator;
-    public final HawtPageFile pageFile;
+    public final DBPageFile pageFile;
     private static final int updateBatchSize = 1024;
     private final boolean synch;
     private volatile int lastBatchPage = -1;
@@ -237,7 +237,7 @@ public final class HawtTxPageFile implements TxPageFile {
     private Ranges storedFreeList = new Ranges();
     private final ExecutorService worker;
     
-    public HawtTxPageFile(TxPageFileFactory factory, HawtPageFile pageFile) {
+    public DBTxPageFile(TxPageFileFactory factory, DBPageFile pageFile) {
         this.pageFile = pageFile;
         this.synch = factory.isSync();
         this.file = pageFile.getFile();
@@ -322,7 +322,7 @@ public final class HawtTxPageFile implements TxPageFile {
      * @see org.fusesource.hawtdb.internal.page.TransactionalPageFile#tx()
      */
     public Transaction tx() {
-        return new HawtTransaction(this);
+        return new DBTransaction(this);
     }
     
     /**

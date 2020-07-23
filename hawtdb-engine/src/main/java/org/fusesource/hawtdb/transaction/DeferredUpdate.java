@@ -28,8 +28,6 @@ import org.fusesource.hawtdb.internal.page.accessor.PagedAccessor;
  * the same pages are getting updated frequently then deferring updates
  * will save encoding passes sine older updates may get discarded due 
  * to a more more recent update of the same page.  
- * 
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 class DeferredUpdate extends Update {
     

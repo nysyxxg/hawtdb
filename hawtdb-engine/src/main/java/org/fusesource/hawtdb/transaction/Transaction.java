@@ -36,8 +36,6 @@ import org.fusesource.hawtdb.exception.OptimisticUpdateException;
  * update.  Updating a page or committing the transaction may fail 
  * with an {@line OptimisticUpdateException} if another committed transaction
  * has updated the same page this transaction was trying to update.
- * 
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 public interface Transaction extends Paged {
     

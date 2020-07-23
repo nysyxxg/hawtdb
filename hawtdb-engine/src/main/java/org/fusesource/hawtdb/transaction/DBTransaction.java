@@ -38,20 +38,13 @@ import static org.fusesource.hawtdb.transaction.Update.update;
 /**
  * Transaction objects are NOT thread safe. Users of this object should
  * guard it from concurrent access.
- *
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
-final class HawtTransaction implements Transaction {
+final class DBTransaction implements Transaction {
+  
+    private final DBTxPageFile parent;
     
-    /**
-     *
-     */
-    private final HawtTxPageFile parent;
     
-    /**
-     * @param concurrentPageFile
-     */
-    HawtTransaction(HawtTxPageFile concurrentPageFile) {
+    DBTransaction(DBTxPageFile concurrentPageFile) {
         parent = concurrentPageFile;
     }
     
@@ -64,13 +57,13 @@ final class HawtTransaction implements Transaction {
         
         public void free(int pageId, int count) {
             assertOpen();
-            // TODO: this is not a very efficient way to handle allocation ranges.
+            // TODO: 这不是处理分配范围的非常有效的方法。
             int end = pageId + count;
             for (int key = pageId; key < end; key++) {
                 Update previous = getUpdates().put(key, update().freed(true).note("free " + key));
                 if (previous != null && previous.allocated()) {
                     getUpdates().remove(key);
-                    HawtTransaction.this.parent.allocator.free(key, 1);
+                    DBTransaction.this.parent.allocator.free(key, 1);
                 }
             }
         }
@@ -78,7 +71,7 @@ final class HawtTransaction implements Transaction {
         public int alloc(int count) throws OutOfSpaceException {
             assertOpen();
             int pageId = palloc(count);
-            // TODO: this is not a very efficient way to handle allocation ranges.
+            // TODO: 这不是处理分配范围的非常有效的方法。
             int end = pageId + count;
             for (int key = pageId; key < end; key++) {
                 getUpdates().put(key, update().allocated(true).note("alloc " + key));
@@ -98,12 +91,12 @@ final class HawtTransaction implements Transaction {
         
         public int getLimit() {
             assertOpen();
-            return HawtTransaction.this.parent.allocator.getLimit();
+            return DBTransaction.this.parent.allocator.getLimit();
         }
         
         public boolean isAllocated(int page) {
             assertOpen();
-            return HawtTransaction.this.parent.allocator.isAllocated(page);
+            return DBTransaction.this.parent.allocator.isAllocated(page);
         }
         
         public void setFreeRanges(Ranges freeList) {

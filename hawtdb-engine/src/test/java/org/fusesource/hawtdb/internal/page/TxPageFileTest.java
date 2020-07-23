@@ -35,7 +35,7 @@ import org.fusesource.hawtdb.exception.IOPagingException;
 import org.fusesource.hawtdb.exception.OptimisticUpdateException;
 import org.fusesource.hawtdb.internal.page.accessor.PagedAccessor;
 import org.fusesource.hawtdb.internal.page.allocator.Allocator;
-import org.fusesource.hawtdb.transaction.HawtTxPageFile;
+import org.fusesource.hawtdb.transaction.DBTxPageFile;
 import org.fusesource.hawtdb.transaction.Transaction;
 import org.fusesource.hawtdb.transaction.TxPageFile;
 import org.fusesource.hawtdb.transaction.TxPageFileFactory;
@@ -217,7 +217,7 @@ public class TxPageFileTest {
     }
     
     public Paged getRawPageFile() {
-        return ((HawtTxPageFile) txPageFile).pageFile;
+        return ((DBTxPageFile) txPageFile).pageFile;
     }
     
     @Test
@@ -236,7 +236,7 @@ public class TxPageFileTest {
         
         // Apply the updates.
         txPageFile.flush();
-        ((HawtTxPageFile) txPageFile).performBatches();
+        ((DBTxPageFile) txPageFile).performBatches();
         
         // Should still be there..
         assertEquals("Hello", load(getRawPageFile(), 0));
@@ -259,7 +259,7 @@ public class TxPageFileTest {
         
         // Apply them
         txPageFile.flush();
-        ((HawtTxPageFile) txPageFile).performBatches();
+        ((DBTxPageFile) txPageFile).performBatches();
         
         // We should see them now.
         assertEquals("Good", load(getRawPageFile(), 0));
