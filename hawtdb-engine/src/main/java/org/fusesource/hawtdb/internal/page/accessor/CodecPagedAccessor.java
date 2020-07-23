@@ -14,10 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtdb.internal.page;
+package org.fusesource.hawtdb.internal.page.accessor;
 
 import org.fusesource.hawtbuf.codec.Codec;
-import org.fusesource.hawtdb.internal.page.AbstractStreamPagedAccessor;
 import org.fusesource.hawtdb.internal.page.Paged;
 
 import java.io.DataInputStream;
@@ -25,9 +24,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 /**
+ * 使用封送器对值进行编码/解码的编码器。
  * A EncoderDecoder which uses a Marshaller to encode/decode the values.
- *
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 public class CodecPagedAccessor<T> extends AbstractStreamPagedAccessor<T> {
 

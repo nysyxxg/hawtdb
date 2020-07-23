@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,20 +33,20 @@ import java.util.Map.Entry;
  * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 public class TreeMap<K, V> implements Serializable {
-
+    
     private static final long serialVersionUID = 6107175734705142096L;
     
     private static final boolean RED = false;
     private static final boolean BLACK = true;
-
+    
     private int count;
     private TreeEntry<K, V> root;
     private final Comparator<? super K> comparator;
-
+    
     public TreeMap() {
         this.comparator = null;
     }
-
+    
     @SuppressWarnings("unchecked")
     private int compare(K k1, K k2) {
         if (comparator != null) {
@@ -55,17 +55,16 @@ public class TreeMap<K, V> implements Serializable {
             return ((Comparable<K>) k1).compareTo(k2);
         }
     }
-
+    
     public TreeMap(Comparator<? super K> comparator) {
         this.comparator = comparator;
     }
-
+    
     public Comparator<? super K> comparator() {
         return comparator;
     }
-
+    
     /**
-     * 
      * @return The first key in the map.
      */
     public K firstKey() {
@@ -75,7 +74,7 @@ public class TreeMap<K, V> implements Serializable {
         }
         return null;
     }
-
+    
     /**
      * @return The last key in the map.
      */
@@ -86,7 +85,7 @@ public class TreeMap<K, V> implements Serializable {
         }
         return null;
     }
-
+    
     /**
      * Clears all elements in this map.
      */
@@ -97,19 +96,19 @@ public class TreeMap<K, V> implements Serializable {
         root = null;
         count = 0;
     }
-
+    
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#containsKey(java.lang.Object)
      */
     public boolean containsKey(K key) {
         return getEntry(key, root) != null;
     }
-
+    
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#containsValue(java.lang.Object)
      */
     public boolean containsValue(Object value) {
@@ -122,20 +121,20 @@ public class TreeMap<K, V> implements Serializable {
         }
         return false;
     }
-
+    
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#entrySet()
      */
     public Set<Map.Entry<K, V>> entrySet() {
         return new AbstractSet<Map.Entry<K, V>>() {
-
+            
             @Override
             public Iterator<Entry<K, V>> iterator() {
                 return new EntryIterator();
             }
-
+            
             @SuppressWarnings("unchecked")
             @Override
             public boolean contains(Object o) {
@@ -151,28 +150,28 @@ public class TreeMap<K, V> implements Serializable {
                     return false;
                 }
             }
-
+            
             @SuppressWarnings("unchecked")
             @Override
             public boolean remove(Object o) {
                 return TreeMap.this.removeEntry((TreeEntry<K, V>) o) != null;
             }
-
+            
             @Override
             public int size() {
                 return count;
             }
-
+            
             @Override
             public void clear() {
                 TreeMap.this.clear();
             }
         };
     }
-
+    
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#get(java.lang.Object)
      */
     public V get(K key) {
@@ -182,7 +181,7 @@ public class TreeMap<K, V> implements Serializable {
         }
         return null;
     }
-
+    
     public final TreeEntry<K, V> getEntry(K key) {
         return getEntry(key, root);
     }
@@ -200,11 +199,11 @@ public class TreeMap<K, V> implements Serializable {
         }
         return null;
     }
-
+    
     /**
      * Returns a key-value mapping associated with the least key in this map, or
      * null if the map is empty.
-     * 
+     *
      * @return The lowest key in the map
      */
     public TreeEntry<K, V> firstEntry() {
@@ -215,14 +214,14 @@ public class TreeMap<K, V> implements Serializable {
             }
             r = r.left;
         }
-
+        
         return r;
     }
-
+    
     /**
      * Returns a key-value mapping associated with the greatest key in this map,
      * or null if the map is empty.
-     * 
+     *
      * @return The entry associated with the greates key in the map.
      */
     public TreeEntry<K, V> lastEntry() {
@@ -233,16 +232,15 @@ public class TreeMap<K, V> implements Serializable {
             }
             r = r.right;
         }
-
+        
         return r;
     }
-
+    
     /**
      * Returns a key-value mapping associated with the greatest key strictly
      * less than the given key, or null if there is no such key
-     * 
-     * @param key
-     *            the key.
+     *
+     * @param key the key.
      * @return
      */
     public TreeEntry<K, V> lowerEntry(K key) {
@@ -267,15 +265,14 @@ public class TreeMap<K, V> implements Serializable {
         }
         return l;
     }
-
+    
     /**
      * Returns a key-value mapping associated with the greatest key less than or
      * equal to the given key, or null if there is no such key.
-     * 
-     * @param key
-     *            The key for which to search.
+     *
+     * @param key The key for which to search.
      * @return a key-value mapping associated with the greatest key less than or
-     *         equal to the given key, or null if there is no such key.
+     * equal to the given key, or null if there is no such key.
      */
     public TreeEntry<K, V> floorEntry(K key) {
         TreeEntry<K, V> n = root;
@@ -285,7 +282,7 @@ public class TreeMap<K, V> implements Serializable {
             if (c == 0) {
                 return n;
             }
-
+            
             if (c < 0) {
                 n = n.left;
             } else {
@@ -303,15 +300,14 @@ public class TreeMap<K, V> implements Serializable {
         }
         return l;
     }
-
+    
     /**
      * Returns a key-value mapping associated with the lowest key strictly
      * greater than the given key, or null if there is no such key
-     * 
-     * @param key
-     *            The key
+     *
+     * @param key The key
      * @return a key-value mapping associated with the lowest key strictly
-     *         greater than the given key
+     * greater than the given key
      */
     public TreeEntry<K, V> upperEntry(K key) {
         TreeEntry<K, V> n = root;
@@ -335,11 +331,11 @@ public class TreeMap<K, V> implements Serializable {
         }
         return h;
     }
-
+    
     /**
      * Returns a key-value mapping associated with the least key greater than or
      * equal to the given key, or null if there is no such key.
-     * 
+     *
      * @param key
      * @return
      */
@@ -351,7 +347,7 @@ public class TreeMap<K, V> implements Serializable {
             if (c == 0) {
                 return n;
             }
-
+            
             if (c > 0) {
                 n = n.right;
             } else {
@@ -369,8 +365,8 @@ public class TreeMap<K, V> implements Serializable {
         }
         return h;
     }
-
-    static private final <K,V> TreeEntry<K, V> next(TreeEntry<K, V> n) {
+    
+    static private final <K, V> TreeEntry<K, V> next(TreeEntry<K, V> n) {
         if (n == null)
             return null;
         else if (n.right != null) {
@@ -390,7 +386,7 @@ public class TreeMap<K, V> implements Serializable {
         }
     }
     
-    static private final <K,V> TreeEntry<K, V> previous(TreeEntry<K, V> n) {
+    static private final <K, V> TreeEntry<K, V> previous(TreeEntry<K, V> n) {
         if (n == null)
             return null;
         else if (n.left != null) {
@@ -409,51 +405,51 @@ public class TreeMap<K, V> implements Serializable {
             return p;
         }
     }
-
+    
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#isEmpty()
      */
     public boolean isEmpty() {
         return count == 0;
     }
-
+    
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#keySet()
      */
     public Set<K> keySet() {
         return new AbstractSet<K>() {
-
+            
             @Override
             public void clear() {
                 TreeMap.this.clear();
             }
-
+            
             @SuppressWarnings("unchecked")
             @Override
             public boolean remove(Object o) {
                 return TreeMap.this.remove((K) o) != null;
             }
-
+            
             @Override
             public Iterator<K> iterator() {
                 return new KeyIterator();
             }
-
+            
             @Override
             public int size() {
                 return count;
             }
         };
-
+        
     }
-
+    
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#putAll(java.util.Map)
      */
     public void putAll(Map<? extends K, ? extends V> t) {
@@ -461,23 +457,23 @@ public class TreeMap<K, V> implements Serializable {
             put(entry.getKey(), entry.getValue());
         }
     }
-
+    
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#remove(java.lang.Object)
      */
     public V remove(K key) {
         return removeEntry(getEntry(key, root));
     }
-
+    
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#put(java.lang.Object, java.lang.Object)
      */
     public V put(final K key, final V value) {
-
+        
         if (root == null) {
             // map is empty
             root = new TreeEntry<K, V>(key, value, null, this);
@@ -485,11 +481,11 @@ public class TreeMap<K, V> implements Serializable {
             return null;
         }
         TreeEntry<K, V> n = root;
-
+        
         // add new mapping
         while (true) {
             int c = compare(key, n.key);
-
+            
             if (c == 0) {
                 V old = n.value;
                 n.value = value;
@@ -515,73 +511,72 @@ public class TreeMap<K, V> implements Serializable {
             }
         }
     }
-
+    
     /**
      * complicated red-black insert stuff. Based on apache commons BidiMap
      * method:
-     * 
-     * @param n
-     *            the newly inserted node
+     *
+     * @param n the newly inserted node
      */
     private void doRedBlackInsert(final TreeEntry<K, V> n) {
         TreeEntry<K, V> currentNode = n;
         color(currentNode, RED);
-
+        
         while (currentNode != null && currentNode != root && isRed(currentNode.parent)) {
             if (isLeftChild(parent(currentNode))) {
                 TreeEntry<K, V> y = getRight(getGrandParent(currentNode));
-
+                
                 if (isRed(y)) {
                     color(parent(currentNode), BLACK);
                     color(y, BLACK);
                     color(getGrandParent(currentNode), RED);
-
+                    
                     currentNode = getGrandParent(currentNode);
                 } else {
                     if (isRightChild(currentNode)) {
                         currentNode = parent(currentNode);
-
+                        
                         rotateLeft(currentNode);
                     }
-
+                    
                     color(parent(currentNode), BLACK);
                     color(getGrandParent(currentNode), RED);
-
+                    
                     if (getGrandParent(currentNode) != null) {
                         rotateRight(getGrandParent(currentNode));
                     }
                 }
             } else {
-
+                
                 // just like clause above, except swap left for right
                 TreeEntry<K, V> y = getLeft(getGrandParent(currentNode));
-
+                
                 if (isRed(y)) {
                     color(parent(currentNode), BLACK);
                     color(y, BLACK);
                     color(getGrandParent(currentNode), RED);
-
+                    
                     currentNode = getGrandParent(currentNode);
                 } else {
                     if (isLeftChild(currentNode)) {
                         currentNode = parent(currentNode);
-
+                        
                         rotateRight(currentNode);
                     }
-
+                    
                     color(parent(currentNode), BLACK);
                     color(getGrandParent(currentNode), RED);
-
+                    
                     if (getGrandParent(currentNode) != null) {
                         rotateLeft(getGrandParent(currentNode));
                     }
                 }
             }
         }
-
+        
         color(root, BLACK);
     }
-
+    
     //Based on Apache common's TreeBidiMap
     private void rotateLeft(TreeEntry<K, V> n) {
         TreeEntry<K, V> r = n.right;
@@ -597,11 +592,11 @@ public class TreeMap<K, V> implements Serializable {
         } else {
             n.parent.right = r;
         }
-
+        
         r.left = n;
         n.parent = r;
     }
-
+    
     //Based on Apache common's TreeBidiMap    
     private void rotateRight(TreeEntry<K, V> n) {
         TreeEntry<K, V> l = n.left;
@@ -620,26 +615,25 @@ public class TreeMap<K, V> implements Serializable {
         l.right = n;
         n.parent = l;
     }
-
+    
     /**
      * complicated red-black delete stuff. Based on Apache Common's TreeBidiMap
-     * 
-     * @param n
-     *            the node to be deleted
+     *
+     * @param n the node to be deleted
      */
     public final V removeEntry(TreeEntry<K, V> n) {
         if (n == null) {
             return null;
         }
-
+        
         if (n.map != this) {
             throw new IllegalStateException("Node not in list");
         }
-
+        
         V old = n.value;
-
+        
         count--;
-
+        
         //if deleted node has both left and children, swap with
         // the next greater node
         if (n.left != null && n.right != null) {
@@ -648,12 +642,12 @@ public class TreeMap<K, V> implements Serializable {
             n.value = next.value;
             n = next;
         }
-
+        
         TreeEntry<K, V> replacement = n.left != null ? n.left : n.right;
-
+        
         if (replacement != null) {
             replacement.parent = n.parent;
-
+            
             if (n.parent == null) {
                 root = replacement;
             } else if (n == n.parent.left) {
@@ -661,288 +655,271 @@ public class TreeMap<K, V> implements Serializable {
             } else {
                 n.parent.right = replacement;
             }
-
+            
             n.left = null;
             n.right = null;
             n.parent = null;
-
+            
             if (isBlack(n)) {
                 doRedBlackDeleteFixup(replacement);
             }
         } else {
-
+            
             // replacement is null
             if (n.parent == null) {
                 // empty tree
                 root = null;
             } else {
-
+                
                 // deleted node had no children
                 if (isBlack(n)) {
                     doRedBlackDeleteFixup(n);
                 }
-
+                
                 if (n.parent != null) {
                     if (n == n.parent.left) {
                         n.parent.left = null;
                     } else {
                         n.parent.right = null;
                     }
-
+                    
                     n.parent = null;
                 }
             }
         }
         return old;
     }
-
+    
     /**
      * complicated red-black delete stuff. Based on Apache Commons TreeBidiMap.
-     * 
-     * @param replacementNode
-     *            the node being replaced
+     *
+     * @param replacementNode the node being replaced
      */
     private void doRedBlackDeleteFixup(final TreeEntry<K, V> replacementNode) {
         TreeEntry<K, V> currentNode = replacementNode;
-
+        
         while (currentNode != root && isBlack(currentNode)) {
             if (isLeftChild(currentNode)) {
                 TreeEntry<K, V> siblingNode = getRight(parent(currentNode));
-
+                
                 if (isRed(siblingNode)) {
                     color(siblingNode, BLACK);
                     color(parent(currentNode), RED);
                     rotateLeft(parent(currentNode));
-
+                    
                     siblingNode = getRight(parent(currentNode));
                 }
-
+                
                 if (isBlack(getLeft(siblingNode)) && isBlack(getRight(siblingNode))) {
                     color(siblingNode, RED);
-
+                    
                     currentNode = parent(currentNode);
                 } else {
                     if (isBlack(getRight(siblingNode))) {
                         color(getLeft(siblingNode), BLACK);
                         color(siblingNode, RED);
                         rotateRight(siblingNode);
-
+                        
                         siblingNode = getRight(parent(currentNode));
                     }
-
+                    
                     color(siblingNode, getColor(parent(currentNode)));
                     color(parent(currentNode), BLACK);
                     color(getRight(siblingNode), BLACK);
                     rotateLeft(parent(currentNode));
-
+                    
                     currentNode = root;
                 }
             } else {
                 TreeEntry<K, V> siblingNode = getLeft(parent(currentNode));
-
+                
                 if (isRed(siblingNode)) {
                     color(siblingNode, BLACK);
                     color(parent(currentNode), RED);
                     rotateRight(parent(currentNode));
-
+                    
                     siblingNode = getLeft(parent(currentNode));
                 }
-
+                
                 if (isBlack(getRight(siblingNode)) && isBlack(getLeft(siblingNode))) {
                     color(siblingNode, RED);
-
+                    
                     currentNode = parent(currentNode);
                 } else {
                     if (isBlack(getLeft(siblingNode))) {
                         color(getRight(siblingNode), BLACK);
                         color(siblingNode, RED);
                         rotateLeft(siblingNode);
-
+                        
                         siblingNode = getLeft(parent(currentNode));
                     }
-
+                    
                     color(siblingNode, getColor(parent(currentNode)));
                     color(parent(currentNode), BLACK);
                     color(getLeft(siblingNode), BLACK);
                     rotateRight(parent(currentNode));
-
+                    
                     currentNode = root;
                 }
             }
         }
-
+        
         color(currentNode, BLACK);
     }
-
-
+    
+    
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#size()
      */
     public int size() {
         return count;
     }
-
+    
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Map#values()
      */
     public Collection<V> values() {
         return new AbstractCollection<V>() {
-
+            
             @Override
             public Iterator<V> iterator() {
                 return new ValueIterator();
             }
-
+            
             @Override
             public int size() {
                 return count;
             }
         };
     }
-
+    
     private static <K, V> TreeEntry<K, V> parent(TreeEntry<K, V> n) {
         return (n == null ? null : n.parent);
     }
-
+    
     private static <K, V> void color(TreeEntry<K, V> n, boolean c) {
         if (n != null)
             n.color = c;
     }
-
+    
     private static <K, V> boolean getColor(TreeEntry<K, V> n) {
         return (n == null ? BLACK : n.color);
     }
-
+    
     /**
      * get a node's left child. mind you, the node may not exist. no problem
-     * 
-     * @param node
-     *            the node (may be null) in question
      */
     private static <K, V> TreeEntry<K, V> getLeft(TreeEntry<K, V> n) {
         return (n == null) ? null : n.left;
     }
-
+    
     /**
      * get a node's right child. mind you, the node may not exist. no problem
-     * 
-     * @param node
-     *            the node (may be null) in question
      */
     private static <K, V> TreeEntry<K, V> getRight(TreeEntry<K, V> n) {
         return (n == null) ? null : n.right;
     }
-
+    
     /**
      * is the specified node red? if the node does not exist, no, it's black,
      * thank you
-     * 
-     * @param node
-     *            the node (may be null) in question
+     * the node (may be null) in question
      */
     private static <K, V> boolean isRed(TreeEntry<K, V> n) {
         return n == null ? false : n.color == RED;
     }
-
+    
     /**
      * is the specified black red? if the node does not exist, sure, it's black,
      * thank you
-     * 
-     * @param node
-     *            the node (may be null) in question
      */
     private static <K, V> boolean isBlack(final TreeEntry<K, V> n) {
         return n == null ? true : n.color == BLACK;
     }
-
+    
     /**
      * is this node its parent's left child? mind you, the node, or its parent,
      * may not exist. no problem. if the node doesn't exist ... it's its
      * non-existent parent's left child. If the node does exist but has no
      * parent ... no, we're not the non-existent parent's left child. Otherwise
      * (both the specified node AND its parent exist), check.
-     * 
-     * @param node
-     *            the node (may be null) in question
+     *
+     * @param node the node (may be null) in question
      */
     private static <K, V> boolean isLeftChild(final TreeEntry<K, V> node) {
-
+        
         return node == null ? true : (node.parent == null ? false : (node == node.parent.left));
     }
-
+    
     /**
      * is this node its parent's right child? mind you, the node, or its parent,
      * may not exist. no problem. if the node doesn't exist ... it's its
      * non-existent parent's right child. If the node does exist but has no
      * parent ... no, we're not the non-existent parent's right child. Otherwise
      * (both the specified node AND its parent exist), check.
-     * 
-     * @param node
-     *            the node (may be null) in question
-     * @param index
-     *            the KEY or VALUE int
+     *
+     * @param node  the node (may be null) in question
      */
     private static <K, V> boolean isRightChild(final TreeEntry<K, V> node) {
         return node == null ? true : (node.parent == null ? false : (node == node.parent.right));
-
+        
     }
-
+    
     /**
      * get a node's grandparent. mind you, the node, its parent, or its
      * grandparent may not exist. no problem
-     * 
-     * @param node
-     *            the node (may be null) in question
+     *
+     * @param node the node (may be null) in question
      */
     private static <K, V> TreeEntry<K, V> getGrandParent(final TreeEntry<K, V> node) {
         return parent(parent(node));
     }
-
+    
     public static class TreeEntry<K, V> implements Map.Entry<K, V>, Serializable {
-
+        
         private static final long serialVersionUID = 8490652911043012737L;
         
         volatile TreeMap<K, V> map;
         volatile V value;
         volatile K key;
         volatile boolean color = BLACK;
-
+        
         TreeEntry<K, V> parent;
         TreeEntry<K, V> left;
         TreeEntry<K, V> right;
-
+        
         TreeEntry(K key, V val, TreeEntry<K, V> parent, TreeMap<K, V> map) {
             this.key = key;
             this.parent = parent;
             this.value = val;
             this.map = map;
         }
-
+        
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.util.Map.Entry#getKey()
          */
         public K getKey() {
             return key;
         }
-
+        
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.util.Map.Entry#getValue()
          */
         public V getValue() {
             return value;
         }
-
+        
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.util.Map.Entry#setValue(java.lang.Object)
          */
         public V setValue(V val) {
@@ -950,16 +927,16 @@ public class TreeMap<K, V> implements Serializable {
             this.value = val;
             return old;
         }
-
+        
         @SuppressWarnings("unchecked")
         public boolean equals(Object o) {
             if (!(o instanceof Map.Entry))
                 return false;
             Map.Entry e = (Map.Entry) o;
-
+            
             return (key == null ? e.getKey() == null : key.equals(e.getKey())) && (value == null ? e.getValue() == null : value.equals(e.getValue()));
         }
-
+        
         public int hashCode() {
             int keyHash = (key == null ? 0 : key.hashCode());
             int valueHash = (value == null ? 0 : value.hashCode());
@@ -976,15 +953,15 @@ public class TreeMap<K, V> implements Serializable {
         
         @Override
         public String toString() {
-            return "{ key: " +key+", value: "+value+" }";
+            return "{ key: " + key + ", value: " + value + " }";
         }
     }
-
+    
     private class ValueIterator extends AbstractEntryIterator<V> {
-
+        
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.util.Iterator#next()
          */
         public V next() {
@@ -996,12 +973,12 @@ public class TreeMap<K, V> implements Serializable {
             }
         }
     }
-
+    
     private class KeyIterator extends AbstractEntryIterator<K> {
-
+        
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.util.Iterator#next()
          */
         public K next() {
@@ -1013,11 +990,11 @@ public class TreeMap<K, V> implements Serializable {
             }
         }
     }
-
+    
     private class EntryIterator extends AbstractEntryIterator<Map.Entry<K, V>> {
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.util.Iterator#next()
          */
         public Entry<K, V> next() {
@@ -1028,26 +1005,26 @@ public class TreeMap<K, V> implements Serializable {
                 return last;
             }
         }
-
+        
     }
-
+    
     private abstract class AbstractEntryIterator<T> implements Iterator<T> {
-
+        
         TreeEntry<K, V> last = null;
         TreeEntry<K, V> next = firstEntry();
-
+        
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.util.Iterator#hasNext()
          */
         public boolean hasNext() {
             return next != null;
         }
-
+        
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.util.Iterator#next()
          */
         protected TreeEntry<K, V> getNext() {
@@ -1055,16 +1032,16 @@ public class TreeMap<K, V> implements Serializable {
             next = TreeMap.next(next);
             return last;
         }
-
+        
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.util.Iterator#remove()
          */
         public void remove() {
             TreeMap.this.removeEntry(last);
             last = null;
         }
-
+        
     }
 }

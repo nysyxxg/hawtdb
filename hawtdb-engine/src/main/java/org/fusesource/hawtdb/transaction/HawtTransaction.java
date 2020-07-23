@@ -21,11 +21,12 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.fusesource.hawtdb.internal.page.Allocator;
-import org.fusesource.hawtdb.internal.page.PagedAccessor;
+import org.fusesource.hawtdb.internal.page.allocator.Allocator;
+import org.fusesource.hawtdb.internal.page.accessor.PagedAccessor;
 import org.fusesource.hawtdb.exception.IOPagingException;
 import org.fusesource.hawtdb.exception.OutOfSpaceException;
 import org.fusesource.hawtdb.exception.PagingException;
+import org.fusesource.hawtdb.internal.page.SliceType;
 import org.fusesource.hawtdb.util.Ranges;
 import org.fusesource.hawtdb.util.StringSupport;
 import org.fusesource.hawtbuf.Buffer;

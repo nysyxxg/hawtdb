@@ -18,7 +18,7 @@ package org.fusesource.hawtdb.transaction;
 
 import java.io.ObjectStreamException;
 
-import org.fusesource.hawtdb.internal.page.PagedAccessor;
+import org.fusesource.hawtdb.internal.page.accessor.PagedAccessor;
 
 /**
  * A deferred update is an update which has not yet been performed, but 

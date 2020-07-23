@@ -33,6 +33,8 @@ import java.util.List;
 import org.fusesource.hawtbuf.Buffer;
 import org.fusesource.hawtdb.exception.IOPagingException;
 import org.fusesource.hawtdb.exception.OptimisticUpdateException;
+import org.fusesource.hawtdb.internal.page.accessor.PagedAccessor;
+import org.fusesource.hawtdb.internal.page.allocator.Allocator;
 import org.fusesource.hawtdb.transaction.HawtTxPageFile;
 import org.fusesource.hawtdb.transaction.Transaction;
 import org.fusesource.hawtdb.transaction.TxPageFile;

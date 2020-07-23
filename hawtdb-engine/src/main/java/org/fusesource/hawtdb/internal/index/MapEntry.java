@@ -20,8 +20,6 @@ import java.util.Map;
 
 /**
  * A basic implementation of {@link Map.Entry}.
- * 
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 final class MapEntry<Key, Value> implements Map.Entry<Key, Value> {
     

@@ -22,22 +22,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fusesource.hawtdb.exception.IOPagingException;
-import org.fusesource.hawtdb.internal.page.Paged.SliceType;
 import org.fusesource.hawtbuf.Buffer;
 
 
 /**
  * An extent is a sequence of adjacent pages which can be linked
  * to subsequent extents.
- * <p>
  * Extents allow you to write large streams of data to a Paged object
  * contiguously to avoid fragmentation.
- * <p>
  * The first page of the extent contains a header which specifies
  * the size of the extent and the page id of the next extent that
  * it is linked to.
- *
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 public class Extent {
     
@@ -267,8 +262,7 @@ public class Extent {
     }
     
     /**
-     * Un-frees the extent at the provided page id.  Basically undoes
-     * a previous {@link #free(PageFile, int)} operation.
+     * Un-frees the extent at the provided page id.  Basically undoes  a previous   operation.
      *
      * @param paged
      * @param page

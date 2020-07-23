@@ -16,7 +16,7 @@
  */
 package org.fusesource.hawtdb.transaction;
 
-import org.fusesource.hawtdb.internal.page.Allocator;
+import org.fusesource.hawtdb.internal.page.allocator.Allocator;
 import org.fusesource.hawtdb.exception.OptimisticUpdateException;
 import org.fusesource.hawtdb.util.list.LinkedNode;
 

@@ -14,9 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtdb.internal.page;
+package org.fusesource.hawtdb.internal.page.accessor;
 
 import org.fusesource.hawtdb.exception.IndexException;
+import org.fusesource.hawtdb.internal.page.Extent;
+import org.fusesource.hawtdb.internal.page.ExtentInputStream;
+import org.fusesource.hawtdb.internal.page.ExtentOutputStream;
+import org.fusesource.hawtdb.internal.page.Paged;
+import org.fusesource.hawtdb.internal.page.accessor.PagedAccessor;
 import org.fusesource.hawtdb.util.Ranges;
 
 import java.io.DataInputStream;
@@ -27,8 +32,6 @@ import java.util.List;
 
 /**
  * Abstract base class for implementations of EncoderDecoder which use stream encoding/decoding.
- * 
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 abstract public class AbstractStreamPagedAccessor<T>  implements PagedAccessor<T> {
 

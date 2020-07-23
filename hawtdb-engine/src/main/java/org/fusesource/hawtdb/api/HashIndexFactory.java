@@ -94,18 +94,12 @@ public class HashIndexFactory<Key, Value> implements IndexFactory<Key, Value> {
         return new HashIndex<Key, Value>(paged, page, this);
     }
 
-    /**
-     * Defaults to an {@link org.fusesource.hawtbuf.codec.ObjectCodec} if not explicitly set.
-     * 
-     * @return the marshaller used for keys.
-     */
     public Codec<Key> getKeyCodec() {
         return keyCodec;
     }
 
     /**
      * Allows you to configure custom marshalling logic to encode the index keys.
-     * 
      * @param codec the marshaller used for keys.
      */
     public void setKeyCodec(Codec<Key> codec) {
@@ -114,7 +108,6 @@ public class HashIndexFactory<Key, Value> implements IndexFactory<Key, Value> {
 
     /**
      * Defaults to an {@link org.fusesource.hawtbuf.codec.ObjectCodec} if not explicitly set.
-     *  
      * @return the marshaller used for values.
      */
     public Codec<Value> getValueCodec() {
@@ -123,7 +116,6 @@ public class HashIndexFactory<Key, Value> implements IndexFactory<Key, Value> {
 
     /**
      * Allows you to configure custom marshalling logic to encode the index values.
-     * 
      * @param codec the marshaller used for values
      */
     public void setValueCodec(Codec<Value> codec) {
@@ -139,7 +131,6 @@ public class HashIndexFactory<Key, Value> implements IndexFactory<Key, Value> {
 
     /**
      * Sets the maximum bucket capacity.
-     * 
      * @param value the new capacity
      */
     public void setMaximumBucketCapacity(int value) {
@@ -203,7 +194,6 @@ public class HashIndexFactory<Key, Value> implements IndexFactory<Key, Value> {
     }
 
     /**
-     * 
      * @return true if deferred encoding enabled
      */
     public boolean isDeferredEncoding() {
@@ -211,15 +201,12 @@ public class HashIndexFactory<Key, Value> implements IndexFactory<Key, Value> {
     }
 
     /**
-     * <p>
      * When deferred encoding is enabled, the index avoids encoding keys and values
      * for as long as possible so take advantage of collapsing multiple updates of the 
      * same key/value into a single update operation and single encoding operation.
-     * </p><p>
-     * Using this feature requires the keys and values to be immutable objects since 
+     * Using this feature requires the keys and values to be immutable objects since
      * unexpected errors would occur if they are changed after they have been handed
      * to to the index for storage. 
-     * </p>
      * @param enable should deferred encoding be enabled.
      */
     public void setDeferredEncoding(boolean enable) {

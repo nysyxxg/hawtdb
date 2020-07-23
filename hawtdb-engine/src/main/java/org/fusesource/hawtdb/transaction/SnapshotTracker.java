@@ -18,7 +18,7 @@ package org.fusesource.hawtdb.transaction;
 
 import java.util.Map;
 
-import org.fusesource.hawtdb.internal.page.PagedAccessor;
+import org.fusesource.hawtdb.internal.page.accessor.PagedAccessor;
 
 /**
  * 

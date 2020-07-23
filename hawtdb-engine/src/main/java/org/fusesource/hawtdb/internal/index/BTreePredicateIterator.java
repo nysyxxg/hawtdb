@@ -23,7 +23,6 @@ import java.util.Map.Entry;
 
 /**
  *
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 final class BTreePredicateIterator<Key, Value> implements Iterator<Entry<Key, Value>> {
 

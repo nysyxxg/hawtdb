@@ -27,8 +27,6 @@ import org.fusesource.hawtdb.util.Ranges;
 /**
  * An InputStream which reads it's data from an 
  * extent previously written with the {@link ExtentOutputStream}.
- * 
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 public class ExtentInputStream extends InputStream {
 

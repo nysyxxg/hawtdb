@@ -20,11 +20,11 @@ import org.fusesource.hawtbuf.Buffer;
 import org.fusesource.hawtbuf.io.DataByteArrayInputStream;
 import org.fusesource.hawtbuf.io.DataByteArrayOutputStream;
 import org.fusesource.hawtdb.internal.page.*;
-import org.fusesource.hawtdb.internal.page.Paged.SliceType;
 import org.fusesource.hawtdb.exception.IOPagingException;
 import org.fusesource.hawtdb.exception.PagingException;
 import org.fusesource.hawtdb.internal.cache.ReadCache;
 import org.fusesource.hawtdb.internal.io.MemoryMappedFile;
+import org.fusesource.hawtdb.internal.page.allocator.Allocator;
 import org.fusesource.hawtdb.util.Ranges;
 import org.fusesource.hawtdb.util.list.LinkedNodeList;
 

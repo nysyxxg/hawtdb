@@ -17,7 +17,7 @@
 package org.fusesource.hawtdb.internal.cache;
 
 import org.fusesource.hawtdb.internal.page.PageFile;
-import org.fusesource.hawtdb.internal.page.PagedAccessor;
+import org.fusesource.hawtdb.internal.page.accessor.PagedAccessor;
 
 public class ReadCache {
 

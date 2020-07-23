@@ -18,6 +18,8 @@ package org.fusesource.hawtdb.internal.page;
 
 import org.fusesource.hawtbuf.Buffer;
 import org.fusesource.hawtdb.internal.io.MemoryMappedFile;
+import org.fusesource.hawtdb.internal.page.accessor.PagedAccessor;
+import org.fusesource.hawtdb.internal.page.allocator.SimpleAllocator;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -26,9 +28,7 @@ import java.nio.ByteBuffer;
 import static org.fusesource.hawtdb.log.LoggUtil.*;
 
 /**
- * Provides a {@link PageFile} interface to a {@link MemoryMappedFile}. 
- *
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
+ * Provides a   PageFile  interface to a   MemoryMappedFile .
  */
 public class HawtPageFile implements PageFile {
     
