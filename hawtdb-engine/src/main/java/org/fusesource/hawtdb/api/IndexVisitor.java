@@ -25,7 +25,6 @@ import java.util.List;
  *  接口，用于有选择地访问BTree中的条目。
  * @param <Key>
  * @param <Value>
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 public interface IndexVisitor<Key,Value> {
 

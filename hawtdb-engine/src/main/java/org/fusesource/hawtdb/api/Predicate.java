@@ -17,7 +17,6 @@
 package org.fusesource.hawtdb.api;
 
 import java.util.Comparator;
-import java.util.List;
 
 /**
  * A predicate is used to narrow down the keys that an application is interested in accessing.
@@ -27,9 +26,6 @@ import java.util.List;
  *
  * 谓词用于缩小应用程序感兴趣访问的键。
  * *您可以通过实现谓词接口或您可以使用一些预定义的谓词类。
- * 
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
- * @param <Key>
  */
 public interface Predicate<Key> {
     

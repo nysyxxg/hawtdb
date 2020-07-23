@@ -14,14 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtdb.api;
+package org.fusesource.hawtdb.internal.indexfactory;
 
+import org.fusesource.hawtdb.internal.index.Index;
 import org.fusesource.hawtdb.internal.page.Paged;
 /**
  * The common interface to {@link Index} factories.  An index factory
  * allows you to create or open an index in a {@link Paged} object.
- *
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 public interface IndexFactory<Key, Value> {
     

@@ -1,5 +1,8 @@
 package org.fusesource.hawtdb.api;
 
+import org.fusesource.hawtdb.internal.indexfactory.BTreeIndexFactory;
+import org.fusesource.hawtdb.internal.indexfactory.IndexFactory;
+
 /**
  * @author Sergio Bossa
  */

@@ -22,10 +22,10 @@ import java.io.IOException;
 import java.util.Comparator;
 import java.util.Random;
 
-import org.fusesource.hawtdb.api.BTreeIndexFactory;
+import org.fusesource.hawtdb.internal.indexfactory.BTreeIndexFactory;
 import org.fusesource.hawtdb.internal.page.PageFile;
 import org.fusesource.hawtdb.internal.page.PageFileFactory;
-import org.fusesource.hawtdb.api.SortedIndex;
+import org.fusesource.hawtdb.internal.index.SortedIndex;
 import org.junit.Test;
 
 /**

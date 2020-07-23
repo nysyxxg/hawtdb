@@ -24,7 +24,6 @@ import java.util.Random;
 
 import org.fusesource.hawtdb.transaction.TxPageFile;
 import org.fusesource.hawtdb.transaction.TxPageFileFactory;
-import org.fusesource.hawtdb.api.Index;
 import org.fusesource.hawtdb.transaction.Transaction;
 import org.junit.After;
 import org.junit.Test;

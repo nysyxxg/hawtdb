@@ -14,13 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtdb.api;
+package org.fusesource.hawtdb.util;
 
 /**
  * Interface used to determine the simple prefix of two keys.  Used by BTree indexes
  * to implement the variable magnitude optimization.
  * 用于确定两个键的简单前缀的接口。由BTree索引使用实现变量的优化。
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 public interface Prefixer<Key> {
 
@@ -29,12 +28,10 @@ public interface Prefixer<Key> {
      * following still holds:<br/>Interface used to determine the simple prefix of two keys.  Used by BTree indexes
      *  * to implement the variable magnitude optimization.
      * value1 <= prefix <= value2.<br/>
-     * <br/>
-     * 
+     *
      * When this method is called, the following is guaranteed:<br/>
      * value1 < value2<br/>
-     * <br/>
-     * 
+     *
      * 
      * @param value1
      * @param value2

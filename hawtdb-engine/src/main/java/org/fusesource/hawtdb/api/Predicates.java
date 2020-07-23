@@ -23,15 +23,11 @@ import java.util.List;
 /**
  * Implements commonly used Predicates like AND, OR, <, > etc. etc. 
  *  实现常用谓词，如AND、OR、<、>等
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 final public class Predicates {
     
     /**
      * Implements a logical OR predicate over a list of predicate expressions.
-     *
-     * @param <Key>
-     * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
      */
     static class OrPredicate<Key> implements Predicate<Key> {
         private final List<Predicate<Key>> conditions;
@@ -77,9 +73,6 @@ final public class Predicates {
 
     /**
      * Implements a logical AND predicate over a list of predicate expressions.
-     *
-     * @param <Key> 
-     * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
      */
     static class AndPredicate<Key> implements Predicate<Key> {
         private final List<Predicate<Key>> conditions;

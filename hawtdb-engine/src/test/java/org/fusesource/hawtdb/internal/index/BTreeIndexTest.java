@@ -27,8 +27,7 @@ import java.util.Map;
 
 import org.fusesource.hawtbuf.codec.type.LongCodec;
 import org.fusesource.hawtbuf.codec.type.StringCodec;
-import org.fusesource.hawtdb.api.BTreeIndexFactory;
-import org.fusesource.hawtdb.api.Index;
+import org.fusesource.hawtdb.internal.indexfactory.BTreeIndexFactory;
 import org.fusesource.hawtdb.api.IndexVisitor;
 import org.fusesource.hawtbuf.Buffer;
 import org.junit.Before;

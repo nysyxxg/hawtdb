@@ -14,33 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtdb.api;
+package org.fusesource.hawtdb.internal.indexfactory;
 
 import org.fusesource.hawtbuf.codec.Codec;
 import org.fusesource.hawtbuf.codec.ObjectCodec;
 import org.fusesource.hawtdb.internal.index.HashIndex;
+import org.fusesource.hawtdb.internal.index.Index;
+import org.fusesource.hawtdb.internal.indexfactory.IndexFactory;
 import org.fusesource.hawtdb.internal.page.Paged;
 
 /**
- * <p>
  * Uses to create Hash based storage of key/values.  The hash index
  * consists of contiguous array of pages allocated on the page file.
  * Each page is considered a bucket.  keys get hashed to a bucket 
  * indexes and the key and value are stored in the bucket.  Each 
  * bucket is actually a BTree root and can therefore store multiple 
  * keys and values and overflow to additional pages if needed.    
- * </p>
- * <p>
  * Once the percentage of hash buckets used passes the configured
  * load factor, the hash index will "resize" to use a larger number
  * of buckets to keep the number items per bucket low which increases
  * access time of the items as there are fewer page access required.
- * </p>
- * <p>
  * Unlike BTree indexes, Hash indexes are not kept in key sorted order.
- * </p>
- * 
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 public class HashIndexFactory<Key, Value> implements IndexFactory<Key, Value> {
 

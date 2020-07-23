@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,19 +17,15 @@
 package org.fusesource.hawtdb.util;
 
 
-import org.fusesource.hawtdb.api.Prefixer;
-
 /**
  * StringPrefixer is a {@link Prefixer} implementation that works on strings.
- * 
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 public class StringPrefixer implements Prefixer<String> {
-
+    
     /**
      * Example: If value1 is "Hello World" and value 2 is "Help Me" then the
      * result will be: "Help"
-     * 
+     *
      * @see Prefixer#getSimplePrefix
      */
     public String getSimplePrefix(String value1, String value2) {
@@ -43,7 +39,7 @@ public class StringPrefixer implements Prefixer<String> {
             }
             i++;
         }
-
+        
         if (n == c2.length) {
             return value2;
         }

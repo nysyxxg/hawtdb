@@ -1,5 +1,9 @@
-package org.fusesource.hawtdb.api;
+package org.fusesource.hawtdb.internal.indexfactory;
 
+import org.fusesource.hawtdb.internal.index.Index;
+import org.fusesource.hawtdb.internal.index.SortedIndex;
+import org.fusesource.hawtdb.internal.indexfactory.BTreeIndexFactory;
+import org.fusesource.hawtdb.internal.indexfactory.IndexFactory;
 import org.fusesource.hawtdb.internal.page.Paged;
 
 import java.util.HashSet;
@@ -15,8 +19,6 @@ import java.util.Set;
  * 提供API的特殊用途索引工厂，用于在给定的对象上创建和打开多个索引：
  * *每个索引都由一个唯一的名称标识，在打开或创建索引时，必须使用该名称来引用索引本身。
  * *当必须管理多个相关索引时，这个索引工厂非常有用，这些索引的更新必须以原子方式执行在同一笔交易中。
- * 
- * @author Sergio Bossa
  */
 public class MultiIndexFactory {
 

@@ -14,15 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtdb.api;
+package org.fusesource.hawtdb.internal.index;
+
+import org.fusesource.hawtdb.api.IndexVisitor;
+import org.fusesource.hawtdb.api.Predicate;
+import org.fusesource.hawtdb.internal.index.Index;
 
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 /**
  * Provides Key/Value storage and retrieval.
- *
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
+ * 提供键/值存储和检索。
  */
 public interface SortedIndex<Key,Value> extends Index<Key,Value>, Iterable<Map.Entry<Key, Value>> {
 
@@ -64,6 +67,5 @@ public interface SortedIndex<Key,Value> extends Index<Key,Value>, Iterable<Map.E
      * @return the last key/value pair in the index or null if empty.
      */
     public Map.Entry<Key, Value> getLast();
-
 
 }

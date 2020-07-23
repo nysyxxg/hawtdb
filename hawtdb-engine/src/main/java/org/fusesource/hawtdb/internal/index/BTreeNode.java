@@ -21,6 +21,7 @@ import org.fusesource.hawtdb.api.*;
 import org.fusesource.hawtdb.exception.IndexException;
 import org.fusesource.hawtdb.internal.page.accessor.AbstractStreamPagedAccessor;
 import org.fusesource.hawtdb.internal.page.Paged;
+import org.fusesource.hawtdb.util.Prefixer;
 
 import java.io.*;
 import java.util.Arrays;

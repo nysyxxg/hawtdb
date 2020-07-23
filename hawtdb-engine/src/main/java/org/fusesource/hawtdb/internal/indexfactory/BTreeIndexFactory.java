@@ -14,12 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtdb.api;
+package org.fusesource.hawtdb.internal.indexfactory;
 
 import org.fusesource.hawtbuf.codec.Codec;
 import org.fusesource.hawtdb.internal.index.BTreeIndex;
 import org.fusesource.hawtbuf.codec.ObjectCodec;
+import org.fusesource.hawtdb.internal.index.SortedIndex;
+import org.fusesource.hawtdb.internal.indexfactory.IndexFactory;
 import org.fusesource.hawtdb.internal.page.Paged;
+import org.fusesource.hawtdb.util.Prefixer;
 
 import java.util.Comparator;
 

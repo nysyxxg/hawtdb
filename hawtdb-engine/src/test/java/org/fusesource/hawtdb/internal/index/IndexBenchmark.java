@@ -21,7 +21,6 @@ import java.util.Random;
 
 import org.fusesource.hawtdb.transaction.TxPageFile;
 import org.fusesource.hawtdb.transaction.TxPageFileFactory;
-import org.fusesource.hawtdb.api.Index;
 import org.fusesource.hawtdb.exception.OutOfSpaceException;
 import org.fusesource.hawtdb.transaction.Transaction;
 import org.fusesource.hawtdb.mvcc.thread.Action;

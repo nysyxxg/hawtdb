@@ -17,7 +17,8 @@
 package org.fusesource.hawtdb.tests;
 
 import org.fusesource.hawtbuf.codec.type.StringCodec;
-import org.fusesource.hawtdb.api.*;
+import org.fusesource.hawtdb.internal.index.SortedIndex;
+import org.fusesource.hawtdb.internal.indexfactory.BTreeIndexFactory;
 import org.fusesource.hawtdb.transaction.Transaction;
 import org.fusesource.hawtdb.transaction.TxPageFile;
 import org.fusesource.hawtdb.transaction.TxPageFileFactory;

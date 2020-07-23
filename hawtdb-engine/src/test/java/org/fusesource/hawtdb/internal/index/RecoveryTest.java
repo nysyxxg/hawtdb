@@ -26,8 +26,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
-import org.fusesource.hawtdb.api.BTreeIndexFactory;
-import org.fusesource.hawtdb.api.SortedIndex;
+import org.fusesource.hawtdb.internal.indexfactory.BTreeIndexFactory;
 import org.fusesource.hawtdb.transaction.Transaction;
 import org.fusesource.hawtdb.transaction.TxPageFile;
 import org.fusesource.hawtdb.transaction.TxPageFileFactory;

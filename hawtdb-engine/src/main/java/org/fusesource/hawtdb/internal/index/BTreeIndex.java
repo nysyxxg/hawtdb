@@ -28,11 +28,13 @@ import org.fusesource.hawtbuf.codec.Codec;
 import org.fusesource.hawtdb.api.*;
 import org.fusesource.hawtdb.exception.IndexException;
 import org.fusesource.hawtdb.internal.index.BTreeNode.Data;
+import org.fusesource.hawtdb.internal.indexfactory.BTreeIndexFactory;
 import org.fusesource.hawtdb.internal.page.Extent;
 import org.fusesource.hawtbuf.Buffer;
 import org.fusesource.hawtbuf.io.DataByteArrayInputStream;
 import org.fusesource.hawtbuf.io.DataByteArrayOutputStream;
 import org.fusesource.hawtdb.internal.page.Paged;
+import org.fusesource.hawtdb.util.Prefixer;
 
 
 /**

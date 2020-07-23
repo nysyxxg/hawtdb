@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtdb.api;
+package org.fusesource.hawtdb.internal.index;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -23,7 +23,6 @@ import java.util.Map;
 /**
  * Provides Key/Value storage and retrieval. 
  *  提供键/值存储和检索。
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 public interface Index<Key,Value> {
 

@@ -20,7 +20,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 
 import org.fusesource.hawtbuf.Buffer;
-import org.fusesource.hawtdb.api.*;
+import org.fusesource.hawtdb.internal.indexfactory.BTreeIndexFactory;
+import org.fusesource.hawtdb.internal.indexfactory.HashIndexFactory;
 import org.fusesource.hawtdb.internal.page.accessor.AbstractStreamPagedAccessor;
 import org.fusesource.hawtdb.internal.page.Paged;
 import org.fusesource.hawtdb.internal.page.accessor.PagedAccessor;
