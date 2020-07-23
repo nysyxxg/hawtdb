@@ -19,7 +19,7 @@ package org.fusesource.hawtdb.internal.page.transaction;
 import org.fusesource.hawtbuf.Buffer;
 import org.fusesource.hawtbuf.io.DataByteArrayInputStream;
 import org.fusesource.hawtbuf.io.DataByteArrayOutputStream;
-import org.fusesource.hawtdb.internal.page.*;
+import org.fusesource.hawtdb.internal.page.SliceType;
 import org.fusesource.hawtdb.exception.IOPagingException;
 import org.fusesource.hawtdb.exception.PagingException;
 import org.fusesource.hawtdb.internal.cache.ReadCache;
@@ -28,6 +28,7 @@ import org.fusesource.hawtdb.internal.page.allocator.Allocator;
 import org.fusesource.hawtdb.internal.page.extent.Extent;
 import org.fusesource.hawtdb.internal.page.extent.ExtentInputStream;
 import org.fusesource.hawtdb.internal.page.extent.ExtentOutputStream;
+import org.fusesource.hawtdb.internal.page.DBPageFile;
 import org.fusesource.hawtdb.util.Ranges;
 import org.fusesource.hawtdb.util.list.LinkedNodeList;
 
@@ -58,8 +59,6 @@ import static org.fusesource.hawtdb.log.LoggUtil.*;
  * freed. If the transaction commits, the page updates are assigned the next
  * snapshot version number and the update gets queued so that it can be applied
  * atomically at a later time.
- *
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 public final class DBTxPageFile implements TxPageFile {
     

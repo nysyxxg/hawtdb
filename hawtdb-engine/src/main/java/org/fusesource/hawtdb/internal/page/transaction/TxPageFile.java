@@ -1,14 +1,12 @@
 package org.fusesource.hawtdb.internal.page.transaction;
 
 
-import org.fusesource.hawtdb.internal.page.Paged;
 
 public interface TxPageFile {
 
     /**
      * Creates a new transaction.
-     * 
-     * The transaction object implements the {@link Paged} interface
+     * The transaction object implements the  interface
      * so it is what allows you access and mutate the page file data.
      * 
      * @return
