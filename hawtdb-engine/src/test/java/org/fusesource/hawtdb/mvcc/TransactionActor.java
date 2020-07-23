@@ -17,7 +17,7 @@
 package org.fusesource.hawtdb.mvcc;
 
 import org.fusesource.hawtdb.mvcc.thread.ActionActor;
-import org.fusesource.hawtdb.transaction.Transaction;
+import org.fusesource.hawtdb.internal.page.transaction.Transaction;
 
 
 public class TransactionActor<A extends TransactionActor<A>> extends ActionActor<A> {

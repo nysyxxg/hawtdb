@@ -24,6 +24,8 @@ import org.fusesource.hawtbuf.io.DataByteArrayInputStream;
 import org.fusesource.hawtbuf.io.DataByteArrayOutputStream;
 import org.fusesource.hawtdb.exception.IOPagingException;
 import org.fusesource.hawtdb.internal.io.MemoryMappedFileFactory;
+import org.fusesource.hawtdb.internal.page.extent.ExtentInputStream;
+import org.fusesource.hawtdb.internal.page.extent.ExtentOutputStream;
 import org.fusesource.hawtdb.util.Ranges;
 
 /**

@@ -21,8 +21,6 @@ import java.io.IOException;
 
 /**
  * Factory for {@link MemoryMappedFile} objects.
- * 
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 public class MemoryMappedFileFactory {
     

@@ -27,9 +27,9 @@ import java.io.IOException;
 import java.util.Random;
 
 import org.fusesource.hawtdb.internal.indexfactory.BTreeIndexFactory;
-import org.fusesource.hawtdb.transaction.Transaction;
-import org.fusesource.hawtdb.transaction.TxPageFile;
-import org.fusesource.hawtdb.transaction.TxPageFileFactory;
+import org.fusesource.hawtdb.internal.page.transaction.Transaction;
+import org.fusesource.hawtdb.internal.page.transaction.TxPageFile;
+import org.fusesource.hawtdb.internal.page.transaction.TxPageFileFactory;
 
 import static org.junit.Assert.assertEquals;
 

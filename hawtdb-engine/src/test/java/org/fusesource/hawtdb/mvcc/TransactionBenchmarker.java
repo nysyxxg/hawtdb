@@ -21,8 +21,8 @@ import java.util.ArrayList;
 
 import org.fusesource.hawtdb.mvcc.thread.Action;
 import org.fusesource.hawtdb.mvcc.thread.Benchmarker;
-import org.fusesource.hawtdb.transaction.TxPageFile;
-import org.fusesource.hawtdb.transaction.TxPageFileFactory;
+import org.fusesource.hawtdb.internal.page.transaction.TxPageFile;
+import org.fusesource.hawtdb.internal.page.transaction.TxPageFileFactory;
 import org.fusesource.hawtdb.mvcc.thread.Benchmarker.BenchmarkAction;
 import org.fusesource.hawtdb.metric.MetricCounter;
 

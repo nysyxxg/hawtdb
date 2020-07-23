@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtdb.transaction;
+package org.fusesource.hawtdb.internal.page.transaction;
 
 import java.util.Map;
 
@@ -26,8 +26,6 @@ import org.fusesource.hawtdb.internal.page.accessor.PagedAccessor;
  * commit.  This is what allows snapshots/transactions to get a point
  * in time view of the page file.
  * 快照跟踪器跟踪在给定提交中打开的快照。这使得快照/事务能够获得页面文件的时间视图。
- *  
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 final class SnapshotTracker {
 

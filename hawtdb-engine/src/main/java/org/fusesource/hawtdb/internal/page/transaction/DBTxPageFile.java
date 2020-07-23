@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtdb.transaction;
+package org.fusesource.hawtdb.internal.page.transaction;
 
 import org.fusesource.hawtbuf.Buffer;
 import org.fusesource.hawtbuf.io.DataByteArrayInputStream;
@@ -25,6 +25,9 @@ import org.fusesource.hawtdb.exception.PagingException;
 import org.fusesource.hawtdb.internal.cache.ReadCache;
 import org.fusesource.hawtdb.internal.io.MemoryMappedFile;
 import org.fusesource.hawtdb.internal.page.allocator.Allocator;
+import org.fusesource.hawtdb.internal.page.extent.Extent;
+import org.fusesource.hawtdb.internal.page.extent.ExtentInputStream;
+import org.fusesource.hawtdb.internal.page.extent.ExtentOutputStream;
 import org.fusesource.hawtdb.util.Ranges;
 import org.fusesource.hawtdb.util.list.LinkedNodeList;
 

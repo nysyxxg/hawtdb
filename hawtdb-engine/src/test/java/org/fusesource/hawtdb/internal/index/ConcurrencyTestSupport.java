@@ -24,10 +24,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
-import org.fusesource.hawtdb.transaction.TxPageFile;
-import org.fusesource.hawtdb.transaction.TxPageFileFactory;
+import org.fusesource.hawtdb.internal.page.transaction.TxPageFile;
+import org.fusesource.hawtdb.internal.page.transaction.TxPageFileFactory;
 import org.fusesource.hawtdb.exception.OptimisticUpdateException;
-import org.fusesource.hawtdb.transaction.Transaction;
+import org.fusesource.hawtdb.internal.page.transaction.Transaction;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

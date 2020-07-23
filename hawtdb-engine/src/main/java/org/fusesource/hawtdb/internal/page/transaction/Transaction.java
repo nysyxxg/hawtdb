@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtdb.transaction;
+package org.fusesource.hawtdb.internal.page.transaction;
 
 
 import org.fusesource.hawtdb.internal.page.Paged;

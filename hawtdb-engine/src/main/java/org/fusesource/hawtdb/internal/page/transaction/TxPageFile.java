@@ -1,4 +1,4 @@
-package org.fusesource.hawtdb.transaction;
+package org.fusesource.hawtdb.internal.page.transaction;
 
 
 import org.fusesource.hawtdb.internal.page.Paged;

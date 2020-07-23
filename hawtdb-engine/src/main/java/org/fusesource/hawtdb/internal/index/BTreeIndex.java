@@ -29,7 +29,7 @@ import org.fusesource.hawtdb.api.*;
 import org.fusesource.hawtdb.exception.IndexException;
 import org.fusesource.hawtdb.internal.index.BTreeNode.Data;
 import org.fusesource.hawtdb.internal.indexfactory.BTreeIndexFactory;
-import org.fusesource.hawtdb.internal.page.Extent;
+import org.fusesource.hawtdb.internal.page.extent.Extent;
 import org.fusesource.hawtbuf.Buffer;
 import org.fusesource.hawtbuf.io.DataByteArrayInputStream;
 import org.fusesource.hawtbuf.io.DataByteArrayOutputStream;

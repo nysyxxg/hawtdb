@@ -14,13 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtdb.internal.page;
+package org.fusesource.hawtdb.internal.page.extent;
 
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 
 import org.fusesource.hawtbuf.Buffer;
+import org.fusesource.hawtdb.internal.page.Paged;
 import org.fusesource.hawtdb.util.Ranges;
 
 

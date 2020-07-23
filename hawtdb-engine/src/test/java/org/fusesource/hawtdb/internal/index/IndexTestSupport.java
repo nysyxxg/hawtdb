@@ -22,9 +22,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
-import org.fusesource.hawtdb.transaction.TxPageFile;
-import org.fusesource.hawtdb.transaction.TxPageFileFactory;
-import org.fusesource.hawtdb.transaction.Transaction;
+import org.fusesource.hawtdb.internal.page.transaction.TxPageFile;
+import org.fusesource.hawtdb.internal.page.transaction.TxPageFileFactory;
+import org.fusesource.hawtdb.internal.page.transaction.Transaction;
 import org.junit.After;
 import org.junit.Test;
 

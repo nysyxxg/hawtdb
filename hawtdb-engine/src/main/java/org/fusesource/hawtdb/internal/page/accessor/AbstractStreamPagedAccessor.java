@@ -17,11 +17,10 @@
 package org.fusesource.hawtdb.internal.page.accessor;
 
 import org.fusesource.hawtdb.exception.IndexException;
-import org.fusesource.hawtdb.internal.page.Extent;
-import org.fusesource.hawtdb.internal.page.ExtentInputStream;
-import org.fusesource.hawtdb.internal.page.ExtentOutputStream;
+import org.fusesource.hawtdb.internal.page.extent.Extent;
+import org.fusesource.hawtdb.internal.page.extent.ExtentInputStream;
+import org.fusesource.hawtdb.internal.page.extent.ExtentOutputStream;
 import org.fusesource.hawtdb.internal.page.Paged;
-import org.fusesource.hawtdb.internal.page.accessor.PagedAccessor;
 import org.fusesource.hawtdb.util.Ranges;
 
 import java.io.DataInputStream;

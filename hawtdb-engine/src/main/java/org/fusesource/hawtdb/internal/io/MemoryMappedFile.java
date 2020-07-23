@@ -38,8 +38,6 @@ import org.fusesource.hawtbuf.Buffer;
  * Provides Memory Mapped access to a file.  It manages pooling the 
  * direct buffers which mapped to the files.  Multiple direct buffers
  * are used to deal with OS and Java restrictions.
- * 
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 final public class MemoryMappedFile {
 	

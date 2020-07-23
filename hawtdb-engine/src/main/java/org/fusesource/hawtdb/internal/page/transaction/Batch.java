@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtdb.transaction;
+package org.fusesource.hawtdb.internal.page.transaction;
 
 import org.fusesource.hawtdb.internal.page.allocator.Allocator;
 import org.fusesource.hawtdb.internal.page.Paged;
@@ -33,7 +33,7 @@ import java.util.NoSuchElementException;
 
 import static org.fusesource.hawtdb.log.LoggUtil.trace;
 import static org.fusesource.hawtdb.log.LoggUtil.traced;
-import static org.fusesource.hawtdb.transaction.Update.update;
+import static org.fusesource.hawtdb.internal.page.transaction.Update.update;
 
 /**
  * Aggregates a group of commits so that they can be more efficiently  stored to disk.

@@ -20,6 +20,7 @@ import org.fusesource.hawtbuf.Buffer;
 import org.fusesource.hawtdb.internal.io.MemoryMappedFile;
 import org.fusesource.hawtdb.internal.page.accessor.PagedAccessor;
 import org.fusesource.hawtdb.internal.page.allocator.SimpleAllocator;
+import org.fusesource.hawtdb.internal.page.extent.ExtentOutputStream;
 
 import java.io.DataOutputStream;
 import java.io.IOException;

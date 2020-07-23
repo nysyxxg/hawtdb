@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtdb.transaction;
+package org.fusesource.hawtdb.internal.page.transaction;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -31,8 +31,8 @@ import org.fusesource.hawtdb.util.Ranges;
 import org.fusesource.hawtdb.util.StringSupport;
 import org.fusesource.hawtbuf.Buffer;
 
-import static org.fusesource.hawtdb.transaction.DeferredUpdate.deferred;
-import static org.fusesource.hawtdb.transaction.Update.update;
+import static org.fusesource.hawtdb.internal.page.transaction.DeferredUpdate.deferred;
+import static org.fusesource.hawtdb.internal.page.transaction.Update.update;
 
 
 /**

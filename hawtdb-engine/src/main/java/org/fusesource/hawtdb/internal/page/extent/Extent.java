@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fusesource.hawtdb.internal.page;
+package org.fusesource.hawtdb.internal.page.extent;
 
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
@@ -23,6 +23,8 @@ import java.util.List;
 
 import org.fusesource.hawtdb.exception.IOPagingException;
 import org.fusesource.hawtbuf.Buffer;
+import org.fusesource.hawtdb.internal.page.Paged;
+import org.fusesource.hawtdb.internal.page.SliceType;
 
 
 /**
