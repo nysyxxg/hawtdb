@@ -20,7 +20,6 @@ import org.fusesource.hawtbuf.codec.Codec;
 import org.fusesource.hawtdb.internal.index.BTreeIndex;
 import org.fusesource.hawtbuf.codec.ObjectCodec;
 import org.fusesource.hawtdb.internal.index.SortedIndex;
-import org.fusesource.hawtdb.internal.indexfactory.IndexFactory;
 import org.fusesource.hawtdb.internal.page.Paged;
 import org.fusesource.hawtdb.util.Prefixer;
 
