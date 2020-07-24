@@ -24,7 +24,6 @@ public class LFUCache<Key, Value> {
     private final LinkedHashSet[] frequencyList;
     private int lowestFrequency;
     private int maxFrequency;
-    //
     private final int maxCacheSize;
     private final float evictionFactor;
 
