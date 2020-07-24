@@ -13,7 +13,6 @@ public class ThreadLocalLFUPageCache<Integer, Value> implements PageCache<Intege
             protected LFUCache<Integer, Value> initialValue() {
                 return new LFUCache<Integer, Value>(maxCacheSize, evictionFactor);
             }
-            
         };
     }
 
