@@ -158,6 +158,4 @@ public class DBPageFile implements PageFile {
     public String toString() {
         return "{ header size: " + headerSize + ", page size: " + pageSize + ", allocator: " + allocator + " }";
     }
-    
-    
 }
