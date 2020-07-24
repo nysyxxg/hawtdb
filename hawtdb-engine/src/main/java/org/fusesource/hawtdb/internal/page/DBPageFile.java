@@ -131,9 +131,6 @@ public class DBPageFile implements PageFile {
     //
     ///////////////////////////////////////////////////////////////////
     
-    /* (non-Javadoc)
-     * @see org.fusesource.hawtdb.internal.page.PageFile#write(int, java.nio.ByteBuffer)
-     */
     public void write(int pageId, ByteBuffer buffer) {
         if (traced(pageId)) {
             trace("write to: %d", pageId);
