@@ -37,8 +37,6 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * Tests an Index
- *
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 public class BTreeCacheTest {
     

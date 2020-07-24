@@ -29,14 +29,10 @@ import org.junit.After;
 import org.junit.Test;
 
 
-/**
- * Tests an Index
- *
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
- */
+
 public abstract class IndexTestSupport {
     
-    private TxPageFileFactory pff;
+    private   TxPageFileFactory pff;
     protected TxPageFile pf;
     protected Index<String, Long> index;
     protected Transaction tx;

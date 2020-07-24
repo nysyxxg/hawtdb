@@ -30,10 +30,7 @@ import org.fusesource.hawtdb.mvcc.TransactionBenchmarker;
 import org.fusesource.hawtbuf.Buffer;
 import org.junit.Test;
 
-/**
- *
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
- */
+
 public abstract class IndexBenchmark {
     
     private static final int KEY_SPACE = 5000000;

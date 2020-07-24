@@ -34,9 +34,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/**
- * @author Sergio Bossa
- */
+
 public abstract class ConcurrencyTestSupport {
     
     protected volatile TxPageFileFactory pageFactory;

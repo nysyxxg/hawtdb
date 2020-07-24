@@ -21,9 +21,7 @@ import org.fusesource.hawtbuf.codec.type.LongCodec;
 import org.fusesource.hawtbuf.codec.type.StringCodec;
 import org.fusesource.hawtdb.internal.page.transaction.Transaction;
 
-/**
- * @author Sergio Bossa
- */
+
 public class HashIndexConcurrencyTest extends ConcurrencyTestSupport {
     
     @Override

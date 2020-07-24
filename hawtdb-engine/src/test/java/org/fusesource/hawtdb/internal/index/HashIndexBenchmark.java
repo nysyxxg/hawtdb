@@ -23,10 +23,7 @@ import org.fusesource.hawtbuf.Buffer;
 import org.fusesource.hawtbuf.codec.type.LongCodec;
 
 
-/**
- *
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
- */
+
 public class HashIndexBenchmark extends IndexBenchmark {
     
     public HashIndexBenchmark() {

@@ -21,10 +21,7 @@ import org.fusesource.hawtbuf.codec.type.LongCodec;
 import org.fusesource.hawtbuf.codec.type.StringCodec;
 
 
-/**
- *
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
- */
+
 public class DeferredHashIndexTest extends IndexTestSupport {
     
     @Override

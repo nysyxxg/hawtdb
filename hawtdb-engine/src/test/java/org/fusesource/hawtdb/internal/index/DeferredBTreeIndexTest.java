@@ -20,10 +20,7 @@ import org.fusesource.hawtbuf.codec.type.LongCodec;
 import org.fusesource.hawtbuf.codec.type.StringCodec;
 import org.fusesource.hawtdb.internal.indexfactory.BTreeIndexFactory;
 
-/**
- *
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
- */
+
 public class DeferredBTreeIndexTest extends BTreeIndexTest {
     
     @Override

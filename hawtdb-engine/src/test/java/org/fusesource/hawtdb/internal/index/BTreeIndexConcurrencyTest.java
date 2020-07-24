@@ -29,7 +29,6 @@ public class BTreeIndexConcurrencyTest extends ConcurrencyTestSupport {
         BTreeIndexFactory<String, Long> factory = new BTreeIndexFactory<String, Long>();
         factory.setKeyCodec(StringCodec.INSTANCE);
         factory.setValueCodec(LongCodec.INSTANCE);
-        //
         Transaction tx = pageFile.tx();
         Index<String, Long> index = factory.create(tx);
         tx.commit();
@@ -41,7 +40,6 @@ public class BTreeIndexConcurrencyTest extends ConcurrencyTestSupport {
         BTreeIndexFactory<String, Long> factory = new BTreeIndexFactory<String, Long>();
         factory.setKeyCodec(StringCodec.INSTANCE);
         factory.setValueCodec(LongCodec.INSTANCE);
-        //
         Index<String, Long> index = factory.open(tx);
         return index;
     }
