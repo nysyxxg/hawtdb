@@ -17,32 +17,25 @@
 package org.fusesource.hawtdb.util;
 
 import java.io.Serializable;
-import java.util.AbstractCollection;
-import java.util.AbstractSet;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.Map.Entry;
 
 /**
- * A TreeMap that is lighter weight than the Sun implementation with
- * implementations for upper/lower/floor/ceiling accessors.
- *
- * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
+ * 一种比Sun实现更轻的TreeMap，实现了upper/lower/floor/ceiling 访问器。
  */
 public class TreeMap<K, V> implements Serializable {
     
     private static final long serialVersionUID = 6107175734705142096L;
     
-    private static final boolean RED = false;
-    private static final boolean BLACK = true;
+    private static final boolean RED = false;// 标识红色
+    private static final boolean BLACK = true;//标识黑色
     
-    private int count;
-    private TreeEntry<K, V> root;
+    private int count;  //TreeMap中存放的键值对的数量
+    private TreeEntry<K, V> root; //红黑树的根节点
+    // //比较器，是自然排序，还是定制排序 ，使用final修饰，表明一旦赋值便不允许改变
     private final Comparator<? super K> comparator;
     
+    //构造方法，comparator用键的顺序做比较
     public TreeMap() {
         this.comparator = null;
     }
@@ -56,17 +49,21 @@ public class TreeMap<K, V> implements Serializable {
         }
     }
     
+    //构造方法，提供比较器，用指定比较器排序
     public TreeMap(Comparator<? super K> comparator) {
         this.comparator = comparator;
     }
     
+    //将m中的元素转化daoTreeMap中，按照键的顺序做比较排序
+    public TreeMap(Map<? extends K, ? extends V> m) {
+        comparator = null;
+        putAll(m);
+    }
+    // 获取比较器
     public Comparator<? super K> comparator() {
         return comparator;
     }
-    
-    /**
-     * @return The first key in the map.
-     */
+    // 获取这个树的第一个节点
     public K firstKey() {
         TreeEntry<K, V> first = firstEntry();
         if (first != null) {
@@ -74,10 +71,7 @@ public class TreeMap<K, V> implements Serializable {
         }
         return null;
     }
-    
-    /**
-     * @return The last key in the map.
-     */
+    // 获取这个树的最后一个节点
     public K lastKey() {
         TreeEntry<K, V> last = lastEntry();
         if (last != null) {
@@ -97,20 +91,10 @@ public class TreeMap<K, V> implements Serializable {
         count = 0;
     }
     
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#containsKey(java.lang.Object)
-     */
     public boolean containsKey(K key) {
         return getEntry(key, root) != null;
     }
     
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#containsValue(java.lang.Object)
-     */
     public boolean containsValue(Object value) {
         for (Map.Entry<K, V> entry : entrySet()) {
             if (entry.getValue() == value) {
@@ -122,11 +106,6 @@ public class TreeMap<K, V> implements Serializable {
         return false;
     }
     
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#entrySet()
-     */
     public Set<Map.Entry<K, V>> entrySet() {
         return new AbstractSet<Map.Entry<K, V>>() {
             
@@ -169,11 +148,6 @@ public class TreeMap<K, V> implements Serializable {
         };
     }
     
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#get(java.lang.Object)
-     */
     public V get(K key) {
         TreeEntry<K, V> node = getEntry(key, root);
         if (node != null) {
@@ -201,44 +175,41 @@ public class TreeMap<K, V> implements Serializable {
     }
     
     /**
-     * Returns a key-value mapping associated with the least key in this map, or
-     * null if the map is empty.
+     * Returns a key-value mapping associated with the least key in this map, or  null if the map is empty.
+     * firstEntry() 返回Map中最小的key
      *
      * @return The lowest key in the map
      */
     public TreeEntry<K, V> firstEntry() {
         TreeEntry<K, V> r = root;
-        while (r != null) {
+        while (r != null) {// 递归获取左孩子的最左边的节点
             if (r.left == null) {
                 break;
             }
             r = r.left;
         }
-        
         return r;
     }
     
     /**
-     * Returns a key-value mapping associated with the greatest key in this map,
-     * or null if the map is empty.
-     *
+     * Returns a key-value mapping associated with the greatest key in this map, or null if the map is empty.
+     * firstEntry() 返回Map中最大的key
      * @return The entry associated with the greates key in the map.
      */
     public TreeEntry<K, V> lastEntry() {
         TreeEntry<K, V> r = root;
-        while (r != null) {
+        while (r != null) {// 向右递归调用，找到右子树的最右边的节点
             if (r.right == null) {
                 break;
             }
             r = r.right;
         }
-        
         return r;
     }
     
     /**
-     * Returns a key-value mapping associated with the greatest key strictly
-     * less than the given key, or null if there is no such key
+     * Returns a key-value mapping associated with the greatest key strictly less than the given key, or null if there is no such key
+     * lowerEntry(Object key ) 返回该Map中唯一key前一位的key-value
      *
      * @param key the key.
      * @return
@@ -347,7 +318,6 @@ public class TreeMap<K, V> implements Serializable {
             if (c == 0) {
                 return n;
             }
-            
             if (c > 0) {
                 n = n.right;
             } else {
@@ -367,9 +337,9 @@ public class TreeMap<K, V> implements Serializable {
     }
     
     static private final <K, V> TreeEntry<K, V> next(TreeEntry<K, V> n) {
-        if (n == null)
+        if (n == null) {
             return null;
-        else if (n.right != null) {
+        } else if (n.right != null) {
             TreeEntry<K, V> p = n.right;
             while (p.left != null) {
                 p = p.left;
@@ -387,9 +357,9 @@ public class TreeMap<K, V> implements Serializable {
     }
     
     static private final <K, V> TreeEntry<K, V> previous(TreeEntry<K, V> n) {
-        if (n == null)
+        if (n == null) {
             return null;
-        else if (n.left != null) {
+        } else if (n.left != null) {
             TreeEntry<K, V> p = n.left;
             while (p.right != null) {
                 p = p.right;
@@ -406,20 +376,10 @@ public class TreeMap<K, V> implements Serializable {
         }
     }
     
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#isEmpty()
-     */
     public boolean isEmpty() {
         return count == 0;
     }
     
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#keySet()
-     */
     public Set<K> keySet() {
         return new AbstractSet<K>() {
             
@@ -444,36 +404,19 @@ public class TreeMap<K, V> implements Serializable {
                 return count;
             }
         };
-        
     }
     
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#putAll(java.util.Map)
-     */
     public void putAll(Map<? extends K, ? extends V> t) {
         for (Map.Entry<? extends K, ? extends V> entry : t.entrySet()) {
             put(entry.getKey(), entry.getValue());
         }
     }
     
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#remove(java.lang.Object)
-     */
     public V remove(K key) {
         return removeEntry(getEntry(key, root));
     }
     
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#put(java.lang.Object, java.lang.Object)
-     */
     public V put(final K key, final V value) {
-        
         if (root == null) {
             // map is empty
             root = new TreeEntry<K, V>(key, value, null, this);
@@ -484,13 +427,13 @@ public class TreeMap<K, V> implements Serializable {
         
         // add new mapping
         while (true) {
-            int c = compare(key, n.key);
+            int c = compare(key, n.key);// 比较大小
             
-            if (c == 0) {
+            if (c == 0) {// 相等
                 V old = n.value;
                 n.value = value;
                 return old;
-            } else if (c < 0) {
+            } else if (c < 0) {// 小于
                 if (n.left != null) {
                     n = n.left;
                 } else {
@@ -499,13 +442,13 @@ public class TreeMap<K, V> implements Serializable {
                     doRedBlackInsert(n.left);
                     return null;
                 }
-            } else { // c > 0
-                if (n.right != null) {
+            } else { // c > 0// 大于
+                if (n.right != null) {// 如果右节点不等于空
                     n = n.right;
                 } else {
                     n.right = new TreeEntry<K, V>(key, value, n, this);
                     count++;
-                    doRedBlackInsert(n.right);
+                    doRedBlackInsert(n.right);// 红黑节点转化插入
                     return null;
                 }
             }
@@ -513,15 +456,13 @@ public class TreeMap<K, V> implements Serializable {
     }
     
     /**
-     * complicated red-black insert stuff. Based on apache commons BidiMap
-     * method:
-     *
-     * @param n the newly inserted node
+     * complicated red-black insert stuff. Based on apache commons BidiMap  method:
+     * 复杂的红黑节点插入操作。基于apache commons BidiMap方法：
      */
     private void doRedBlackInsert(final TreeEntry<K, V> n) {
         TreeEntry<K, V> currentNode = n;
-        color(currentNode, RED);
-        
+        color(currentNode, RED);// 设置颜色为红色
+        // 如果当前节点不是根节点，并且当前节点的父节点是红色
         while (currentNode != null && currentNode != root && isRed(currentNode.parent)) {
             if (isLeftChild(parent(currentNode))) {
                 TreeEntry<K, V> y = getRight(getGrandParent(currentNode));
@@ -547,10 +488,8 @@ public class TreeMap<K, V> implements Serializable {
                     }
                 }
             } else {
-                
                 // just like clause above, except swap left for right
                 TreeEntry<K, V> y = getLeft(getGrandParent(currentNode));
-                
                 if (isRed(y)) {
                     color(parent(currentNode), BLACK);
                     color(y, BLACK);
@@ -563,7 +502,6 @@ public class TreeMap<K, V> implements Serializable {
                         
                         rotateRight(currentNode);
                     }
-                    
                     color(parent(currentNode), BLACK);
                     color(getGrandParent(currentNode), RED);
                     
@@ -573,10 +511,10 @@ public class TreeMap<K, V> implements Serializable {
                 }
             }
         }
-        
-        color(root, BLACK);
+        color(root, BLACK);// 设置根节点是黑色
     }
     
+    // 进行左旋
     //Based on Apache common's TreeBidiMap
     private void rotateLeft(TreeEntry<K, V> n) {
         TreeEntry<K, V> r = n.right;
@@ -592,11 +530,11 @@ public class TreeMap<K, V> implements Serializable {
         } else {
             n.parent.right = r;
         }
-        
         r.left = n;
         n.parent = r;
     }
     
+    // 右旋
     //Based on Apache common's TreeBidiMap    
     private void rotateRight(TreeEntry<K, V> n) {
         TreeEntry<K, V> l = n.left;
@@ -618,8 +556,6 @@ public class TreeMap<K, V> implements Serializable {
     
     /**
      * complicated red-black delete stuff. Based on Apache Common's TreeBidiMap
-     *
-     * @param n the node to be deleted
      */
     public final V removeEntry(TreeEntry<K, V> n) {
         if (n == null) {
@@ -664,25 +600,21 @@ public class TreeMap<K, V> implements Serializable {
                 doRedBlackDeleteFixup(replacement);
             }
         } else {
-            
             // replacement is null
             if (n.parent == null) {
                 // empty tree
                 root = null;
             } else {
-                
                 // deleted node had no children
                 if (isBlack(n)) {
                     doRedBlackDeleteFixup(n);
                 }
-                
                 if (n.parent != null) {
                     if (n == n.parent.left) {
                         n.parent.left = null;
                     } else {
                         n.parent.right = null;
                     }
-                    
                     n.parent = null;
                 }
             }
@@ -767,24 +699,12 @@ public class TreeMap<K, V> implements Serializable {
         color(currentNode, BLACK);
     }
     
-    
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#size()
-     */
     public int size() {
         return count;
     }
     
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#values()
-     */
     public Collection<V> values() {
         return new AbstractCollection<V>() {
-            
             @Override
             public Iterator<V> iterator() {
                 return new ValueIterator();
@@ -797,20 +717,24 @@ public class TreeMap<K, V> implements Serializable {
         };
     }
     
+    // 获取父节点
     private static <K, V> TreeEntry<K, V> parent(TreeEntry<K, V> n) {
         return (n == null ? null : n.parent);
     }
     
+    // 设置颜色
     private static <K, V> void color(TreeEntry<K, V> n, boolean c) {
         if (n != null)
             n.color = c;
     }
     
+    // 获取节点的颜色
     private static <K, V> boolean getColor(TreeEntry<K, V> n) {
         return (n == null ? BLACK : n.color);
     }
     
     /**
+     * 获取左节点
      * get a node's left child. mind you, the node may not exist. no problem
      */
     private static <K, V> TreeEntry<K, V> getLeft(TreeEntry<K, V> n) {
@@ -818,6 +742,7 @@ public class TreeMap<K, V> implements Serializable {
     }
     
     /**
+     * 获取右节点
      * get a node's right child. mind you, the node may not exist. no problem
      */
     private static <K, V> TreeEntry<K, V> getRight(TreeEntry<K, V> n) {
@@ -826,8 +751,7 @@ public class TreeMap<K, V> implements Serializable {
     
     /**
      * is the specified node red? if the node does not exist, no, it's black,
-     * thank you
-     * the node (may be null) in question
+     * 判断是否红色节点
      */
     private static <K, V> boolean isRed(TreeEntry<K, V> n) {
         return n == null ? false : n.color == RED;
@@ -835,7 +759,7 @@ public class TreeMap<K, V> implements Serializable {
     
     /**
      * is the specified black red? if the node does not exist, sure, it's black,
-     * thank you
+     * 判断是否是黑色节点
      */
     private static <K, V> boolean isBlack(final TreeEntry<K, V> n) {
         return n == null ? true : n.color == BLACK;
@@ -847,12 +771,13 @@ public class TreeMap<K, V> implements Serializable {
      * non-existent parent's left child. If the node does exist but has no
      * parent ... no, we're not the non-existent parent's left child. Otherwise
      * (both the specified node AND its parent exist), check.
+     * 判断节点是否是左孩子节点
      *
      * @param node the node (may be null) in question
      */
     private static <K, V> boolean isLeftChild(final TreeEntry<K, V> node) {
-        
-        return node == null ? true : (node.parent == null ? false : (node == node.parent.left));
+        boolean bl = (node.parent == null ? false : (node == node.parent.left));
+        return node == null ? true : bl;
     }
     
     /**
@@ -861,109 +786,99 @@ public class TreeMap<K, V> implements Serializable {
      * non-existent parent's right child. If the node does exist but has no
      * parent ... no, we're not the non-existent parent's right child. Otherwise
      * (both the specified node AND its parent exist), check.
+     * 判断节点是否是右孩子节点
      *
-     * @param node  the node (may be null) in question
+     * @param node the node (may be null) in question
      */
     private static <K, V> boolean isRightChild(final TreeEntry<K, V> node) {
-        return node == null ? true : (node.parent == null ? false : (node == node.parent.right));
+        boolean bl = (node.parent == null ? false : (node == node.parent.right));
+        return node == null ? true : bl;
         
     }
     
     /**
-     * get a node's grandparent. mind you, the node, its parent, or its
-     * grandparent may not exist. no problem
-     *
-     * @param node the node (may be null) in question
+     * get a node's grandparent. mind you, the node, its parent, or its  grandparent may not exist. no problem
+     * 获取这个节点的祖父阶段
      */
     private static <K, V> TreeEntry<K, V> getGrandParent(final TreeEntry<K, V> node) {
-        return parent(parent(node));
+        TreeEntry<K, V> parentNode = parent(node);// 父节点
+        return parent(parentNode);// 祖父节点
     }
     
     public static class TreeEntry<K, V> implements Map.Entry<K, V>, Serializable {
         
         private static final long serialVersionUID = 8490652911043012737L;
         
-        volatile TreeMap<K, V> map;
-        volatile V value;
-        volatile K key;
-        volatile boolean color = BLACK;
+        private volatile TreeMap<K, V> map;
+        private volatile V value;//值
+        private volatile K key; //键
+        private volatile boolean color = BLACK;  //节点的颜色，在红黑树种，只有两种颜色，红色和黑色
         
-        TreeEntry<K, V> parent;
-        TreeEntry<K, V> left;
-        TreeEntry<K, V> right;
+        private TreeEntry<K, V> parent;//父节点
+        private TreeEntry<K, V> left;//左孩子节点
+        private TreeEntry<K, V> right;//右孩子节点
         
-        TreeEntry(K key, V val, TreeEntry<K, V> parent, TreeMap<K, V> map) {
+        //构造方法，用指定的key,value ,parent初始化，color默认为黑色
+        public TreeEntry(K key, V val, TreeEntry<K, V> parent, TreeMap<K, V> map) {
             this.key = key;
             this.parent = parent;
             this.value = val;
             this.map = map;
         }
         
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.util.Map.Entry#getKey()
-         */
+        //返回key
         public K getKey() {
             return key;
         }
         
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.util.Map.Entry#getValue()
-         */
+        //返回该节点对应的value
         public V getValue() {
             return value;
         }
         
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.util.Map.Entry#setValue(java.lang.Object)
-         */
+        //替换节点的值，并返回旧值
         public V setValue(V val) {
             V old = this.value;
             this.value = val;
             return old;
         }
         
+        //重写equals()方法
         @SuppressWarnings("unchecked")
         public boolean equals(Object o) {
             if (!(o instanceof Map.Entry))
                 return false;
             Map.Entry e = (Map.Entry) o;
-            
+            //两个节点的key相等，value相等，这两个节点才相等
             return (key == null ? e.getKey() == null : key.equals(e.getKey())) && (value == null ? e.getValue() == null : value.equals(e.getValue()));
         }
         
+        //重写hashCode()方法
         public int hashCode() {
             int keyHash = (key == null ? 0 : key.hashCode());
             int valueHash = (value == null ? 0 : value.hashCode());
+            //key和vale hash值得异或运算，相同则为零，不同则为1
             return keyHash ^ valueHash;
         }
         
+        // 获取下一个元素
         public TreeEntry<K, V> next() {
             return TreeMap.next(this);
         }
         
+        // 获取前一个元素
         public TreeEntry<K, V> previous() {
             return TreeMap.previous(this);
         }
         
+        //重写toString()方法
         @Override
         public String toString() {
-            return "{ key: " + key + ", value: " + value + " }";
+            return "{ key: " + key + ", value: " + value + ", color: " + color + " }";
         }
     }
     
     private class ValueIterator extends AbstractEntryIterator<V> {
-        
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.util.Iterator#next()
-         */
         public V next() {
             getNext();
             if (last == null) {
@@ -975,12 +890,6 @@ public class TreeMap<K, V> implements Serializable {
     }
     
     private class KeyIterator extends AbstractEntryIterator<K> {
-        
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.util.Iterator#next()
-         */
         public K next() {
             getNext();
             if (last == null) {
@@ -992,11 +901,6 @@ public class TreeMap<K, V> implements Serializable {
     }
     
     private class EntryIterator extends AbstractEntryIterator<Map.Entry<K, V>> {
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.util.Iterator#next()
-         */
         public Entry<K, V> next() {
             getNext();
             if (last == null) {
@@ -1005,7 +909,6 @@ public class TreeMap<K, V> implements Serializable {
                 return last;
             }
         }
-        
     }
     
     private abstract class AbstractEntryIterator<T> implements Iterator<T> {
@@ -1013,35 +916,19 @@ public class TreeMap<K, V> implements Serializable {
         TreeEntry<K, V> last = null;
         TreeEntry<K, V> next = firstEntry();
         
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.util.Iterator#hasNext()
-         */
         public boolean hasNext() {
             return next != null;
         }
         
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.util.Iterator#next()
-         */
         protected TreeEntry<K, V> getNext() {
             last = next;
             next = TreeMap.next(next);
             return last;
         }
         
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.util.Iterator#remove()
-         */
         public void remove() {
             TreeMap.this.removeEntry(last);
             last = null;
         }
-        
     }
 }

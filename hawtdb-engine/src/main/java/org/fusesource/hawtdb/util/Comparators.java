@@ -20,17 +20,23 @@ import java.util.Comparator;
 
 public class Comparators {
 
-	/**
-	 * Compares Long objects for order.
-	 */
     public static final Comparator<Long> LONG_COMPARATOR = new Comparator<Long>() {
-        /*
-         * Compares its two arguments for order.
-         * 
-         * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-         */
         public int compare(Long o1, Long o2) {
             return o1.compareTo(o2);
         }
     };
+    
+    /**
+     * 如果参数字符串等于此字符串，则返回 0 值；
+     * 如果此字符串小于字符串参数，则返回一个小于 0 的值；
+     * 如果此字符串大于字符串参数，则返回一个大于 0 的值。
+     */
+    static class MyComparator implements Comparator {
+        @Override
+        public int compare(Object o1, Object o2) {
+            String param1 = (String)o1;
+            String param2 = (String)o2;
+            return  param1.compareTo(param2);
+        }
+    }
 }
