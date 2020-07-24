@@ -24,13 +24,12 @@ import java.util.Comparator;
  * You can implement custom predicate implementations by implementing the Predicate interface or
  * you can you some of the predefined predicate classes.
  *
- * 谓词用于缩小应用程序感兴趣访问的键。
- * *您可以通过实现谓词接口或您可以使用一些预定义的谓词类。
+ * 谓词用于缩小应用程序感兴趣访问的键。您可以通过实现谓词接口或您可以使用一些预定义的谓词类。
  */
 public interface Predicate<Key> {
     
     /**
-     * 
+     * 判断是否在两个key之间
      * @param first the first key in the range or null if unknown
      * @param second the last key in the range or null if unknown
      * @param comparator the Comparator configured for the index, may be null.

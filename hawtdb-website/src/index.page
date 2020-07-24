@@ -235,7 +235,7 @@ Predicates help cut down the number of BTree nodes that need to be accessed.
 Example:
 
 {pygmentize:: java}
-import org.fusesource.hawtdb.api.Predicates.*;
+import org.fusesource.hawtdb.api.PredicateImpl.*;
 ...
 Predicate<Long> p = and(gt(new Long(12)), lt(new Long(450))
 Iterator<Map.Entry<Key, Value>> i = index.iterator(p);

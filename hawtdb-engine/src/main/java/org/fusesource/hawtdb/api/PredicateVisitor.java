@@ -19,6 +19,7 @@ public class PredicateVisitor<Key, Value> implements IndexVisitor<Key, Value> {
         this.limit = limit;
     }
     
+    @Override
     final public void visit(List<Key> keys, List<Value> values, Comparator comparator) {
         for (int i = 0; i < keys.size() && !isSatiated(); i++) {
             Key key = keys.get(i);
@@ -29,23 +30,23 @@ public class PredicateVisitor<Key, Value> implements IndexVisitor<Key, Value> {
             }
         }
     }
-    
+    @Override
     public boolean isInterestedInKeysBetween(Key first, Key second, Comparator comparator) {
         return predicate.isInterestedInKeysBetween(first, second, comparator);
     }
-    
+    // 判断是否满足条件
+    @Override
     public boolean isSatiated() {
         return limit == 0;
     }
     
     /**
-     * Subclasses should override.  This method will be called for each key,
-     * value pair that matches the predicate.
-     *
+     * Subclasses should override.  This method will be called for each key,value pair that matches the predicate.
      * @param key
      * @param value
      */
     protected void matched(Key key, Value value) {
+    
     }
     
 }

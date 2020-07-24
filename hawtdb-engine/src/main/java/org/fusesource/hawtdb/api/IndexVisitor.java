@@ -22,15 +22,13 @@ import java.util.List;
 
 /**
  * Interface used to selectively visit the entries in a BTree.
- *  接口，用于有选择地访问BTree中的条目。
- * @param <Key>
- * @param <Value>
+ *  接口用于有选择地访问BTree中的条目。
  */
 public interface IndexVisitor<Key,Value> {
 
     /**
      * Do you want to visit the range of BTree entries between the first and and second key?
-     *
+     * 是否要访问第一个和第二个键之间的BTree条目范围？
      * @param first if null indicates the range of values before the second key.
      * @param second if null indicates the range of values after the first key.
      * @param comparator the Comparator configured for the index, may be null.
@@ -41,7 +39,7 @@ public interface IndexVisitor<Key,Value> {
 
     /**
      * The keys and values of an index node.
-     *
+     * 索引节点的键和值。
      * @param keys
      * @param comparator the Comparator configured for the index, may be null.
      * @param values
@@ -49,6 +47,7 @@ public interface IndexVisitor<Key,Value> {
     void visit(List<Key> keys, List<Value> values, Comparator comparator);
 
     /**
+     * 如果来访者已经消除了对更多结果的渴望，那是真的
      * @return true if the visitor has quenched it's thirst for more results
      */
     boolean isSatiated();
