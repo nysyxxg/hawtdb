@@ -42,6 +42,7 @@ public class PredicateVisitor<Key, Value> implements IndexVisitor<Key, Value> {
     
     /**
      * Subclasses should override.  This method will be called for each key,value pair that matches the predicate.
+     * 子类应重写。将为与谓词匹配的每个键、值对调用此方法。
      * @param key
      * @param value
      */
