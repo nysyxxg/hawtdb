@@ -56,10 +56,6 @@ public class PageFileFactory {
         return pageFile;
     }
     
-    /**
-     * Opens the PageFile object. A subsequent call to {@link #getPageFile()} will return 
-     * the opened PageFile.
-     */
     public void open() {
         
         if (pageFile == null) {
@@ -133,10 +129,7 @@ public class PageFileFactory {
         mappedFileFactory.getMemoryMappedFile().write(0, os.toBuffer());
     }
     
-    /**
-     * Closes the previously opened PageFile object.  Subsequent calls to 
-     * {@link PageFileFactory#getPageFile()} will return null. 
-     */
+   
     public void close() throws IOException {
         if (pageFile != null) {
             pageFile.flush();
