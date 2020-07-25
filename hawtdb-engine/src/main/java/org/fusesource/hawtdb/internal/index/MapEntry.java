@@ -18,9 +18,6 @@ package org.fusesource.hawtdb.internal.index;
 
 import java.util.Map;
 
-/**
- * A basic implementation of {@link Map.Entry}.
- */
 final class MapEntry<Key, Value> implements Map.Entry<Key, Value> {
     
     private final Key key;

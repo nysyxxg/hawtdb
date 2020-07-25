@@ -28,65 +28,27 @@ public interface Index<Key,Value> {
 
     /**
      * Frees any extra storage that the index created.
+     * 释放索引创建的任何额外存储。
      */
     void destroy();
-    
-    /**
-     * clear the index
-     * 
-     * @throws IOException
-     * 
-     */
+   
     void clear();
 
-    /**
-     * @param key
-     * @return true if it contains the key
-     * @throws IOException
-     */
     boolean containsKey(Key key);
-
-    /**
-     * remove the index key
-     * 
-     * @param key
-     * @return StoreEntry removed
-     * @throws IOException
-     */
+    
     Value remove(Key key);
 
-    /**
-     * store the key, item
-     * 
-     * @param key
-     * @param entry
-     * @throws IOException
-     */
+    
     Value put(Key key, Value entry);
 
-    /**
-     * get the value at the given key, or put it if null.
-     *
-     * @param key
-     * @param entry
-     * @throws IOException
-     */
     Value putIfAbsent(Key key, Value entry);
 
-    /**
-     * @param key
-     * @return the entry
-     * @throws IOException
-     */
     Value get(Key key);
     
     int size();
     
     boolean isEmpty();
-
-    /**
-     * @return the location where index root resides on the page file.
-     */
+ 
     int getIndexLocation();
 
 }

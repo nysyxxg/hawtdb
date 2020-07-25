@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,39 +21,34 @@ import org.fusesource.hawtdb.api.Predicate;
 import java.util.*;
 import java.util.Map.Entry;
 
-/**
- *
- */
-final class BTreePredicateIterator<Key, Value> implements Iterator<Entry<Key, Value>> {
-
+final class BTreePredicateIterator<Key, Value> implements Iterator<Map.Entry<Key, Value>> {
+    
     private final BTreeIndex<Key, Value> index;
     private Predicate<Key> predicate;
     private final Stack<Data<Key, Value>> stack = new Stack<Data<Key, Value>>();
-
-
+    private Map.Entry<Key, Value> nextEntry;
+    
     private class Data<Key, Value> {
         private BTreeNode<Key, Value> node;
         private int pos;
-
+        
         public Data(BTreeNode<Key, Value> node) {
             this.node = node;
         }
     }
-
-    private Entry<Key, Value> nextEntry;
-
-    BTreePredicateIterator(BTreeIndex<Key, Value> index, BTreeNode<Key, Value> root, Predicate<Key> predicate) {
+    
+    public BTreePredicateIterator(BTreeIndex<Key, Value> index, BTreeNode<Key, Value> root, Predicate<Key> predicate) {
         this.index = index;
         this.predicate = predicate;
         stack.push(new Data<Key, Value>(root));
     }
-
+    
     private void findNextEntry() {
-        while ( nextEntry==null && !stack.isEmpty() ) {
+        while (nextEntry == null && !stack.isEmpty()) {
             final Data<Key, Value> current = stack.peek();
             final BTreeNode<Key, Value> node = current.node;
             final BTreeNode.Data<Key, Value> data = node.data;
-
+            
             if (node.isBranch()) {
                 if (current.pos < data.children.length) {
                     Key key1 = null;
@@ -65,7 +60,7 @@ final class BTreePredicateIterator<Key, Value> implements Iterator<Entry<Key, Va
                         key2 = data.keys[current.pos];
                     }
                     if (predicate.isInterestedInKeysBetween(key1, key2, index.getComparator())) {
-                        stack.push( new Data<Key, Value>(node.getChild(index, current.pos)) );
+                        stack.push(new Data<Key, Value>(node.getChild(index, current.pos)));
                     }
                     current.pos++;
                 } else {
@@ -73,7 +68,7 @@ final class BTreePredicateIterator<Key, Value> implements Iterator<Entry<Key, Va
                 }
             } else {
                 if (current.pos < data.keys.length) {
-                    if( predicate.isInterestedInKey(data.keys[current.pos], index.getComparator()) ) {
+                    if (predicate.isInterestedInKey(data.keys[current.pos], index.getComparator())) {
                         nextEntry = new MapEntry<Key, Value>(data.keys[current.pos], data.values[current.pos]);
                     }
                     current.pos++;
@@ -83,12 +78,12 @@ final class BTreePredicateIterator<Key, Value> implements Iterator<Entry<Key, Va
             }
         }
     }
-
+    
     public boolean hasNext() {
         findNextEntry();
         return nextEntry != null;
     }
-
+    
     public Entry<Key, Value> next() {
         findNextEntry();
         if (nextEntry != null) {
@@ -99,11 +94,8 @@ final class BTreePredicateIterator<Key, Value> implements Iterator<Entry<Key, Va
             throw new NoSuchElementException();
         }
     }
-
+    
     public void remove() {
         throw new UnsupportedOperationException();
     }
-
-
-    
 }

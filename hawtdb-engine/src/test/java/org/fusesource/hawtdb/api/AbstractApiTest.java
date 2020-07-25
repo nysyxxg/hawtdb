@@ -11,89 +11,63 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/**
- * @author Sergio Bossa
- */
 public abstract class AbstractApiTest {
     
     @Test
     public void testManuallyCreateAndOpenIndex() throws IOException {
         File tmpFile = File.createTempFile("hawtdb", "test");
         
-        // Create:
+        IndexFactory<String, String> indexFactory = getIndexFactory();// 得到索引工厂
         
+        // create test  :
         PageFileFactory pageFactory = new PageFileFactory();
         pageFactory.setFile(tmpFile);
         pageFactory.open();
-        
         PageFile page = pageFactory.getPageFile();
-        
-        IndexFactory<String, String> indexFactory = getIndexFactory();
-        
-        Index<String, String> index = indexFactory.create(page);
-        
+        Index<String, String> index = indexFactory.create(page);// 创建索引
         index.put("1", "1");
-        
         pageFactory.close();
         
-        // Open:
-        
+        // open test  :
         pageFactory = new PageFileFactory();
         pageFactory.setFile(tmpFile);
         pageFactory.open();
-        
         page = pageFactory.getPageFile();
-        
-        index = indexFactory.open(page);
-        
-        assertEquals("1", index.get("1"));
-        
+        Index<String, String> index2 = indexFactory.open(page);// 打开已经存在的索引对象
+        assertEquals("1", index2.get("1"));
         pageFactory.close();
         
-        //
-        
-        tmpFile.delete();
+        //删除临时测试文件
+        //tmpFile.delete();
     }
     
     @Test
     public void testOpenOrCreateIndex() throws IOException {
         File tmpFile = File.createTempFile("hawtdb", "test");
         
-        // Create:
+        IndexFactory<String, String> indexFactory = getIndexFactory();
         
+        // Create:
         PageFileFactory pageFactory = new PageFileFactory();
         pageFactory.setFile(tmpFile);
         pageFactory.open();
-        
         PageFile page = pageFactory.getPageFile();
-        
-        IndexFactory<String, String> indexFactory = getIndexFactory();
-        
         Index<String, String> index = indexFactory.openOrCreate(page);
-        
         assertFalse(index.containsKey("1"));
-        
         index.put("1", "1");
-        
         pageFactory.close();
         
         // Open:
-        
         pageFactory = new PageFileFactory();
         pageFactory.setFile(tmpFile);
         pageFactory.open();
         
         page = pageFactory.getPageFile();
-        
-        index = indexFactory.openOrCreate(page);
-        
-        assertEquals("1", index.get("1"));
-        
+        Index<String, String> index2 = indexFactory.openOrCreate(page);
+        assertEquals("1", index2.get("1"));
         pageFactory.close();
-        
-        //
-        
-        tmpFile.delete();
+        // 删除文件
+        // tmpFile.delete();
     }
     
     protected abstract IndexFactory<String, String> getIndexFactory();
