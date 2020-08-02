@@ -62,8 +62,8 @@ import static org.fusesource.hawtdb.log.LoggUtil.*;
  */
 public final class TxDBPageFile implements TxPageFile {
     
-    public static final int FILE_HEADER_SIZE = 1024 * 4;
-    public static final byte[] MAGIC = magic();
+    public static final int FILE_HEADER_SIZE = 1024 * 4;// 定义为 4k 的大小
+    public static final byte[] MAGIC = magic();// 定义数据库的信息
     
     private static byte[] magic() {
         try {
@@ -80,23 +80,22 @@ public final class TxDBPageFile implements TxPageFile {
      * The first 4K of the file is used to hold 2 copies of the header.
      * Each copy is 2K big.  The header is checksummed so that corruption
      * can be detected.
+     * 文件头结构
      * 存储文件的头部信息
      */
     static private class Header {
         
-        /** Identifies the file format */
+        /** Identifies the file format  字符串标识文件格式 */
         public volatile byte[] magic = new byte[32];
-        /** The oldest applied commit revision */
+        /** The oldest applied commit revision 最早应用的提交修订 */
         public volatile long base_revision;
-        /** The size of each page in the page file */
+        /** The size of each page in the page file 页面文件中每个页面的大小*/
         public volatile int page_size;
-        /** The page location of the free page list */
+        /** The page location of the free page list 可用页列表的页面位置 */
         public volatile int free_list_page;
-        /** Where it is safe to resume recovery... Will be
-         *  -1 if no recovery is needed. */
+        /** Where it is safe to resume recovery... Will be  -1 if no recovery is needed. */
         public volatile int pessimistic_recovery_page;
-        /** We try to recover from this point.. but it may fail since it's
-         *  writes have not been synced to disk. */
+        /** We try to recover from this point.. but it may fail since it's*  writes have not been synced to disk. */
         public volatile int optimistic_recovery_page;
         
         public String toString() {
@@ -200,19 +199,15 @@ public final class TxDBPageFile implements TxPageFile {
     // so we can more easily tell which mutex was locked.
     //
     private static class HOUSE_KEEPING_MUTEX {
-        
         public String toString() {
             return "HOUSE_KEEPING_MUTEX";
         }
-        
     }
     
     private static class TRANSACTION_MUTEX {
-        
         public String toString() {
             return "TRANSACTION_MUTEX";
         }
-        
     }
     
     /**

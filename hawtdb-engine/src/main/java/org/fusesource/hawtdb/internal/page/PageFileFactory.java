@@ -116,7 +116,12 @@ public class PageFileFactory {
             }
         }
     }
-    
+
+    /**
+     * 写数据页的头部信息
+     * @param freePageExtent
+     * @throws IOException
+     */
     private void writePageFileHeader(int freePageExtent) throws IOException {
         DataByteArrayOutputStream os = new DataByteArrayOutputStream();
         os.write(HAWT_DB_PAGE_FILE_MAGIC);

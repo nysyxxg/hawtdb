@@ -39,16 +39,12 @@ public class SimpleAllocator implements Allocator {
         freeRanges.add(0, limit);
     }
 
-
     private void op_trace(String op, int page, int count) {
         if( traced(page) ) {
             trace("%s: %d : %d", op, page, count);
         }
     }
 
-    /**
-     * @see Allocator#alloc(int)
-     */
     synchronized public int alloc(int size) throws OutOfSpaceException {
         for (Iterator<Range> i = freeRanges.iterator(); i.hasNext();) {
             Range r = (Range) i.next();
@@ -62,10 +58,6 @@ public class SimpleAllocator implements Allocator {
         throw new OutOfSpaceException();
     }
 
-    
-    /**
-     * @see Allocator#free(int, int)
-     */
     synchronized public void free(int pageId, int count) {
         freeRanges.add(pageId, count);
         op_trace("FREE", pageId, count);
