@@ -48,7 +48,7 @@ public class PageFileFactory {
     private DBPageFile pageFile;
     
     protected int headerSize = 0;
-    protected short pageSize = 512;
+    protected short pageSize = 512;// 设置每个page存储的数据大小为512字节
     protected int maxPages = Integer.MAX_VALUE;
     protected boolean storeFreePages = true;
     
@@ -72,9 +72,7 @@ public class PageFileFactory {
                 headerSize = 512;
             }
             try {
-                
                 boolean recover = storeFreePages && getFile().exists() && getFile().length() > 512;
-                
                 try {
                     mappedFileFactory.open();
                 } catch (IOException e) {

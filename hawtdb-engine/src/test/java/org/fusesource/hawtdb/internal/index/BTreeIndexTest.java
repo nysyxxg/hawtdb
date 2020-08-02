@@ -88,11 +88,12 @@ public class BTreeIndexTest extends IndexTestSupport {
     }
     
     /**
-     * Yeah, the current implementation does NOT try to balance the tree.  Here is 
-     * a test case showing that it gets out of balance.  
+     * Yeah, the current implementation does NOT try to balance the tree.
+     *  Here is  a test case showing that it gets out of balance.
      *
      * @throws Exception
      */
+    @Test
     public void treeBalancing() throws Exception {
         createPageFileAndIndex((short) 100);
         
