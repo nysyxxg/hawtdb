@@ -75,7 +75,7 @@ public class TransactionBenchmarkTest {
             protected void execute(RandomTxActor actor) {
                 Transaction tx = actor.tx();
                 int pageId = tx.allocator().alloc(1);
-                //System.out.println("pageId=" + pageId);
+                System.out.println("pageId=" + pageId);
                 tx.write(pageId, new Buffer(THE_DATA));
                 tx.commit();
             }
