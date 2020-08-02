@@ -94,9 +94,9 @@ final class DBTransaction implements Transaction {
             return DBTransaction.this.parent.allocator.getLimit();
         }
         
-        public boolean isAllocated(int page) {
+        public boolean isAllocated(int pageId) {
             assertOpen();
-            return DBTransaction.this.parent.allocator.isAllocated(page);
+            return DBTransaction.this.parent.allocator.isAllocated(pageId);
         }
         
         public void setFreeRanges(Ranges freeList) {
@@ -127,10 +127,10 @@ final class DBTransaction implements Transaction {
         flushCallbacks.add(runnable);
     }
     
-    public <T> T get(PagedAccessor<T> marshaller, int page) {
+    public <T> T get(PagedAccessor<T> marshaller, int pageId) {
         assertOpen();
         // Perhaps the page was updated in the current transaction...
-        Update update = updates == null ? null : updates.get(page);
+        Update update = updates == null ? null : updates.get(pageId);
         if (update != null) {
             if (update.freed()) {
                 throw new PagingException("That page was freed.");
@@ -144,9 +144,9 @@ final class DBTransaction implements Transaction {
         }
         
         // No?  Then ask the snapshot to load the object.
-        T rc = snapshot().getTracker().get(marshaller, page);
+        T rc = snapshot().getTracker().get(marshaller, pageId);
         if (rc == null) {
-            rc = parent.readCache().cacheLoad(marshaller, page);
+            rc = parent.readCache().cacheLoad(marshaller, pageId);
         }
         return rc;
     }
@@ -280,20 +280,20 @@ final class DBTransaction implements Transaction {
         parent.pageFile.unslice(buffer);
     }
     
-    public void write(int page, Buffer buffer) throws IOPagingException {
+    public void write(int pageId, Buffer buffer) throws IOPagingException {
         assertOpen();
-        Update update = getUpdates().get(page);
+        Update update = getUpdates().get(pageId);
         if (update == null) {
             // We are updating an existing page in the snapshot...
             snapshot();
             update = update().shadow(palloc(1));
-            getUpdates().put(page, update);
+            getUpdates().put(pageId, update);
         }
         
         if (update.shadowed()) {
-            page = update.shadow();
+            pageId = update.shadow();
         }
-        parent.pageFile.write(page, buffer);
+        parent.pageFile.write(pageId, buffer);
     }
     
     
