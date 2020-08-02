@@ -41,10 +41,10 @@ import static org.fusesource.hawtdb.internal.page.transaction.Update.update;
  */
 final class DBTransaction implements Transaction {
   
-    private final DBTxPageFile parent;
+    private final TxDBPageFile parent;
     
     
-    DBTransaction(DBTxPageFile concurrentPageFile) {
+    DBTransaction(TxDBPageFile concurrentPageFile) {
         parent = concurrentPageFile;
     }
     

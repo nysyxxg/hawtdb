@@ -29,6 +29,7 @@ public interface Allocator {
 
     /**
      * Allocates a continuous number of items and returns the position of first item in the sequence.
+     * 分配连续数量的项并返回序列中第一项的位置。
      */
     public int alloc(int count) throws OutOfSpaceException;
 

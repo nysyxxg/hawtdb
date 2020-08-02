@@ -27,14 +27,14 @@ import org.fusesource.hawtdb.internal.cache.ThreadLocalLFUPageCache;
 public class TxPageFileFactory {
 
     private final PageFileFactory pageFileFactory = new PageFileFactory();
-    private DBTxPageFile txPageFile;
+    private TxDBPageFile txPageFile;
     protected boolean drainOnClose;
     protected boolean sync = true;
     protected boolean useWorkerThread;
     private PageCache pageCache = new ThreadLocalLFUPageCache(1024, 0.5f);
 
     public TxPageFileFactory() {
-        pageFileFactory.setHeaderSize(DBTxPageFile.FILE_HEADER_SIZE);
+        pageFileFactory.setHeaderSize(TxDBPageFile.FILE_HEADER_SIZE);
         pageFileFactory.setStoreFreePages(false);
     }
 
@@ -49,7 +49,7 @@ public class TxPageFileFactory {
         boolean existed = getFile().isFile();
         pageFileFactory.open();
         if (txPageFile == null) {
-            txPageFile = new DBTxPageFile(this, (DBPageFile) pageFileFactory.getPageFile());
+            txPageFile = new TxDBPageFile(this, (DBPageFile) pageFileFactory.getPageFile());
             if (existed) {
                 txPageFile.recover();
             } else {

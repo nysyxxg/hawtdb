@@ -60,7 +60,7 @@ import static org.fusesource.hawtdb.log.LoggUtil.*;
  * snapshot version number and the update gets queued so that it can be applied
  * atomically at a later time.
  */
-public final class DBTxPageFile implements TxPageFile {
+public final class TxDBPageFile implements TxPageFile {
     
     public static final int FILE_HEADER_SIZE = 1024 * 4;
     public static final byte[] MAGIC = magic();
@@ -80,6 +80,7 @@ public final class DBTxPageFile implements TxPageFile {
      * The first 4K of the file is used to hold 2 copies of the header.
      * Each copy is 2K big.  The header is checksummed so that corruption
      * can be detected.
+     * 存储文件的头部信息
      */
     static private class Header {
         
@@ -239,7 +240,7 @@ public final class DBTxPageFile implements TxPageFile {
     private Ranges storedFreeList = new Ranges();
     private final ExecutorService worker;
     
-    public DBTxPageFile(TxPageFileFactory factory, DBPageFile pageFile) {
+    public TxDBPageFile(TxPageFileFactory factory, DBPageFile pageFile) {
         this.pageFile = pageFile;
         this.synch = factory.isSync();
         this.file = pageFile.getFile();

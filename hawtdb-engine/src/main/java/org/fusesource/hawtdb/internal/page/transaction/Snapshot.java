@@ -36,12 +36,12 @@ package org.fusesource.hawtdb.internal.page.transaction;
  */
 final class Snapshot {
 
-    private final DBTxPageFile parent;
+    private final TxDBPageFile parent;
     private final SnapshotTracker tracker;
     private final Batch base;
     private final Batch latest;
     
-    public  Snapshot(DBTxPageFile hawtPageFile, SnapshotTracker tracker, Batch base, Batch latest) {
+    public  Snapshot(TxDBPageFile hawtPageFile, SnapshotTracker tracker, Batch base, Batch latest) {
         parent = hawtPageFile;
         this.tracker = tracker;
         this.base = base;
