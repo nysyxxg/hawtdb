@@ -110,7 +110,7 @@ public class TxPageFileFactory {
         return pageFileFactory.getMaxPages();
     }
 
-    public short getPageSize() {
+    public int getPageSize() {
         return pageFileFactory.getPageSize();
     }
 

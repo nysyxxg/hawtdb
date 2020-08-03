@@ -32,6 +32,12 @@ public class TransactionBenchmarkTest {
     
     private static byte[] THE_DATA = new byte[1024 * 3];
     private volatile boolean bl = false;
+    static {
+        for(int i=0;i<THE_DATA.length;i++){
+            THE_DATA[i] = (byte) i;
+        }
+    }
+    
     
     private static class RandomTxActor extends TransactionActor<RandomTxActor> {
         public Random random;
@@ -72,10 +78,11 @@ public class TransactionBenchmarkTest {
     public void append() throws Exception {
         benchmark.benchmark(1, new BenchmarkAction<RandomTxActor>("append") {
             @Override
-            protected void execute(RandomTxActor actor) {
+            protected void execute(RandomTxActor actor) throws InterruptedException {
                 Transaction tx = actor.tx();
                 int pageId = tx.allocator().alloc(1);
-                System.out.println("pageId=" + pageId);
+                System.out.println("pageId=" + pageId + "--->" +  tx.getPageSize());
+//                Thread.sleep(1);
                 tx.write(pageId, new Buffer(THE_DATA));
                 tx.commit();
             }

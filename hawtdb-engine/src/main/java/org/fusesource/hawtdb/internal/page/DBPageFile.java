@@ -34,12 +34,12 @@ import static org.fusesource.hawtdb.log.LoggUtil.*;
 public class DBPageFile implements PageFile {
     
     private final SimpleAllocator allocator;
-    private final short pageSize;// 数据页的大小
+    private final int pageSize;// 数据页的大小
     private final int headerSize;// 头部大小
     private final MemoryMappedFile file;
     public final boolean storeFreePages;
     
-    public DBPageFile(MemoryMappedFile file, short pageSize, int headerSize, int maxPages, boolean storeFreePages) throws IOException {
+    public DBPageFile(MemoryMappedFile file, int pageSize, int headerSize, int maxPages, boolean storeFreePages) throws IOException {
         this.file = file;
         this.allocator = new SimpleAllocator(maxPages);
         this.pageSize = pageSize;

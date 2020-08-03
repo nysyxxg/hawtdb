@@ -48,7 +48,7 @@ public class PageFileFactory {
     private DBPageFile pageFile;
     
     protected int headerSize = 0;
-    protected short pageSize = 512;// 设置每个page存储的数据大小为512字节
+    protected int pageSize = 1 * 512;// 设置每个page存储的数据大小为512字节
     protected int maxPages = Integer.MAX_VALUE; // 设置数据页个数最大值
     protected boolean storeFreePages = true;
     
@@ -158,7 +158,7 @@ public class PageFileFactory {
         this.headerSize = headerSize;
     }
     
-    public short getPageSize() {
+    public int getPageSize() {
         return pageSize;
     }
     
