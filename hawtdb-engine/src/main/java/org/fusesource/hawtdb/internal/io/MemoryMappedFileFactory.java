@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,60 +19,60 @@ package org.fusesource.hawtdb.internal.io;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * Factory for {@link MemoryMappedFile} objects.
- */
+
 public class MemoryMappedFileFactory {
-    
-    private MemoryMappedFile memoryMappedFile;
-    private File file;
-    private int mappingSegementSize=1024*1024*64;
-    private boolean readOnly = false;
-    
-    public void open() throws IOException {
-        if( memoryMappedFile == null ) {
-            if( file ==  null ) {
-                throw new IllegalArgumentException("file property not set");
-            }
-            if( mappingSegementSize <= 0 ) {
-                throw new IllegalArgumentException("mappingSegementSize property must be greater than 0");
-            }
-            // We auto create the parent directory.
-            file.getCanonicalFile().getParentFile().mkdirs();
-            memoryMappedFile = new MemoryMappedFile(file, mappingSegementSize, readOnly);
-        }
-    }
-    
-    public void close() {
-        if( memoryMappedFile!=null ) {
-            memoryMappedFile.close();
-            memoryMappedFile=null;
-        }
-    }
 
-    public MemoryMappedFile getMemoryMappedFile() throws IOException {
-        return memoryMappedFile;
-    }
+	private MemoryMappedFile memoryMappedFile;
+	private File file;
+	private int mappingSegementSize = 1024 * 1024 * 64;// 设置内存映射文件大小为64M
+	private boolean readOnly = false;
 
-    public File getFile() {
-        return file;
-    }
-    public void setFile(File file) {
-        this.file = file;
-    }
+	public void open() throws IOException {
+		if (memoryMappedFile == null) {
+			if (file == null) {
+				throw new IllegalArgumentException("file property not set");
+			}
+			if (mappingSegementSize <= 0) {
+				throw new IllegalArgumentException("mappingSegementSize property must be greater than 0");
+			}
+			// We auto create the parent directory.
+			file.getCanonicalFile().getParentFile().mkdirs();
+			memoryMappedFile = new MemoryMappedFile(file, mappingSegementSize, readOnly);
+		}
+	}
 
-    public int getMappingSegementSize() {
-        return mappingSegementSize;
-    }
-    public void setMappingSegementSize(int mappingSegementSize) {
-        this.mappingSegementSize = mappingSegementSize;
-    }
+	public void close() {
+		if (memoryMappedFile != null) {
+			memoryMappedFile.close();
+			memoryMappedFile = null;
+		}
+	}
 
-    public boolean isReadOnly() {
-        return readOnly;
-    }
+	public MemoryMappedFile getMemoryMappedFile() throws IOException {
+		return memoryMappedFile;
+	}
 
-    public void setReadOnly(boolean readOnly) {
-        this.readOnly = readOnly;
-    }
+	public File getFile() {
+		return file;
+	}
+
+	public void setFile(File file) {
+		this.file = file;
+	}
+
+	public int getMappingSegementSize() {
+		return mappingSegementSize;
+	}
+
+	public void setMappingSegementSize(int mappingSegementSize) {
+		this.mappingSegementSize = mappingSegementSize;
+	}
+
+	public boolean isReadOnly() {
+		return readOnly;
+	}
+
+	public void setReadOnly(boolean readOnly) {
+		this.readOnly = readOnly;
+	}
 }

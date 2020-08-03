@@ -74,22 +74,22 @@ public class PageFileTest {
         return (DBPageFile) pageFile;
     }
     
-    protected void store(Paged tx, int page, String value) {
+    protected void store(Paged tx, int pageId, String value) {
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             DataOutputStream os = new DataOutputStream(baos);
             os.writeUTF(value);
             os.close();
-            tx.write(page, new Buffer(baos.toByteArray()));
+            tx.write(pageId, new Buffer(baos.toByteArray()));
         } catch (IOException e) {
             throw new IOPagingException(e);
         }
     }
     
-    protected String load(Paged paged, int page) {
+    protected String load(Paged paged, int pageId) {
         try {
             Buffer buffer = new Buffer(pff.getPageSize());
-            paged.read(page, buffer);
+            paged.read(pageId, buffer);
             ByteArrayInputStream bais = new ByteArrayInputStream(buffer.data, buffer.offset, buffer.length);
             DataInputStream is = new DataInputStream(bais);
             return is.readUTF();
@@ -99,16 +99,16 @@ public class PageFileTest {
     }
     
     private final class StringPagedAccessor implements PagedAccessor<String> {
-        public String load(Paged paged, int page) {
-            return PageFileTest.this.load(paged, page);
+        public String load(Paged paged, int pageId) {
+            return PageFileTest.this.load(paged, pageId);
         }
         
-        public List<Integer> store(Paged paged, int page, String value) {
-            PageFileTest.this.store(paged, page, value);
+        public List<Integer> store(Paged paged, int pageId, String value) {
+            PageFileTest.this.store(paged, pageId, value);
             return Collections.emptyList();
         }
         
-        public List<Integer> pagesLinked(Paged paged, int page) {
+        public List<Integer> pagesLinked(Paged paged, int pageId) {
             return Collections.emptyList();
         }
     }

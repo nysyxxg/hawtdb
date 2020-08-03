@@ -37,7 +37,7 @@ import org.fusesource.hawtdb.internal.page.accessor.PagedAccessor;
 import org.fusesource.hawtdb.internal.page.allocator.Allocator;
 import org.fusesource.hawtdb.internal.page.extent.ExtentInputStream;
 import org.fusesource.hawtdb.internal.page.extent.ExtentOutputStream;
-import org.fusesource.hawtdb.internal.page.transaction.DBTxPageFile;
+import org.fusesource.hawtdb.internal.page.transaction.TxDBPageFile;
 import org.fusesource.hawtdb.internal.page.transaction.Transaction;
 import org.fusesource.hawtdb.internal.page.transaction.TxPageFile;
 import org.fusesource.hawtdb.internal.page.transaction.TxPageFileFactory;
@@ -219,7 +219,7 @@ public class TxPageFileTest {
     }
     
     public Paged getRawPageFile() {
-        return ((DBTxPageFile) txPageFile).pageFile;
+        return ((TxDBPageFile) txPageFile).pageFile;
     }
     
     @Test
@@ -238,7 +238,7 @@ public class TxPageFileTest {
         
         // Apply the updates.
         txPageFile.flush();
-        ((DBTxPageFile) txPageFile).performBatches();
+        ((TxDBPageFile) txPageFile).performBatches();
         
         // Should still be there..
         assertEquals("Hello", load(getRawPageFile(), 0));
@@ -261,7 +261,7 @@ public class TxPageFileTest {
         
         // Apply them
         txPageFile.flush();
-        ((DBTxPageFile) txPageFile).performBatches();
+        ((TxDBPageFile) txPageFile).performBatches();
         
         // We should see them now.
         assertEquals("Good", load(getRawPageFile(), 0));

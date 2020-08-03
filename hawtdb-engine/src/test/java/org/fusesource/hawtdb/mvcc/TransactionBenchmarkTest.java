@@ -74,9 +74,9 @@ public class TransactionBenchmarkTest {
             @Override
             protected void execute(RandomTxActor actor) {
                 Transaction tx = actor.tx();
-                int page = tx.allocator().alloc(1);
-                 System.out.println("page=" + page);
-                tx.write(page, new Buffer(THE_DATA));
+                int pageId = tx.allocator().alloc(1);
+                System.out.println("pageId=" + pageId);
+                tx.write(pageId, new Buffer(THE_DATA));
                 tx.commit();
             }
         });
@@ -93,7 +93,7 @@ public class TransactionBenchmarkTest {
             benchmark.benchmark(1, new BenchmarkAction<RandomTxActor>("update") {
                 @Override
                 protected void execute(RandomTxActor actor) {
-                    int page = actor.random.nextInt(INITIAL_PAGE_COUNT);
+                    int pageId = actor.random.nextInt(INITIAL_PAGE_COUNT);
                     //  System.out.println(Thread.currentThread().getName() + " 随机更新操作page=" + page);
 //                    try {
 //                        Thread.sleep(1 * 1);
@@ -105,7 +105,7 @@ public class TransactionBenchmarkTest {
                     //                tx.commit();// 提交保存操作
                     
                     //开启事务，进行更新，当并发进行更新的时候，出现问题
-                    actor.tx().write(page, new Buffer(THE_DATA));
+                    actor.tx().write(pageId, new Buffer(THE_DATA));
                     actor.tx().commit();
                 }
             });
@@ -126,8 +126,8 @@ public class TransactionBenchmarkTest {
             @Override
             protected void execute(RandomTxActor actor) {
                 // 后进行读取
-                int page = actor.random.nextInt(INITIAL_PAGE_COUNT);
-                actor.tx().read(page, new Buffer(THE_DATA));
+                int pageId = actor.random.nextInt(INITIAL_PAGE_COUNT);
+                actor.tx().read(pageId, new Buffer(THE_DATA));
                 actor.tx().commit();
             }
         });
@@ -141,9 +141,9 @@ public class TransactionBenchmarkTest {
                 long t1 = System.currentTimeMillis();
                 Transaction tx = pff.getTxPageFile().tx();
                 for (int i = 0; i < INITIAL_PAGE_COUNT; i++) {
-                    int page = tx.allocator().alloc(1);
-                    //System.out.println("插入操作：" + page);
-                    tx.write(page, new Buffer(THE_DATA));
+                    int pageId = tx.allocator().alloc(1);
+                    //System.out.println("插入操作：" + pageId);
+                    tx.write(pageId, new Buffer(THE_DATA));
                 }
                 tx.commit();
                 long t2 = System.currentTimeMillis();
