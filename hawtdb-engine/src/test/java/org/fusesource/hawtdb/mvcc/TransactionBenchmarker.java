@@ -41,7 +41,7 @@ public class TransactionBenchmarker<A extends TransactionActor<A>> {
     
     public void benchmark(int actorCount, BenchmarkAction<A> action) throws Exception {
         TxPageFileFactory pff = getHawtPageFileFactory();
-        pff.getFile().delete();
+       // pff.getFile().delete();
         pff.open();
         try {
             if (setup != null) {
