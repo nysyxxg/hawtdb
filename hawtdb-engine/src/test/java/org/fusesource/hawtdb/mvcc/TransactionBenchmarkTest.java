@@ -81,7 +81,7 @@ public class TransactionBenchmarkTest {
             protected void execute(RandomTxActor actor) throws InterruptedException {
                 Transaction tx = actor.tx();
                 int pageId = tx.allocator().alloc(1);
-                System.out.println("pageId=" + pageId + "--->" +  tx.getPageSize());
+//                System.out.println("pageId=" + pageId + "--->" +  tx.getPageSize());
 //                Thread.sleep(1);
                 tx.write(pageId, new Buffer(THE_DATA));
                 tx.commit();

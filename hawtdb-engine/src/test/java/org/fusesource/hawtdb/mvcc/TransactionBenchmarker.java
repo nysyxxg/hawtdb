@@ -36,7 +36,7 @@ public class TransactionBenchmarker<A extends TransactionActor<A>> {
     private Callback setup;
     private Callback tearDown;
     private int samples = 3;
-    private int period = 1000 * 5;
+    private int period = 1000 * 6;
     private TxPageFileFactory hawtPageFileFactory;
     
     public void benchmark(int actorCount, BenchmarkAction<A> action) throws Exception {

@@ -58,7 +58,7 @@ public class Benchmarker {
     }
     
     int samples = 3;
-    int period = 1000 * 50;
+    int period = 1000 * 5000;
     String name;
     
     public void benchmark(ArrayList<? extends Actor> actors, ArrayList<? extends MetricCounter> metrics) throws Exception {
