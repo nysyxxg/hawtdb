@@ -35,8 +35,8 @@ public class BigIndexTest {
     
     @Test
     public void testBugOnBigIndex() throws IOException {
-        File tmpFile = File.createTempFile("hawtdb", "test");
-        
+        File tmpFile = File.createTempFile("hawtdb", ".test");
+        System.out.println("DB文件路径： "+  tmpFile.getAbsolutePath());
         PageFileFactory pageFileFactory = new PageFileFactory();
         pageFileFactory.setFile(tmpFile);
         pageFileFactory.open();
@@ -51,10 +51,10 @@ public class BigIndexTest {
         
         SortedIndex<String, String> index = indexFactory.create(pageFile);
         
-        int total = 10000;
+        int total = 1000;
         Random generator = new Random();
         for (int i = 0; i < total; i++) {
-            index.put("" + generator.nextLong(), "");
+            index.put(generator.nextLong()+ "abcdefghijklmn数据库存储测试：" , "abcdefghijklmn数据库存储测试");
         }
     
         pageFileFactory.close();
@@ -62,8 +62,8 @@ public class BigIndexTest {
     
     @Test
     public void testGetdata() throws IOException {
-        File tmpFile = File.createTempFile("hawtdb", "test");
-        
+        File tmpFile = File.createTempFile("hawtdb", ".test");
+        System.out.println("DB文件路径： "+  tmpFile.getAbsolutePath());
         PageFileFactory pageFileFactory = new PageFileFactory();
         pageFileFactory.setFile(tmpFile);
         pageFileFactory.open();
