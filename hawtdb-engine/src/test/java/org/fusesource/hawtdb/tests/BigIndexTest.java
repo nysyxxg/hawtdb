@@ -35,8 +35,9 @@ public class BigIndexTest {
     
     @Test
     public void testBugOnBigIndex() throws IOException {
+        long t1 = System.currentTimeMillis();
         File tmpFile = File.createTempFile("hawtdb", ".test");
-        System.out.println("DB文件路径： "+  tmpFile.getAbsolutePath());
+        System.out.println("DB文件路径： " + tmpFile.getAbsolutePath());
         PageFileFactory pageFileFactory = new PageFileFactory();
         pageFileFactory.setFile(tmpFile);
         pageFileFactory.open();
@@ -51,19 +52,23 @@ public class BigIndexTest {
         
         SortedIndex<String, String> index = indexFactory.create(pageFile);
         
-        int total = 1000;
+        int total = 100000;
         Random generator = new Random();
         for (int i = 0; i < total; i++) {
-            index.put(generator.nextLong()+ "abcdefghijklmn数据库存储测试：" , "abcdefghijklmn数据库存储测试");
+            index.put(generator.nextLong() + "abcdefghijklmn数据库存储测试：", "abcdefghijklmn数据库存储测试");
         }
-    
+        
         pageFileFactory.close();
+        long t2 = System.currentTimeMillis();
+        
+        System.out.println(" 插入数据：" + total + " 条，共花费时间：" + (t2 - t1));
     }
     
     @Test
     public void testGetdata() throws IOException {
+        long t1 = System.currentTimeMillis();
         File tmpFile = File.createTempFile("hawtdb", ".test");
-        System.out.println("DB文件路径： "+  tmpFile.getAbsolutePath());
+        System.out.println("DB文件路径： " + tmpFile.getAbsolutePath());
         PageFileFactory pageFileFactory = new PageFileFactory();
         pageFileFactory.setFile(tmpFile);
         pageFileFactory.open();
@@ -81,16 +86,19 @@ public class BigIndexTest {
         int total = 10000;
         Random generator = new Random();
         for (int i = 0; i < total; i++) {
-            String key = "" + generator.nextLong();
-            index.put(key, ""+ i);
-            String value =   index.get(key);
+            String key = generator.nextLong() + "abcdefghijklmn数据库存储测试：";
+            index.put(key, "" + i);
+            String value = index.get(key);
             System.out.println("value: " + value);
         }
-    
+
 //        for (int i = 0; i < total; i++) {
 //          String value =   index.get("" + generator.nextLong());
 //        }
         
         pageFileFactory.close();
+        long t2 = System.currentTimeMillis();
+    
+        System.out.println(" 插入数据：" + total + " 条，共花费时间：" + (t2 - t1));
     }
 }

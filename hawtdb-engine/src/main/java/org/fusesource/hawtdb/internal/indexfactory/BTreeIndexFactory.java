@@ -79,16 +79,10 @@ public class BTreeIndexFactory<Key, Value> implements IndexFactory<Key, Value> {
         return "{ deferredEncoding: " + deferredEncoding + " }";
     }
 
-    /**
-     * Loads an existing BTree index from the paged object.
-     */
     public SortedIndex<Key, Value> open(Paged paged, int indexNumber) {
         return createInstance(paged, indexNumber);
     }
 
-    /**
-     * Loads an existing BTree index from the paged object.
-     */
     public SortedIndex<Key, Value> open(Paged paged) {
         return createInstance(paged, 0);
     }
@@ -107,62 +101,29 @@ public class BTreeIndexFactory<Key, Value> implements IndexFactory<Key, Value> {
         return new BTreeIndex<Key, Value>(paged, page, this);
     }
 
-    /**
-     * Defaults to an {@link org.fusesource.hawtbuf.codec.ObjectCodec} if not explicitly set.
-     * 
-     * @return the marshaller used for keys.
-     */
+  
     public Codec<Key> getKeyCodec() {
         return keyCodec;
     }
-
-    /**
-     * Allows you to configure custom marshalling logic to encode the index keys.
-     * 
-     * @param codec the marshaller used for keys.
-     */
+ 
     public void setKeyCodec(Codec<Key> codec) {
         this.keyCodec = codec;
     }
 
-    /**
-     * Defaults to an {@link org.fusesource.hawtbuf.codec.ObjectCodec} if not explicitly set.
-     *  
-     * @return the marshaller used for values.
-     */
+    
     public Codec<Value> getValueCodec() {
         return valueCodec;
     }
 
-    /**
-     * Allows you to configure custom marshalling logic to encode the index values.
-     * 
-     * @param codec the marshaller used for values
-     */
+   
     public void setValueCodec(Codec<Value> codec) {
         this.valueCodec = codec;
     }
-
-    /**
-     * 
-     * @return true if deferred encoding enabled
-     */
+ 
     public boolean isDeferredEncoding() {
         return deferredEncoding;
     }
 
-    /**
-     * <p>
-     * When deferred encoding is enabled, the index avoids encoding keys and values
-     * for as long as possible so take advantage of collapsing multiple updates of the 
-     * same key/value into a single update operation and single encoding operation.
-     * </p><p>
-     * Using this feature requires the keys and values to be immutable objects since 
-     * unexpected errors would occur if they are changed after they have been handed
-     * to to the index for storage. 
-     * </p>
-     * @param enable should deferred encoding be enabled.
-     */
     public void setDeferredEncoding(boolean enable) {
         this.deferredEncoding = enable;
     }
@@ -175,23 +136,11 @@ public class BTreeIndexFactory<Key, Value> implements IndexFactory<Key, Value> {
         this.prefixer = prefixer;
     }
 
-    /**
-     * Gets the custom configured Comparator used to sort the keys
-     * in the index.  Defaults to null.
-     * 
-     * @return
-     */
     public Comparator getComparator() {
         return comparator;
     }
 
-    /**
-     * Configures a custom Comparator used to sort the keys
-     * in the index.  If not set, the keys must implement the
-     * {@link Comparable} interface.
-     *
-     * @param comparator
-     */
+    
     public void setComparator(Comparator comparator) {
         this.comparator = comparator;
     }
